@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1600" height="2200" viewBox="0 0 1600 2200">
+  <rect width="1600" height="2200" fill="#000000"/>
+  <g fill="#ffffff" font-family="Arial, Helvetica, sans-serif">
+    <text x="92" y="90" font-size="20" letter-spacing="7">OPERON / BRAND KIT</text>
+    <text x="1508" y="90" font-size="20" text-anchor="end" letter-spacing="3">DIREÇÃO v1 · 2026</text>
+  </g>
+  <line x1="92" y1="124" x2="1508" y2="124" stroke="#ffffff" stroke-opacity=".35"/>
+
+  <g transform="translate(800 448)" fill="none" stroke="#ffffff">
+    <circle r="194" stroke-width="5"/><circle r="178" stroke-width="2" stroke-opacity=".9"/><circle r="162" stroke-width="2" stroke-opacity=".72"/><circle r="146" stroke-width="2" stroke-opacity=".48"/>
+    <path d="M-194-2C-248-74-310-124-402-147M-194 2C-249 10-316 1-422-45M-194 11C-254 85-326 118-403 145" stroke-width="2" stroke-opacity=".72"/>
+  </g>
+  <g fill="#ffffff">
+    <circle cx="390" cy="296" r="6"/><circle cx="354" cy="322" r="4"/><circle cx="326" cy="351" r="7"/><circle cx="286" cy="386" r="4"/><circle cx="375" cy="397" r="5"/><circle cx="302" cy="434" r="8"/><circle cx="257" cy="456" r="4"/><circle cx="350" cy="473" r="5"/><circle cx="290" cy="496" r="7"/><circle cx="332" cy="530" r="4"/><circle cx="260" cy="549" r="6"/><circle cx="377" cy="565" r="5"/><circle cx="306" cy="592" r="4"/><circle cx="347" cy="618" r="7"/><circle cx="282" cy="645" r="5"/><circle cx="399" cy="653" r="4"/>
+    <circle cx="436" cy="330" r="3"/><circle cx="421" cy="364" r="5"/><circle cx="409" cy="405" r="3"/><circle cx="414" cy="492" r="4"/><circle cx="424" cy="535" r="3"/><circle cx="442" cy="577" r="5"/>
+  </g>
+  <text x="800" y="736" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="72" font-weight="300" text-anchor="middle" letter-spacing="19">OPERON</text>
+  <text x="800" y="848" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="61" text-anchor="middle" letter-spacing="-2">CAPACIDADE PARA OPERAR ALÉM DE VOCÊ.</text>
+  <text x="800" y="895" fill="#ffffff" fill-opacity=".68" font-family="Arial, Helvetica, sans-serif" font-size="22" text-anchor="middle" letter-spacing="1">DIREÇÃO DE ASSINATURA · EM TESTE</text>
+  <line x1="92" y1="956" x2="1508" y2="956" stroke="#ffffff" stroke-opacity=".35"/>
+
+  <g font-family="Arial, Helvetica, sans-serif" fill="#ffffff">
+    <text x="92" y="1022" font-size="18" letter-spacing="4">ESSÊNCIA</text>
+    <text x="92" y="1091" font-size="42" letter-spacing="-1">Criamos estrutura para o empresário recuperar</text>
+    <text x="92" y="1140" font-size="42" letter-spacing="-1">clareza, tempo e poder de decisão.</text>
+    <text x="92" y="1200" font-size="22" fill-opacity=".7">A OPERON transforma contexto, processos, pessoas e tecnologia em capacidade operacional.</text>
+  </g>
+
+  <g stroke="#ffffff" stroke-opacity=".35" fill="none"><line x1="92" y1="1260" x2="1508" y2="1260"/><line x1="800" y1="1260" x2="800" y2="1560"/><line x1="92" y1="1560" x2="1508" y2="1560"/></g>
+  <g font-family="Arial, Helvetica, sans-serif" fill="#ffffff">
+    <text x="92" y="1315" font-size="17" letter-spacing="3">CATEGORIA</text><text x="92" y="1360" font-size="31">Harness Operacional</text>
+    <text x="92" y="1402" font-size="20" fill-opacity=".68">A estrutura que conecta processos, informação,</text><text x="92" y="1430" font-size="20" fill-opacity=".68">ferramentas e pessoas para a empresa não depender</text><text x="92" y="1458" font-size="20" fill-opacity=".68">do improviso.</text>
+    <text x="850" y="1315" font-size="17" letter-spacing="3">DOR DE ENTRADA</text><text x="850" y="1360" font-size="31">Agenda cheia. Empresa desorganizada.</text>
+    <text x="850" y="1402" font-size="20" fill-opacity=".68">Tudo passa pelo fundador. Ferramentas, equipe</text><text x="850" y="1430" font-size="20" fill-opacity=".68">e informação não conversam direito.</text>
+    <text x="92" y="1615" font-size="17" letter-spacing="3">PÚBLICO · HIPÓTESE A VALIDAR</text><text x="92" y="1660" font-size="31">Empresário em crescimento</text>
+    <text x="92" y="1702" font-size="20" fill-opacity=".68">37+, ambicioso, com resultado, mas com a operação</text><text x="92" y="1730" font-size="20" fill-opacity=".68">atrás da própria ambição e pouca fluência digital.</text>
+    <text x="850" y="1615" font-size="17" letter-spacing="3">MÉTODO</text><text x="850" y="1660" font-size="31">Diagnóstico antes da tecnologia</text>
+    <text x="850" y="1702" font-size="20" fill-opacity=".68">Mapear gargalos. Transformar conhecimento em</text><text x="850" y="1730" font-size="20" fill-opacity=".68">critérios e memória. Aplicar IA com direção humana.</text>
+  </g>
+
+  <g transform="translate(92 1820)">
+    <text x="0" y="0" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="17" letter-spacing="3">SISTEMA VISUAL</text>
+    <g transform="translate(0 35)" stroke="#ffffff" fill="none">
+      <circle cx="72" cy="72" r="46"/><circle cx="72" cy="72" r="17"/><path d="M72 0v25M72 119v25M0 72h25M119 72h25M21 21l18 18M105 105l18 18M123 21l-18 18M39 105l-18 18"/>
+      <path d="M255 32c70 0 68 83 178 83h50M255 65c70 0 68 48 178 48h50M255 98c70 0 68 13 178 13h50"/>
+      <circle cx="680" cy="72" r="53"/><circle cx="680" cy="72" r="39" stroke-dasharray="3 8"/><circle cx="680" cy="72" r="5" fill="#ffffff"/>
+      <circle cx="950" cy="72" r="54"/><path d="M950 111V35M925 60l25-25 25 25"/><circle cx="950" cy="127" r="4" fill="#ffffff"/>
+    </g>
+    <g fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="18"><text x="33" y="205">CONTEXTO</text><text x="362" y="205">FLUXO</text><text x="627" y="205">MEMÓRIA</text><text x="896" y="205">DIREÇÃO</text></g>
+    <text x="0" y="267" fill="#ffffff" fill-opacity=".7" font-family="Arial, Helvetica, sans-serif" font-size="20">Preto absoluto + branco absoluto · partículas, órbitas e transparências · tecnologia silenciosa, cinematográfica e humana.</text>
+  </g>
+
+  <g transform="translate(92 2150)" font-family="Arial, Helvetica, sans-serif">
+    <text x="0" y="0" fill="#ffffff" font-size="16" letter-spacing="3">PROTEÇÕES DA MARCA</text>
+    <text x="0" y="32" fill="#ffffff" fill-opacity=".68" font-size="18">Sem verde, neon, hacker, Matrix literal, dashboards fictícios, promessa de automação total ou elementos da LBA.</text>
+  </g>
+</svg>

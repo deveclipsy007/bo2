@@ -1,0 +1,166 @@
+[000.14 --> 005.70] Hoje, uma empresa tem mais ferramentas, dados e inteligência disponível do que nunca.
+  000.14-000.84  Hoje,
+  001.06-001.20  uma
+  001.20-001.52  empresa
+  001.52-001.82  tem
+  001.82-002.00  mais
+  002.00-002.78  ferramentas,
+  003.06-003.28  dados
+  003.28-003.68  e
+  003.68-004.28  inteligência
+  004.28-004.98  disponível
+  004.98-005.34  do
+  005.34-005.46  que
+  005.46-005.70  nunca.
+[006.22 --> 009.08] Mesmo assim, muita gente termina o dia ocupado.
+  006.22-006.52  Mesmo
+  006.52-006.78  assim,
+  006.94-007.08  muita
+  007.08-007.42  gente
+  007.42-008.08  termina
+  008.08-008.26  o
+  008.26-008.38  dia
+  008.38-009.08  ocupado.
+[010.40 --> 013.36] Sem a sensação de que realmente avançou.
+  010.40-010.98  Sem
+  010.98-011.12  a
+  011.12-011.68  sensação
+  011.68-012.08  de
+  012.08-012.20  que
+  012.20-012.66  realmente
+  012.66-013.36  avançou.
+[015.63 --> 019.17] Que quando a informação está espalhada, os processos não são claros,
+  015.63-015.85  Que
+  015.85-015.99  quando
+  015.99-016.35  a
+  016.35-016.37  informação
+  016.37-016.69  está
+  016.69-017.21  espalhada,
+  017.75-017.95  os
+  017.95-018.35  processos
+  018.35-018.53  não
+  018.53-018.67  são
+  018.67-019.17  claros,
+[019.33 --> 021.89] e toda decisão precisa voltar para a mesma pessoa.
+  019.33-019.49  e
+  019.49-019.69  toda
+  019.69-020.17  decisão
+  020.17-020.57  precisa
+  020.57-020.93  voltar
+  020.93-021.21  para
+  021.21-021.29  a
+  021.29-021.47  mesma
+  021.47-021.89  pessoa.
+[022.29 --> 026.45] O trabalho não flui, ele interrompe, volta e recomece.
+  022.29-022.41  O
+  022.41-022.73  trabalho
+  022.73-023.11  não
+  023.11-023.43  flui,
+  023.93-024.01  ele
+  024.01-024.61  interrompe,
+  025.07-025.45  volta
+  025.45-025.93  e
+  025.93-026.45  recomece.
+[027.89 --> 034.75] Hoje, oito a cada dez trabalhadores dizem não ter tempo ou energia para fazer o trabalho.
+  027.89-029.07  Hoje,
+  029.41-029.87  oito
+  029.87-030.17  a
+  030.17-030.35  cada
+  030.35-030.63  dez
+  030.63-031.37  trabalhadores
+  031.37-031.89  dizem
+  031.89-032.01  não
+  032.01-032.21  ter
+  032.21-032.63  tempo
+  032.63-032.93  ou
+  032.93-033.37  energia
+  033.37-033.99  para
+  033.99-034.27  fazer
+  034.27-034.37  o
+  034.37-034.75  trabalho.
+[035.23 --> 039.63] E quase metade descreve a rotina como caótica e fragmentada.
+  035.23-035.47  E
+  035.47-035.71  quase
+  035.71-036.33  metade
+  036.33-036.89  descreve
+  036.89-036.97  a
+  036.97-037.39  rotina
+  037.39-037.65  como
+  037.65-038.43  caótica
+  038.43-038.71  e
+  038.71-039.63  fragmentada.
+[044.24 --> 047.78] E não em falta de capacidade, muitas vezes é justamente o contrário.
+  044.24-044.66  E
+  044.66-044.76  não
+  044.76-044.88  em
+  044.88-045.02  falta
+  045.02-045.22  de
+  045.22-045.80  capacidade,
+  046.06-046.20  muitas
+  046.20-046.60  vezes
+  046.60-046.76  é
+  046.76-047.08  justamente
+  047.08-047.32  o
+  047.32-047.78  contrário.
+[048.32 --> 053.62] A empresa cresce, mas a operação continua dependendo de memória, improviso e presença constante.
+  048.32-048.40  A
+  048.40-048.66  empresa
+  048.66-049.32  cresce,
+  049.50-049.60  mas
+  049.60-049.64  a
+  049.64-050.06  operação
+  050.06-050.44  continua
+  050.44-050.92  dependendo
+  050.92-051.08  de
+  051.08-051.48  memória,
+  051.82-052.50  improviso
+  052.50-052.70  e
+  052.70-053.16  presença
+  053.16-053.62  constante.
+[055.38 --> 058.10] Empresas competentes, pessoas boas,
+  055.38-056.10  Empresas
+  056.10-056.82  competentes,
+  057.12-057.40  pessoas
+  057.40-058.10  boas,
+[058.10 --> 063.70] mas inteligência presa a ferramentas, conversas e rotinas desconectadas.
+  058.10-058.72  mas
+  058.72-059.44  inteligência
+  059.44-060.04  presa
+  060.04-060.20  a
+  060.20-060.98  ferramentas,
+  061.16-061.86  conversas
+  061.86-062.12  e
+  062.12-062.64  rotinas
+  062.64-063.70  desconectadas.
+[065.06 --> 067.26] Foi daí que nasceu a ópera.
+  065.06-065.72  Foi
+  065.72-065.98  daí
+  065.98-066.46  que
+  066.46-066.76  nasceu
+  066.76-066.86  a
+  066.86-067.26  ópera.
+[067.60 --> 070.42] Não como mais uma ferramenta, não como mais uma automação,
+  067.60-067.70  Não
+  067.70-067.90  como
+  067.90-068.08  mais
+  068.08-068.20  uma
+  068.20-068.82  ferramenta,
+  069.28-069.34  não
+  069.34-069.56  como
+  069.56-069.74  mais
+  069.74-069.88  uma
+  069.88-070.42  automação,
+[071.02 --> 075.36] mas justamente pegando que a empresa já sabe e organizando para operar melhor.
+  071.02-071.04  mas
+  071.04-071.38  justamente
+  071.38-071.96  pegando
+  071.96-072.12  que
+  072.12-072.14  a
+  072.14-072.46  empresa
+  072.46-072.74  já
+  072.74-073.18  sabe
+  073.18-073.58  e
+  073.58-074.22  organizando
+  074.22-074.48  para
+  074.48-075.12  operar
+  075.12-075.36  melhor.

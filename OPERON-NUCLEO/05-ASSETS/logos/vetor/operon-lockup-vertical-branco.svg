@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 790" role="img" aria-labelledby="title desc" style="color:#FFFFFF">
+  <title id="title">OPERON — lockup vertical branco</title>
+  <desc id="desc">Campo de partículas entrando em órbita, acompanhado do wordmark OPERON.</desc>
+  <defs>
+    <g id="symbol" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+      <ellipse cx="420" cy="310" rx="190" ry="190" stroke-width="10"/><ellipse cx="420" cy="310" rx="171" ry="171" stroke-width="5" opacity=".9"/><ellipse cx="420" cy="310" rx="151" ry="151" stroke-width="4" opacity=".72"/><ellipse cx="420" cy="310" rx="131" ry="131" stroke-width="3" opacity=".52"/>
+      <path d="M230 310C180 232 112 193 25 176M230 310C160 278 91 269 10 287M230 310C166 355 105 389 32 436" stroke-width="4" opacity=".9"/><path d="M244 227C189 178 145 151 95 137M238 259C181 235 128 226 70 232M238 361C178 392 132 415 83 451" stroke-width="2" opacity=".55"/>
+    </g>
+    <g id="particles" fill="currentColor"><circle cx="55" cy="157" r="8"/><circle cx="82" cy="182" r="4"/><circle cx="111" cy="201" r="6"/><circle cx="38" cy="228" r="3"/><circle cx="75" cy="251" r="7"/><circle cx="123" cy="263" r="4"/><circle cx="29" cy="294" r="8"/><circle cx="92" cy="306" r="5"/><circle cx="143" cy="317" r="3"/><circle cx="52" cy="337" r="5"/><circle cx="108" cy="353" r="7"/><circle cx="165" cy="366" r="4"/><circle cx="33" cy="384" r="4"/><circle cx="79" cy="409" r="8"/><circle cx="127" cy="423" r="3"/><circle cx="65" cy="456" r="6"/><circle cx="110" cy="471" r="4"/><circle cx="156" cy="447" r="5"/><circle cx="175" cy="196" r="3" opacity=".8"/><circle cx="185" cy="235" r="5" opacity=".8"/><circle cx="178" cy="276" r="3" opacity=".8"/><circle cx="181" cy="344" r="4" opacity=".8"/><circle cx="192" cy="391" r="3" opacity=".8"/></g>
+    <g id="wordmark" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"><circle cx="47" cy="50" r="39"/><path d="M125 90V10H164C193 10 193 50 164 50H125"/><path d="M220 10H285M220 50H274M220 90H285"/><path d="M327 90V10H366C395 10 395 50 366 50H327M363 50L404 90"/><circle cx="474" cy="50" r="39"/><path d="M552 90V10L621 90V10"/></g>
+  </defs>
+  <g transform="translate(80 80)"><use href="#symbol"/><use href="#particles"/></g><g transform="translate(185 650) scale(1.02)"><use href="#wordmark"/></g>
+</svg>

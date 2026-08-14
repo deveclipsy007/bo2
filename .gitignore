@@ -1,0 +1,41 @@
+# Sistema e ferramentas locais
+.DS_Store
+.playwright-cli/
+.venv/
+.venv-*/
+node_modules/
+.codex-video-analysis/
+**/deployment-backups/
+frames_base/
+instagram/
+reels/
+operon_pitstop_20frames_v1/
+operon_motion_inserts/
+takes_google_omni/
+clips_10s_matrix/
+deliverables/
+styleframes/
+tmp/
+
+# Segredos, bancos e logs
+.env
+.env.*
+!.env.example
+**/storage/database/*.sqlite
+**/storage/database/*.db
+**/storage/logs/*.log
+
+# Saídas geradas e pacotes locais
+**/dist/
+output/
+*.tmp
+
+# Arquivos de produção muito grandes para o GitHub
+*.mp4
+*.mov
+*.webm
+*.m4v
+*.avi
+*.wav
+*.mp3
+*.zip

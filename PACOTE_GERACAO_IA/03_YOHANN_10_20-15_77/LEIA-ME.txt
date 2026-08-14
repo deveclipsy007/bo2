@@ -1,0 +1,5 @@
+1. Envie 01_VIDEO.mp4 primeiro: ele é a ÚNICA fonte do rosto e identidade.
+2. Envie 02_REFERENCIA_ESTILO_NAO_IDENTIDADE.png apenas como referência de cenário, roupa, acessórios e cores.
+3. Copie e cole todo o conteúdo de 03_PROMPT_FACE_LOCK.txt.
+4. Configure 16:9, mantenha a duração original e use a maior configuração disponível de preservação de identidade/estrutura do vídeo.
+5. Se a plataforma oferecer máscara/região protegida, proteja rosto, cabeça e pescoço e permita edição somente em roupa e fundo.

@@ -1,0 +1,8 @@
+public_html/.env
+public_html/storage/database/*.sqlite
+public_html/storage/database/*.db
+public_html/storage/logs/*.log
+node_modules/
+dist/
+output/
+.DS_Store

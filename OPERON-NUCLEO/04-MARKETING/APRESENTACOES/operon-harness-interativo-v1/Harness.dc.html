@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="./assets/operon-logo-raster-transparente.png">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Harness Operacional — OPERON</title>
+<link rel="icon" href="./assets/operon-logo-raster-transparente.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+html,body{margin:0;background:#000;color:#F4F4EF}
+a{color:#F4F4EF;text-decoration:none}
+a:hover{color:#F4F4EF}
+/* Aplicação discreta da marca raster aprovada — sem simplificação vetorial. */
+section[data-label]{position:relative}
+section[data-label] > img{filter:grayscale(1)!important}
+canvas[data-fx]{pointer-events:auto}
+section[data-label]::after{content:"";position:absolute;right:54px;top:42px;width:132px;height:132px;background:url("./assets/operon-logo-raster-transparente.png") center/contain no-repeat;opacity:.78;pointer-events:none;z-index:30}
+@media (max-width:900px){section[data-label]::after{right:26px;top:22px;width:88px;height:88px;opacity:.66}}
+@keyframes rise{from{opacity:0;transform:translateY(26px);filter:blur(6px)}to{opacity:1;transform:none;filter:blur(0)}}
+@keyframes mask{from{opacity:0;clip-path:inset(-14% 100% -18% -2%)}to{opacity:1;clip-path:inset(-14% -2% -18% -2%)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes subOut{0%,72%{opacity:1}88%,100%{opacity:0}}
+@keyframes subIn{0%,84%{opacity:0}100%{opacity:1}}
+@keyframes depth{from{opacity:0;transform:translate3d(0,34px,0) scale(.97)}to{opacity:1;transform:none}}
+@keyframes sig{0%{transform:translateY(0);opacity:0}8%{opacity:1}46%{opacity:1}54%{opacity:.25}92%{opacity:1}100%{transform:translateY(430px);opacity:0}}
+@keyframes flow{0%{transform:translateX(0);opacity:0}10%{opacity:1}90%{opacity:1}100%{transform:translateX(760px);opacity:0}}
+@keyframes breathe{0%,100%{transform:scale(1);opacity:.5}50%{transform:scale(1.035);opacity:.85}}
+@keyframes ringIn{from{opacity:0;transform:scale(.72)}to{opacity:.6;transform:scale(1)}}
+@keyframes stageA{0%,18%{opacity:1}30%,100%{opacity:0}}
+@keyframes stageB{0%,20%{opacity:0}30%,44%{opacity:1}56%,100%{opacity:0}}
+@keyframes stageC{0%,46%{opacity:0}56%,70%{opacity:1}82%,100%{opacity:0}}
+@keyframes stageD{0%,72%{opacity:0}82%,100%{opacity:1}}
+.rv{opacity:0}
+[data-deck-active] .rv{animation:rise 1000ms cubic-bezier(.16,1,.3,1) both;animation-delay:var(--d,0ms)}
+.mk{opacity:0}
+[data-deck-active] .mk{animation:mask 1150ms cubic-bezier(.16,1,.3,1) both;animation-delay:var(--d,0ms)}
+.lay{opacity:0}
+[data-deck-active] .lay{animation:depth 1200ms cubic-bezier(.16,1,.3,1) both;animation-delay:var(--d,0ms)}
+.s1{opacity:0}
+[data-deck-active] .s1{animation:subOut 6200ms ease both 600ms}
+.s2{opacity:0}
+[data-deck-active] .s2{animation:subIn 6200ms ease both 600ms}
+[data-deck-active] .sig{animation:sig 5200ms cubic-bezier(.5,0,.5,1) infinite 900ms}
+[data-deck-active] .flow{animation:flow 6000ms cubic-bezier(.4,0,.4,1) infinite 800ms}
+[data-deck-active] .ring{animation:ringIn 1400ms cubic-bezier(.16,1,.3,1) both,breathe 9s ease-in-out infinite 1.6s;animation-delay:var(--d,0ms),calc(var(--d,0ms) + 1400ms)}
+[data-deck-active] .st1{animation:stageA 12s ease-in-out infinite}
+[data-deck-active] .st2{animation:stageB 12s ease-in-out infinite}
+[data-deck-active] .st3{animation:stageC 12s ease-in-out infinite}
+[data-deck-active] .st4{animation:stageD 12s ease-in-out infinite}
+[data-reveal="on"] .veil{opacity:0!important}
+[data-reveal="on"] .revhint{opacity:1!important}
+@media (prefers-reduced-motion: reduce){
+ *{animation:none!important}
+ .rv,.mk,.lay,.s2,.ring,.st4{opacity:1!important}
+ .s1,.st1,.st2,.st3,.sig,.flow{opacity:0!important}
+}
+</style>
+<script src="fx.js?v=20260811-2"></script>
+</helmet>
+<x-import component-from-global-scope="deck-stage" from="./deck-stage.js" width="1920" height="1080" hint-size="100%,100%">
+
+<section data-label="01 · OPERON" data-screen-label="01" data-speaker-notes="Objetivo: abrir com a assinatura da marca e estabelecer a transformação. Fala: 'Empresas não travam por falta de esforço. Travam porque cresceram apoiadas em improviso, repetição e dependência do fundador. A OPERON existe para transformar isso em capacidade.'" style="background:#000;color:#F4F4EF;font-family:Manrope,system-ui,sans-serif;overflow:hidden">
+  <img src="assets/orbital.gif" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.6;filter:grayscale(1) contrast(1.1)">
+  <div style="position:absolute;inset:0;background:radial-gradient(120% 90% at 50% 45%, rgba(0,0,0,.12) 0%, rgba(0,0,0,.62) 66%, rgba(0,0,0,.9) 100%)"></div>
+  <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:120px">
+    <div data-prefix-sequence="menos|mais" style="position:relative;height:52px;width:100%;display:flex;align-items:flex-end;justify-content:center">
+      <p class="s1" style="position:absolute;margin:0;font-size:28px;font-weight:300;letter-spacing:.32em;text-transform:uppercase;color:#9B9F9C">menos</p>
+      <p class="s2" style="position:absolute;margin:0;font-size:28px;font-weight:300;letter-spacing:.32em;text-transform:uppercase;color:#F4F4EF">mais</p>
+    </div>
+    <canvas data-fx="vapor" data-words="Improviso|Capacidade" style="width:1440px;height:260px;display:block"></canvas>
+  </div>
+  <p class="rv" style="--d:2600ms;position:absolute;left:120px;bottom:96px;margin:0;font-size:24px;letter-spacing:.3em;text-transform:uppercase;color:rgba(155,159,156,.55)">OPERON — Harness Operacional</p>
+</section>
+
+<section data-label="02 · Motor e veículo" data-screen-label="02" data-speaker-notes="Objetivo: restaurar a metáfora central entre potência e estrutura. Fala: 'IA, automações e ferramentas deram um motor novo para todo mundo. Mas ninguém opera um motor solto. O que transforma potência em movimento é o veículo: contexto, processos, critérios, memória e direção funcionando juntos.'" style="background:#000;color:#F4F4EF;font-family:Manrope,system-ui,sans-serif;overflow:hidden">
+  <canvas data-fx="drift" style="position:absolute;inset:0;width:100%;height:100%;display:block;opacity:.75"></canvas>
+  <canvas data-fx="morph" data-shapes="engrenagem|veiculo" data-hold="5000" style="position:absolute;right:120px;top:50%;transform:translateY(-50%);width:640px;height:640px;display:block"></canvas>
+  <div style="position:absolute;inset:0;padding:140px 160px;display:flex;flex-direction:column;justify-content:center;gap:18px;pointer-events:none">
+    <h2 class="mk" style="margin:0;max-width:1000px;font-size:96px;font-weight:200;line-height:1.03;letter-spacing:-.035em">Todo mundo ganhou um motor.</h2>
+    <h2 class="mk" style="--d:900ms;margin:0;max-width:1080px;font-size:96px;font-weight:200;line-height:1.03;letter-spacing:-.035em;color:#9B9F9C">Poucos construíram o <em style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-weight:400;color:#F4F4EF">veículo</em>.</h2>
+    <p class="rv" style="--d:1900ms;margin:0;max-width:900px;font-size:30px;font-weight:300;line-height:1.5;color:#9B9F9C">IA, automações e ferramentas aumentam a potência. O harness organiza contexto, processos, critérios e direção para essa potência virar operação.</p>
+  </div>
+  <p class="rv" style="--d:2200ms;position:absolute;left:160px;bottom:96px;margin:0;font-size:24px;letter-spacing:.3em;text-transform:uppercase;color:rgba(155,159,156,.55)">Ferramenta é potência. Estrutura é capacidade.</p>
+</section>
+
+<section data-label="03 · Gargalo" data-screen-label="03" data-speaker-notes="Objetivo: nomear a dependência do fundador sem culpá-lo. Fala: 'Quando clientes, equipe, aprovações, urgências e informação disputam o mesmo cérebro, o fundador deixa de apenas liderar a operação e passa a sustentá-la.'" style="background:#000;color:#F4F4EF;font-family:Manrope,system-ui,sans-serif;overflow:hidden">
+  <img src="assets/p06.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.92">
+  <div style="position:absolute;inset:0;background:linear-gradient(90deg, rgba(0,0,0,.92) 8%, rgba(0,0,0,.5) 44%, rgba(0,0,0,0) 100%)"></div>
+  <canvas data-fx="morph" data-shapes="ruido|seta" data-hold="5000" style="position:absolute;right:130px;top:50%;transform:translateY(-50%);width:620px;height:560px;display:block"></canvas>
+  <div style="position:absolute;inset:0;padding:150px 160px;display:flex;flex-direction:column;justify-content:center;gap:64px;pointer-events:none">
+    <h2 class="mk" style="margin:0;max-width:1100px;font-size:88px;font-weight:200;line-height:1.05;letter-spacing:-.035em">Quando tudo passa por você, você não lidera apenas a operação. Você <em style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-weight:400">sustenta</em> a operação.</h2>
+    <div style="display:flex;gap:52px;flex-wrap:wrap;max-width:1080px">
+      <span class="rv" style="--d:1200ms;font-size:32px;font-weight:300;color:#9B9F9C">Clientes</span>
+      <span class="rv" style="--d:1420ms;font-size:32px;font-weight:300;color:#9B9F9C">Equipe</span>
+      <span class="rv" style="--d:1640ms;font-size:32px;font-weight:300;color:#9B9F9C">Aprovações</span>
+      <span class="rv" style="--d:1860ms;font-size:32px;font-weight:300;color:#9B9F9C">Informação</span>
+      <span class="rv" style="--d:2080ms;font-size:32px;font-weight:300;color:#9B9F9C">Urgências</span>
+    </div>
+    <p class="rv" style="--d:2300ms;margin:0;max-width:860px;font-size:30px;font-weight:300;line-height:1.5;color:#9B9F9C">O problema não é falta de esforço. É uma empresa inteira dependendo de contexto, decisões e critérios que ainda vivem em você.</p>
+  </div>
+  <p class="rv" style="--d:2600ms;position:absolute;left:160px;bottom:96px;margin:0;font-size:24px;letter-spacing:.3em;text-transform:uppercase;color:rgba(155,159,156,.55)">O fundador virou a infraestrutura</p>
+</section>
+
+<section data-label="Mapa da operação" data-screen-label="mapa-operacao" data-speaker-notes="Objetivo: tangibilizar o diagnóstico. Fala: 'Antes de falar em automação, a gente divide a operação em cinco camadas e identifica onde a empresa está perdendo capacidade: o que precisa ser sabido, como o trabalho acontece, como as decisões são tomadas, como o trabalho circula e o que precisa ser lembrado.'" style="background:#000;color:#F4F4EF;font-family:Manrope,system-ui,sans-serif;overflow:hidden">
+  <canvas data-fx="drift" style="position:absolute;inset:0;width:100%;height:100%;display:block;opacity:.42"></canvas>
+  <div data-interaction-layer="pass-through" style="position:absolute;inset:0;background:radial-gradient(80% 90% at 50% 55%,rgba(244,244,239,.045),rgba(0,0,0,.86) 72%);pointer-events:none"></div>
+  <div style="position:absolute;left:150px;right:150px;top:118px;display:flex;flex-direction:column;gap:28px;pointer-events:none">
+    <p class="rv" style="margin:0;font-size:23px;letter-spacing:.28em;text-transform:uppercase;color:rgba(155,159,156,.68)">Antes da tecnologia</p>
+    <h2 class="mk" style="--d:350ms;margin:0;max-width:1320px;font-size:76px;font-weight:200;line-height:1.08;letter-spacing:-.035em">A gente encontra onde a empresa está <em style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-weight:400">perdendo capacidade</em>.</h2>
+  </div>
+  <div style="position:absolute;left:150px;right:150px;bottom:168px;display:grid;grid-template-columns:repeat(5,1fr);gap:18px">
+    <div class="lay" style="--d:900ms;min-height:260px;padding:30px 26px;border:1px solid rgba(244,244,239,.18);background:linear-gradient(145deg,rgba(244,244,239,.07),rgba(244,244,239,.015));backdrop-filter:blur(8px);display:flex;flex-direction:column;gap:20px"><span style="font-size:28px;font-weight:400">Contexto</span><span style="font-size:23px;font-weight:300;line-height:1.45;color:#9B9F9C">O que precisa ser conhecido para agir bem.</span></div>
+    <div class="lay" style="--d:1120ms;min-height:260px;padding:30px 26px;border:1px solid rgba(244,244,239,.16);background:linear-gradient(145deg,rgba(244,244,239,.06),rgba(244,244,239,.012));backdrop-filter:blur(8px);display:flex;flex-direction:column;gap:20px"><span style="font-size:28px;font-weight:400">Processos</span><span style="font-size:23px;font-weight:300;line-height:1.45;color:#9B9F9C">Como o trabalho realmente acontece.</span></div>
+    <div class="lay" style="--d:1340ms;min-height:260px;padding:30px 26px;border:1px solid rgba(244,244,239,.14);background:linear-gradient(145deg,rgba(244,244,239,.055),rgba(244,244,239,.01));backdrop-filter:blur(8px);display:flex;flex-direction:column;gap:20px"><span style="font-size:28px;font-weight:400">Critérios</span><span style="font-size:23px;font-weight:300;line-height:1.45;color:#9B9F9C">Como as decisões deixam de voltar sempre para você.</span></div>
+    <div class="lay" style="--d:1560ms;min-height:260px;padding:30px 26px;border:1px solid rgba(244,244,239,.14);background:linear-gradient(145deg,rgba(244,244,239,.05),rgba(244,244,239,.01));backdrop-filter:blur(8px);display:flex;flex-direction:column;gap:20px"><span style="font-size:28px;font-weight:400">Fluxos</span><span style="font-size:23px;font-weight:300;line-height:1.45;color:#9B9F9C">Como pessoas, informação e ferramentas se conectam.</span></div>
+    <div class="lay" style="--d:1780ms;min-height:260px;padding:30px 26px;border:1px solid rgba(244,244,239,.2);background:linear-gradient(145deg,rgba(244,244,239,.075),rgba(244,244,239,.015));backdrop-filter:blur(8px);display:flex;flex-direction:column;gap:20px"><span style="font-size:28px;font-weight:400">Memória</span><span style="font-size:23px;font-weight:300;line-height:1.45;color:#9B9F9C">O que a empresa não pode reaprender do zero.</span></div>
+  </div>
+  <p class="rv" style="--d:2300ms;position:absolute;left:150px;bottom:82px;margin:0;font-size:24px;letter-spacing:.26em;text-transform:uppercase;color:rgba(155,159,156,.58)">Primeiro entendemos a operação real</p>
+</section>
+
+<section data-label="Como a OPERON entra" data-screen-label="como-entramos" data-speaker-notes="Objetivo: explicar a atuação da OPERON como jornada. Fala: 'A tecnologia não entra como resposta pronta. Primeiro diagnosticamos. Depois estruturamos. Só então aplicamos agentes, integrações e automações. E acompanhamos a operação para que a capacidade continue evoluindo.'" style="background:#000;color:#F4F4EF;font-family:Manrope,system-ui,sans-serif;overflow:hidden">
+  <canvas data-fx="morph" data-shapes="ruido|rede" data-hold="5200" style="position:absolute;right:80px;top:50%;transform:translateY(-50%);width:760px;height:760px;display:block;opacity:.72"></canvas>
+  <div data-interaction-layer="pass-through" style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.96) 8%,rgba(0,0,0,.72) 52%,rgba(0,0,0,.08) 100%);pointer-events:none"></div>
+  <div style="position:absolute;left:150px;top:108px;width:980px;display:flex;flex-direction:column;gap:24px;pointer-events:none">
+    <p class="rv" style="margin:0;font-size:23px;letter-spacing:.28em;text-transform:uppercase;color:rgba(155,159,156,.68)">Como a OPERON entra</p>
+    <h2 class="mk" style="--d:350ms;margin:0;font-size:72px;font-weight:200;line-height:1.08;letter-spacing:-.035em">Tecnologia entra depois que a operação faz <em style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-weight:400">sentido</em>.</h2>
+  </div>
+  <div style="position:absolute;left:150px;top:430px;width:1050px;display:grid;grid-template-columns:repeat(4,1fr);gap:18px">
+    <div class="lay" style="--d:900ms;border-top:1px solid rgba(244,244,239,.26);padding-top:24px;display:flex;flex-direction:column;gap:12px"><span style="font-size:21px;letter-spacing:.18em;color:#9B9F9C">01</span><span style="font-size:31px;font-weight:400">Diagnosticar</span><span style="font-size:23px;line-height:1.45;color:#9B9F9C">Ver o trabalho real e os gargalos.</span></div>
+    <div class="lay" style="--d:1150ms;border-top:1px solid rgba(244,244,239,.22);padding-top:24px;display:flex;flex-direction:column;gap:12px"><span style="font-size:21px;letter-spacing:.18em;color:#9B9F9C">02</span><span style="font-size:31px;font-weight:400">Estruturar</span><span style="font-size:23px;line-height:1.45;color:#9B9F9C">Organizar contexto, processos e critérios.</span></div>
+    <div class="lay" style="--d:1400ms;border-top:1px solid rgba(244,244,239,.2);padding-top:24px;display:flex;flex-direction:column;gap:12px"><span style="font-size:21px;letter-spacing:.18em;color:#9B9F9C">03</span><span style="font-size:31px;font-weight:400">Aplicar</span><span style="font-size:23px;line-height:1.45;color:#9B9F9C">Conectar pessoas, ferramentas, agentes e automações.</span></div>
+    <div class="lay" style="--d:1650ms;border-top:1px solid rgba(244,244,239,.3);padding-top:24px;display:flex;flex-direction:column;gap:12px"><span style="font-size:21px;letter-spacing:.18em;color:#9B9F9C">04</span><span style="font-size:31px;font-weight:400">Evoluir</span><span style="font-size:23px;line-height:1.45;color:#9B9F9C">Revisar, aprender e ampliar capacidade.</span></div>
+  </div>
+  <p class="rv" style="--d:2200ms;position:absolute;left:150px;bottom:92px;margin:0;max-width:1120px;font-size:32px;font-weight:300;line-height:1.4;color:#F4F4EF">Não automatizamos tarefas isoladas. Construímos capacidade operacional.</p>
+</section>
+
+<section data-label="Harness Operacional" data-screen-label="harness-operacional" data-speaker-notes="Objetivo: apresentar o mecanismo central em linguagem acessível. Fala: 'É aqui que entra o Harness Operacional: uma estrutura adaptada à empresa que conecta as partes para o trabalho recorrente acontecer com mais consistência, rastro e inteligência.' Transição: agora vamos abrir algumas capacidades que vivem dentro dessa estrutura." style="background:#000;color:#F4F4EF;font-family:Manrope,system-ui,sans-serif;overflow:hidden">
+  <img src="assets/p01.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.9">
+  <div style="position:absolute;inset:0;background:linear-gradient(90deg, rgba(0,0,0,.9) 16%, rgba(0,0,0,.42) 50%, rgba(0,0,0,0) 88%)"></div>
+  <div style="position:absolute;left:160px;top:0;bottom:0;width:900px;display:flex;flex-direction:column;justify-content:center;gap:44px">
+    <h2 class="mk" style="margin:0;font-size:88px;font-weight:200;line-height:1.07;letter-spacing:-.035em">É aqui que entra o <em style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-weight:400">Harness Operacional</em>.</h2>
+    <p class="rv" style="--d:1600ms;margin:0;max-width:860px;font-size:30px;font-weight:300;line-height:1.5;color:#9B9F9C">A estrutura que conecta processos, informação, ferramentas e pessoas para a empresa não depender do improviso.</p>
+    <p class="rv" style="--d:2050ms;margin:0;max-width:840px;font-size:27px;font-weight:300;line-height:1.5;color:rgba(155,159,156,.78)">Não é uma automação isolada. É o que faz as partes trabalharem juntas, com direção humana.</p>
+  </div>
+  <div style="position:absolute;right:120px;top:50%;transform:translateY(-50%);width:20px;height:520px"><div style="position:absolute;left:9px;top:0;bottom:0;width:1px;background:linear-gradient(180deg, rgba(244,244,239,0), rgba(244,244,239,.25), rgba(244,244,239,0))"></div><div class="sig" style="position:absolute;left:5px;top:0;width:9px;height:9px;border-radius:50%;background:#F4F4EF;box-shadow:0 0 14px rgba(244,244,239,.35)"></div></div>
+  <div style="position:absolute;right:170px;top:50%;transform:translateY(-50%);width:600px;display:flex;flex-direction:column;gap:26px">
+    <div class="lay" style="--d:900ms;height:110px;border:1px solid rgba(244,244,239,.16);background:linear-gradient(120deg, rgba(244,244,239,.07), rgba(244,244,239,.02));backdrop-filter:blur(6px);display:flex;align-items:center;padding:0 34px;font-size:28px;font-weight:300;letter-spacing:.04em;color:#F4F4EF">Contexto e memória</div>
+    <div class="lay" style="--d:1200ms;height:110px;border:1px solid rgba(244,244,239,.14);background:linear-gradient(120deg, rgba(244,244,239,.06), rgba(244,244,239,.015));backdrop-filter:blur(6px);display:flex;align-items:center;padding:0 34px;font-size:28px;font-weight:300;letter-spacing:.04em;color:#F4F4EF">Processos e critérios</div>
+    <div class="lay" style="--d:1500ms;height:110px;border:1px solid rgba(244,244,239,.12);background:linear-gradient(120deg, rgba(244,244,239,.05), rgba(244,244,239,.01));backdrop-filter:blur(6px);display:flex;align-items:center;padding:0 34px;font-size:28px;font-weight:300;letter-spacing:.04em;color:#F4F4EF">Pessoas, ferramentas e integrações</div>
+    <div class="lay" style="--d:1800ms;height:110px;border:1px solid rgba(244,244,239,.2);background:linear-gradient(120deg, rgba(244,244,239,.075), rgba(244,244,239,.01));backdrop-filter:blur(6px);display:flex;align-items:center;padding:0 34px;font-size:28px;font-weight:300;letter-spacing:.04em;color:#F4F4EF">Agentes, automações e direção humana</div>
+  </div>
+  <p class="rv" style="--d:2400ms;position:absolute;left:160px;bottom:96px;margin:0;font-size:24px;letter-spacing:.3em;text-transform:uppercase;color:rgba(155,159,156,.55)">A estrutura que faz as partes trabalharem juntas</p>
+</section>
+
+<section data-label="05 · Skill" data-screen-label="05" data-speaker-notes="Objetivo: desmistificar skill. Fala: 'Uma skill não é um prompt. É um modo de trabalhar explicitado: quando usar, que contexto buscar, que critérios respeitar, o que entregar.' Transição: quem executa a skill é o agente." style="background:#000;color:#F4F4EF;font-family:Manrope,system-ui,sans-serif;overflow:hidden">
+  <img src="assets/p07.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.88">
+  <div style="position:absolute;inset:0;background:linear-gradient(270deg, rgba(0,0,0,.9) 14%, rgba(0,0,0,.44) 52%, rgba(0,0,0,0) 100%)"></div>
+  <canvas data-fx="morph" data-shapes="chave" data-hold="999999" style="position:absolute;left:120px;top:50%;transform:translateY(-50%);width:600px;height:600px;display:block"></canvas>
+  <div style="position:absolute;right:160px;top:0;bottom:0;width:940px;display:flex;flex-direction:column;justify-content:center;gap:56px;pointer-events:none">
+    <h2 class="mk" style="margin:0;font-size:84px;font-weight:200;line-height:1.08;letter-spacing:-.035em">Uma skill é um modo de trabalhar transformado em capacidade <em style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-weight:400">reutilizável</em>.</h2>
+    <div style="display:flex;flex-direction:column;gap:22px">
+      <div class="lay" style="--d:1200ms;display:flex;align-items:center;gap:26px;margin-left:0;border-top:1px solid rgba(244,244,239,.14);padding-top:20px"><span style="width:9px;height:9px;background:rgba(244,244,239,.5)"></span><span style="font-size:30px;font-weight:300;color:#F4F4EF">Quando usar</span></div>
+      <div class="lay" style="--d:1450ms;display:flex;align-items:center;gap:26px;margin-left:60px;border-top:1px solid rgba(244,244,239,.12);padding-top:20px"><span style="width:9px;height:9px;background:rgba(244,244,239,.45)"></span><span style="font-size:30px;font-weight:300;color:#F4F4EF">Qual contexto buscar</span></div>
+      <div class="lay" style="--d:1700ms;display:flex;align-items:center;gap:26px;margin-left:120px;border-top:1px solid rgba(244,244,239,.1);padding-top:20px"><span style="width:9px;height:9px;background:rgba(244,244,239,.4)"></span><span style="font-size:30px;font-weight:300;color:#F4F4EF">Quais critérios respeitar</span></div>
+      <div class="lay" style="--d:1950ms;display:flex;align-items:center;gap:26px;margin-left:180px;border-top:1px solid rgba(244,244,239,.3);padding-top:20px"><span style="width:9px;height:9px;background:#F4F4EF"></span><span style="font-size:30px;font-weight:300;color:#F4F4EF">O que entregar</span></div>
+    </div>
+    <p class="rv" style="--d:2300ms;margin:0;max-width:820px;font-size:30px;font-weight:300;line-height:1.5;color:#9B9F9C">Não é um prompt salvo. É o seu melhor jeito de fazer algo, escrito para ser executado por qualquer pessoa da equipe — ou por um agente.</p>
+  </div>
+  <p class="rv" style="--d:2400ms;position:absolute;left:160px;bottom:96px;margin:0;font-size:24px;letter-spacing:.3em;text-transform:uppercase;color:rgba(155,159,156,.55)">05 — Skill é capacidade codificada</p>
+</section>
+
+<section data-label="06 · Agente" data-screen-label="06" data-speaker-notes="Objetivo: separar agente de chatbot. Fala: 'Um agente recebe função, contexto, ferramentas e limites. Ele age dentro de um caminho autorizado — não é uma pessoa digital.' Transição: para agir bem, ele precisa de memória." style="background:#000;color:#F4F4EF;font-family:Manrope,system-ui,sans-serif;overflow:hidden">
+  <img src="assets/p04.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.88">
+  <div style="position:absolute;inset:0;background:linear-gradient(90deg, rgba(0,0,0,.9) 14%, rgba(0,0,0,.38) 52%, rgba(0,0,0,0) 100%)"></div>
+  <div style="position:absolute;left:160px;top:0;bottom:0;width:880px;display:flex;flex-direction:column;justify-content:center;gap:40px">
+    <h2 class="mk" style="margin:0;font-size:88px;font-weight:200;line-height:1.06;letter-spacing:-.035em">Um agente recebe uma função, contexto, ferramentas e <em style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-weight:400">limites</em> para agir.</h2>
+    <p class="rv" style="--d:1600ms;margin:0;max-width:640px;font-size:30px;font-weight:300;line-height:1.5;color:#9B9F9C">O sinal percorre apenas o caminho autorizado. Onde o risco aparece, a decisão volta para uma pessoa — com o contexto pronto para decidir.</p>
+  </div>
+  <div style="position:absolute;right:250px;top:50%;transform:translateY(-50%);width:520px;height:520px">
+    <div style="position:absolute;left:0;top:0;bottom:0;width:1px;background:linear-gradient(180deg, rgba(244,244,239,0), rgba(244,244,239,.22), rgba(244,244,239,0))"></div>
+    <div class="sig" style="position:absolute;left:-4px;top:40px;width:9px;height:9px;border-radius:50%;background:#F4F4EF;box-shadow:0 0 14px rgba(244,244,239,.35)"></div>
+    <div class="lay" style="--d:900ms;position:absolute;left:44px;top:24px;font-size:30px;font-weight:300">Função</div>
+    <div class="lay" style="--d:1150ms;position:absolute;left:44px;top:164px;font-size:30px;font-weight:300">Contexto</div>
+    <div class="lay" style="--d:1400ms;position:absolute;left:44px;top:304px;font-size:30px;font-weight:300">Ferramentas</div>
+    <div class="lay" style="--d:1650ms;position:absolute;left:44px;top:444px;font-size:30px;font-weight:300;color:#F4F4EF">Limites</div>
+  </div>
+  <p class="rv" style="--d:2400ms;position:absolute;left:160px;bottom:96px;margin:0;font-size:24px;letter-spacing:.3em;text-transform:uppercase;color:rgba(155,159,156,.55)">06 — Agentes não são chatbots</p>
+</section>
+
+<section data-label="07 · Segundo cérebro" data-screen-label="07" data-speaker-notes="Objetivo: introduzir o segundo cérebro. Fala: 'Empresas esquecem todos os dias. O que se aprende não pode ficar preso na cabeça de uma pessoa — memória também precisa operar.' Interação: mover o cursor sobre a nuvem de pontos." style="background:#000;color:#F4F4EF;font-family:Manrope,system-ui,sans-serif;overflow:hidden">
+  <canvas data-fx="morph" data-shapes="cerebro2" data-hold="999999" style="position:absolute;right:90px;top:60px;width:900px;height:960px;display:block"></canvas>
+  <div style="position:absolute;inset:0;background:linear-gradient(90deg, #000 18%, rgba(0,0,0,.55) 46%, rgba(0,0,0,0) 78%);pointer-events:none"></div>
+  <div style="position:absolute;left:160px;top:0;bottom:0;width:820px;display:flex;flex-direction:column;justify-content:center;gap:36px;pointer-events:none">
+    <h2 class="mk" style="margin:0;font-size:86px;font-weight:200;line-height:1.06;letter-spacing:-.035em">O que a empresa aprende não pode continuar preso na cabeça de alguém.</h2>
+    <p class="rv" style="--d:1800ms;margin:0;font-size:44px;font-weight:200;letter-spacing:-.01em;color:#9B9F9C">Memória também precisa <em style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-weight:400;color:#F4F4EF">operar</em>.</p>
+    <p class="rv" style="--d:2400ms;margin:0;max-width:820px;font-size:30px;font-weight:300;line-height:1.5;color:#9B9F9C">Decisões, critérios e aprendizados viram memória consultável — não arquivo morto em pasta compartilhada.</p>
+  </div>
+  <p class="rv" style="--d:2400ms;position:absolute;left:160px;bottom:96px;margin:0;font-size:24px;letter-spacing:.3em;text-transform:uppercase;color:rgba(155,159,156,.55)">07 — O segundo cérebro</p>
+</section>
+
+<section data-label="08 · Aprendizado" data-screen-label="08" data-speaker-notes="Objetivo: memória que age. Fala: 'O valor não está em guardar tudo. Está em recuperar o contexto certo no momento certo — e devolver o que se aprendeu ao próximo ciclo.'" style="background:#000;color:#F4F4EF;font-family:Manrope,system-ui,sans-serif;overflow:hidden">
+  <img src="assets/p08.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.88">
+  <div style="position:absolute;inset:0;background:linear-gradient(90deg, rgba(0,0,0,.9) 10%, rgba(0,0,0,.45) 44%, rgba(0,0,0,0) 100%)"></div>
+  <div style="position:absolute;left:160px;top:0;bottom:0;width:900px;display:flex;flex-direction:column;justify-content:center;gap:28px">
+    <h2 class="mk" style="margin:0;font-size:88px;font-weight:200;line-height:1.06;letter-spacing:-.035em">O valor não está apenas em guardar.</h2>
+    <h2 class="mk" style="--d:900ms;margin:0;font-size:88px;font-weight:200;line-height:1.06;letter-spacing:-.035em;color:#9B9F9C">Está em recuperar o <em style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-weight:400;color:#F4F4EF">contexto certo</em> no momento certo.</h2>
+    <p class="rv" style="--d:1900ms;margin:0;max-width:820px;font-size:30px;font-weight:300;line-height:1.5;color:#9B9F9C">Cada ciclo devolve mais contexto ao sistema. O segundo mês começa de onde o primeiro parou, e não do zero.</p>
+  </div>
+  <canvas data-fx="morph" data-shapes="aneis|rede|cerebro" data-hold="4800" style="position:absolute;right:140px;top:50%;transform:translateY(-50%);width:700px;height:700px;display:block"></canvas>
+  <p class="rv" style="--d:2400ms;position:absolute;left:160px;bottom:96px;margin:0;font-size:24px;letter-spacing:.3em;text-transform:uppercase;color:rgba(155,159,156,.55)">08 — Aprendizado que acumula</p>
+</section>
+
+<section data-label="12 · Operacional" data-screen-label="12" data-speaker-notes="Objetivo: abrir o Harness Operacional. Fala: 'Processos recorrentes deixam de depender de lembrança e improviso. Mas automação sem critério não basta: existe um ponto humano de revisão.'" style="background:#000;color:#F4F4EF;font-family:Manrope,system-ui,sans-serif;overflow:hidden">
+  <img src="assets/p03.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.9">
+  <div style="position:absolute;inset:0;background:linear-gradient(180deg, rgba(0,0,0,.82) 12%, rgba(0,0,0,.35) 55%, rgba(0,0,0,.82) 100%)"></div>
+  <div style="position:absolute;inset:0;padding:150px 160px;display:flex;flex-direction:column;justify-content:center;gap:64px">
+    <h2 class="mk" style="margin:0;max-width:1200px;font-size:88px;font-weight:200;line-height:1.06;letter-spacing:-.035em">Processos recorrentes podem deixar de depender de lembrança, improviso e repasse manual.</h2>
+    <div style="display:flex;align-items:center;gap:28px;flex-wrap:wrap">
+      <span class="rv" style="--d:1200ms;font-size:28px;font-weight:300;color:#9B9F9C">Mapear</span>
+      <span class="rv" style="--d:1350ms;font-size:28px;color:rgba(244,244,239,.25)">→</span>
+      <span class="rv" style="--d:1500ms;font-size:28px;font-weight:300;color:#9B9F9C">Explicitar critérios</span>
+      <span class="rv" style="--d:1650ms;font-size:28px;color:rgba(244,244,239,.25)">→</span>
+      <span class="rv" style="--d:1800ms;font-size:28px;font-weight:300;color:#9B9F9C">Criar skills</span>
+      <span class="rv" style="--d:1950ms;font-size:28px;color:rgba(244,244,239,.25)">→</span>
+      <span class="rv" style="--d:2100ms;font-size:28px;font-weight:300;color:#9B9F9C">Conectar ferramentas</span>
+      <span class="rv" style="--d:2250ms;font-size:28px;color:rgba(244,244,239,.25)">→</span>
+      <span class="rv" style="--d:2400ms;font-size:28px;font-weight:400;color:#F4F4EF">Revisar (humano)</span>
+      <span class="rv" style="--d:2550ms;font-size:28px;color:rgba(244,244,239,.25)">→</span>
+      <span class="rv" style="--d:2700ms;font-size:28px;font-weight:300;color:#F4F4EF">Aprender</span>
+    </div>
+    <p class="rv" style="--d:2900ms;margin:0;max-width:820px;font-size:30px;font-weight:300;line-height:1.5;color:#9B9F9C">Atendimento, proposta, pesquisa, aprovação: cada etapa passa a ter contexto, critério e rastro — com revisão humana onde a decisão pesa.</p>
+  </div>
+  <p class="rv" style="--d:3000ms;position:absolute;left:160px;bottom:96px;margin:0;font-size:24px;letter-spacing:.3em;text-transform:uppercase;color:rgba(155,159,156,.55)">12 — O Harness Operacional</p>
+</section>
+
+<section data-label="13 · Por que agora" data-screen-label="13" data-speaker-notes="Objetivo: justificar o momento. Fatos: a IA passou de resposta para uso de ferramentas e ação (Anthropic, context engineering; OpenAI, guia de agentes). McKinsey State of AI 2025: 23% escalavam sistemas agentivos em ao menos uma função, 39% experimentavam. O que vem depois disso é tese, não fato — deixar claro." style="background:#000;color:#F4F4EF;font-family:Manrope,system-ui,sans-serif;overflow:hidden">
+  <img src="assets/h14.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.92">
+  <div style="position:absolute;inset:0;background:linear-gradient(180deg, rgba(0,0,0,.25) 0%, rgba(0,0,0,.6) 55%, rgba(0,0,0,.9) 100%)"></div>
+  <div style="position:absolute;inset:0;padding:150px 160px;display:flex;flex-direction:column;justify-content:center;gap:60px;pointer-events:none">
+    <h2 class="mk" style="margin:0;max-width:1240px;font-size:92px;font-weight:200;line-height:1.06;letter-spacing:-.035em">A inteligência artificial deixou de apenas responder.</h2>
+    <div style="display:flex;gap:60px;flex-wrap:wrap">
+      <span class="rv" style="--d:1300ms;font-size:40px;font-weight:200;color:#9B9F9C">Perceber</span>
+      <span class="rv" style="--d:1650ms;font-size:40px;font-weight:200;color:#9B9F9C">Raciocinar</span>
+      <span class="rv" style="--d:2000ms;font-size:40px;font-weight:200;color:#9B9F9C">Usar ferramentas</span>
+      <span class="rv" style="--d:2350ms;font-size:40px;font-weight:200;color:#F4F4EF">Agir</span>
+    </div>
+    <p class="rv" style="--d:2700ms;margin:0;max-width:820px;font-size:30px;font-weight:300;line-height:1.5;color:#9B9F9C">Modelos ficam mais capazes e intercambiáveis. A vantagem migra para quem tem contexto, avaliação, governança e memória.</p>
+  </div>
+  <canvas data-fx="morph" data-shapes="balao|cerebro" data-hold="5600" style="position:absolute;right:120px;top:120px;width:760px;height:520px;display:block;opacity:.95"></canvas>
+  <p class="rv" style="--d:2800ms;position:absolute;left:160px;bottom:96px;margin:0;font-size:24px;letter-spacing:.3em;text-transform:uppercase;color:rgba(155,159,156,.55)">13 — Por que agora</p>
+</section>
+
+<section data-label="14 · Capacidade recuperada" data-screen-label="14" data-speaker-notes="Objetivo: mostrar a consequência humana e empresarial da estrutura. Fala: 'Uma operação bem estruturada não promete uma vida perfeita. Ela cria condições reais para o fundador recuperar clareza, ritmo, escolha e tempo.'" style="background:#000;color:#F4F4EF;font-family:Manrope,system-ui,sans-serif;overflow:hidden">
+  <img src="assets/operon-slide-13-capacidade-recuperada-v1.png" alt="Fundador avançando enquanto partículas dispersas se organizam em caminho" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.94">
+  <div style="position:absolute;inset:0;background:linear-gradient(90deg, rgba(0,0,0,.88) 8%, rgba(0,0,0,.38) 48%, rgba(0,0,0,0) 100%)"></div>
+  <div style="position:absolute;left:160px;top:0;bottom:0;width:1000px;display:flex;flex-direction:column;justify-content:center;gap:34px;pointer-events:none">
+    <p class="rv" style="margin:0;font-size:24px;letter-spacing:.3em;text-transform:uppercase;color:rgba(155,159,156,.6)">O que a estrutura devolve</p>
+    <h2 class="mk" style="--d:500ms;margin:0;font-size:76px;font-weight:200;line-height:1.12;letter-spacing:-.035em">Clareza para pensar.</h2>
+    <h2 class="mk" style="--d:900ms;margin:0;font-size:76px;font-weight:200;line-height:1.12;letter-spacing:-.035em">Ritmo para operar.</h2>
+    <h2 class="mk" style="--d:1300ms;margin:0;font-size:76px;font-weight:200;line-height:1.12;letter-spacing:-.035em">Autonomia para decidir.</h2>
+    <h2 class="mk" style="--d:1700ms;margin:0;font-size:76px;font-weight:200;line-height:1.12;letter-spacing:-.035em;color:#F4F4EF">Tempo para escolher onde estar.</h2>
+    <p class="rv" style="--d:2100ms;margin:0;max-width:900px;font-size:30px;font-weight:300;line-height:1.5;color:#9B9F9C">Não é liberdade instantânea. É uma empresa criando condições para funcionar sem ocupar tudo o que seu fundador é.</p>
+  </div>
+  <p class="rv" style="--d:2400ms;position:absolute;left:160px;bottom:96px;margin:0;font-size:24px;letter-spacing:.3em;text-transform:uppercase;color:rgba(155,159,156,.55)">Capacidade recuperada vira escolha</p>
+</section>
+
+<section data-label="15 · Autonomia" data-screen-label="15" data-speaker-notes="Objetivo: mostrar autonomia construída com direção. Fala: 'A empresa não precisa depender do fundador em cada passo. Capacidade é transferida com contexto, critérios e revisão humana.'" style="background:#000;color:#F4F4EF;font-family:Manrope,system-ui,sans-serif;overflow:hidden">
+  <img src="assets/operon-particulas-08-capacidade-aberta.png" alt="Partículas organizadas em uma forma operacional" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:1">
+  <div class="veil" style="position:absolute;inset:0;background:linear-gradient(90deg, rgba(0,0,0,.86) 10%, rgba(0,0,0,.55) 50%, rgba(0,0,0,.3) 100%);transition:opacity 1200ms cubic-bezier(.16,1,.3,1)"></div>
+  <div style="position:absolute;left:160px;top:0;bottom:0;width:820px;display:flex;flex-direction:column;justify-content:center;gap:30px">
+    <h2 class="mk" style="margin:0;font-size:92px;font-weight:200;line-height:1.06;letter-spacing:-.035em">Sua empresa não precisa de menos de você.</h2>
+    <h2 class="mk" style="--d:900ms;margin:0;font-size:92px;font-weight:200;line-height:1.06;letter-spacing:-.035em;color:#9B9F9C">Precisa depender menos do seu <em style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-weight:400;color:#F4F4EF">operacional</em>.</h2>
+    <p class="rv" style="--d:1700ms;margin:0;max-width:860px;font-size:30px;font-weight:300;line-height:1.5;color:#9B9F9C">Você continua dando direção, julgamento e responsabilidade. A estrutura deixa de exigir sua presença em cada repasse, busca e decisão recorrente.</p>
+  </div>
+  <p class="rv" style="--d:2400ms;position:absolute;left:160px;bottom:96px;margin:0;font-size:24px;letter-spacing:.3em;text-transform:uppercase;color:rgba(155,159,156,.55)">Humanos mantêm a direção</p>
+</section>
+
+<section data-label="16 · OPERON" data-screen-label="16" data-speaker-notes="Objetivo: converter a tese na proposta da OPERON. Fala: 'Não automatizamos tarefas isoladas. Construímos capacidade operacional para empresas funcionarem sem ocupar tudo o que seus fundadores são.'" style="background:#000;color:#F4F4EF;font-family:Manrope,system-ui,sans-serif;overflow:hidden">
+  <img src="assets/h17.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.95">
+  <div style="position:absolute;inset:0;background:linear-gradient(180deg, rgba(0,0,0,.8) 6%, rgba(0,0,0,.35) 50%, rgba(0,0,0,.85) 100%)"></div>
+  <div style="position:absolute;inset:0;padding:150px 160px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:36px;text-align:center;pointer-events:none">
+    <canvas data-fx="vapor" data-words="Inteligência|Sistema" data-dense="1" style="width:1240px;height:220px;display:block"></canvas>
+    <h2 class="mk" style="margin:0;max-width:1400px;font-size:82px;font-weight:200;line-height:1.08;letter-spacing:-.035em">Uma operação melhor não começa automatizando tudo.</h2>
+    <h2 class="mk" style="--d:1100ms;margin:0;max-width:1400px;font-size:82px;font-weight:200;line-height:1.08;letter-spacing:-.035em;color:#9B9F9C">Começa tirando processos, informação e decisões do <em style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-weight:400;color:#F4F4EF">improviso</em>.</h2>
+    <p class="rv" style="--d:2200ms;margin:26px 0 0;max-width:1180px;font-size:32px;font-weight:300;line-height:1.5;color:#9B9F9C">A OPERON constrói a capacidade que falta entre o que a empresa sabe e o que ela consegue fazer, todos os dias.</p>
+  </div>
+</section>
+
+<section data-label="17 · Construir junto" data-screen-label="17" data-speaker-notes="Epílogo. Objetivo: mostrar que há mais de uma porta de entrada. Fala: 'A mesma estrutura pode chegar como direção contínua, como diagnóstico, como formação ou como instalação na operação.' Não vender pacote: descrever formas de trabalhar." style="background:#000;color:#F4F4EF;font-family:Manrope,system-ui,sans-serif;overflow:hidden">
+  <img src="assets/e18-ramificacao.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.95">
+  <div style="position:absolute;inset:0;background:linear-gradient(90deg, rgba(0,0,0,.92) 12%, rgba(0,0,0,.45) 46%, rgba(0,0,0,0) 88%)"></div>
+  <div style="position:absolute;left:160px;top:0;bottom:0;width:880px;display:flex;flex-direction:column;justify-content:center;gap:52px;pointer-events:none">
+    <h2 class="mk" style="margin:0;font-size:76px;font-weight:200;line-height:1.08;letter-spacing:-.035em">Há mais de uma forma de construir capacidade <em style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-weight:400">operacional</em>.</h2>
+    <div style="display:flex;flex-direction:column;gap:26px">
+      <div class="lay" style="--d:1100ms;display:flex;flex-direction:column;gap:6px;border-top:1px solid rgba(244,244,239,.14);padding-top:18px"><span style="font-size:30px;font-weight:400">Diagnóstico operacional</span><span style="font-size:26px;font-weight:300;color:#9B9F9C">Entender o que trava a operação e onde agir primeiro.</span></div>
+      <div class="lay" style="--d:1400ms;display:flex;flex-direction:column;gap:6px;border-top:1px solid rgba(244,244,239,.12);padding-top:18px"><span style="font-size:30px;font-weight:400">Direção e evolução</span><span style="font-size:26px;font-weight:300;color:#9B9F9C">Prioridades, critérios e acompanhamento para a operação ganhar consistência.</span></div>
+      <div class="lay" style="--d:1700ms;display:flex;flex-direction:column;gap:6px;border-top:1px solid rgba(244,244,239,.12);padding-top:18px"><span style="font-size:30px;font-weight:400">Formação</span><span style="font-size:26px;font-weight:300;color:#9B9F9C">Capacidade de pensar, organizar e conduzir harnesses com direção humana.</span></div>
+      <div class="lay" style="--d:2000ms;display:flex;flex-direction:column;gap:6px;border-top:1px solid rgba(244,244,239,.3);padding-top:18px"><span style="font-size:30px;font-weight:400;color:#F4F4EF">Aplicação de harnesses</span><span style="font-size:26px;font-weight:300;color:#9B9F9C">Contexto, processos, memória, agentes, integrações e automações que fazem sentido na rotina.</span></div>
+    </div>
+  </div>
+  <p class="rv" style="--d:2600ms;position:absolute;left:160px;bottom:96px;margin:0;font-size:24px;letter-spacing:.3em;text-transform:uppercase;color:rgba(155,159,156,.55)">17 — Formas de construir junto</p>
+</section>
+
+
+
+<section data-label="18 · Yohann" data-screen-label="19" data-speaker-notes="Objetivo: apresentar a direção criativa. Fala curta, sem currículo. A linha de prova no rodapé só entra se estiver validada." style="background:#000;color:#F4F4EF;font-family:Manrope,system-ui,sans-serif;overflow:hidden">
+  <img src="assets/e20-yohann.png" alt="Yohann Escher em perfil, com a parte traseira dissolvida em partículas" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:1">
+  <div style="position:absolute;inset:0;background:linear-gradient(90deg, rgba(0,0,0,.88) 18%, rgba(0,0,0,.35) 44%, rgba(0,0,0,0) 70%)"></div>
+  <div style="position:absolute;left:120px;top:190px;width:880px;pointer-events:none">
+    <canvas data-fx="vapor" data-words="Yohann Escher" data-dense="1" style="width:880px;height:190px;display:block"></canvas>
+  </div>
+  <div style="position:absolute;left:160px;top:410px;width:740px;display:flex;flex-direction:column;gap:26px;pointer-events:none">
+    <h2 class="mk" style="--d:1400ms;margin:0;font-size:46px;font-weight:200;line-height:1.2;letter-spacing:-.025em">Estratégia, tecnologia e expressão para tirar empresas do <em style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-weight:400">operacional</em>.</h2>
+    <p class="rv" style="--d:2000ms;margin:0;font-size:28px;font-weight:300;line-height:1.55;color:#9B9F9C">Desenvolvedor e estrategista. Conecta código, inteligência artificial, processos, marketing e linguagem para transformar uma visão em capacidade operacional.</p>
+    <p class="rv" style="--d:2400ms;margin:0;font-size:28px;font-weight:300;line-height:1.55;color:#9B9F9C">Seu trabalho começa onde a operação trava: desenhar a próxima capacidade da empresa antes que ela precise pedir por ela.</p>
+    <p class="rv" style="--d:2800ms;margin:0;font-size:30px;font-weight:300;color:#F4F4EF">Não basta funcionar. Precisa ser <em style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-weight:400">memorável</em>.</p>
+  </div>
+  <p class="rv" style="--d:3200ms;position:absolute;left:160px;bottom:88px;margin:0;font-size:24px;font-weight:300;color:rgba(155,159,156,.75)">Estratégia · tecnologia · expressão</p>
+</section>
+
+<section data-label="19 · Matheus" data-screen-label="20" data-speaker-notes="Objetivo: apresentar a frente comercial e operacional. Fechar com a frase de conexão entre os dois." style="background:#000;color:#F4F4EF;font-family:Manrope,system-ui,sans-serif;overflow:hidden">
+  <img src="assets/e21-matheus.png" alt="Matheus Maximus em perfil, com metade do corpo dissolvida em partículas" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:1">
+  <div style="position:absolute;inset:0;background:linear-gradient(270deg, rgba(0,0,0,.9) 24%, rgba(0,0,0,.4) 52%, rgba(0,0,0,0) 78%)"></div>
+  <div style="position:absolute;right:120px;top:180px;width:880px;pointer-events:none">
+    <canvas data-fx="vapor" data-words="Matheus Maximus" data-dense="1" style="width:880px;height:190px;display:block"></canvas>
+  </div>
+  <div style="position:absolute;right:160px;top:390px;width:720px;display:flex;flex-direction:column;align-items:flex-end;text-align:right;gap:26px;pointer-events:none">
+    <h2 class="mk" style="--d:1400ms;margin:0;font-size:46px;font-weight:200;line-height:1.2;letter-spacing:-.025em">Clareza comercial para transformar complexidade em <em style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-weight:400">decisão</em>.</h2>
+    <p class="rv" style="--d:2000ms;margin:0;font-size:28px;font-weight:300;line-height:1.55;color:#9B9F9C">Especialista em relacionamento, lógica e otimização de processos. Enxerga gargalos, organiza caminhos e conecta inteligência artificial à operação para resolver problemas com critério e adaptabilidade.</p>
+    <p class="rv" style="--d:2400ms;margin:0;font-size:28px;font-weight:300;line-height:1.55;color:#9B9F9C">Seu trabalho é fazer sistemas encontrarem a realidade: pessoas, decisões, processos e crescimento.</p>
+    <p class="rv" style="--d:2800ms;margin:0;font-size:30px;font-weight:300;color:#F4F4EF">Processo só melhora quando alguém consegue enxergar o <em style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-weight:400">todo</em>.</p>
+  </div>
+  <div class="rv" style="--d:3400ms;position:absolute;left:160px;bottom:88px;display:flex;flex-direction:column;gap:6px">
+    <p style="margin:0;font-size:26px;font-weight:300;color:rgba(155,159,156,.8)">Yohann desenha a próxima capacidade.</p>
+    <p style="margin:0;font-size:26px;font-weight:300;color:rgba(155,159,156,.8)">Matheus faz essa capacidade encontrar a realidade.</p>
+  </div>
+</section>
+
+<section data-label="LBA · Harness Criativo" data-screen-label="LBA" data-speaker-notes="Bloco complementar, apresentado somente depois do núcleo OPERON. Fala: 'A OPERON organiza a capacidade operacional. Quando o desafio também exige transformar direção em identidade, conteúdo e expressão contínua, a LBA pode somar como parceira de Harness Criativo.'" style="background:#000;color:#F4F4EF;font-family:Manrope,system-ui,sans-serif;overflow:hidden">
+  <img src="assets/h11.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.95">
+  <div style="position:absolute;inset:0;background:linear-gradient(90deg, rgba(0,0,0,.88) 8%, rgba(0,0,0,.42) 44%, rgba(0,0,0,0) 100%)"></div>
+  <canvas data-fx="morph" data-shapes="blocos|flor" data-hold="5200" style="position:absolute;right:110px;top:50%;transform:translateY(-50%);width:600px;height:600px;display:block"></canvas>
+  <div style="position:absolute;left:160px;top:0;bottom:0;width:880px;display:flex;flex-direction:column;justify-content:center;gap:48px;pointer-events:none">
+    <p class="rv" style="margin:0;font-size:22px;letter-spacing:.3em;text-transform:uppercase;color:rgba(155,159,156,.65)">Capacidade complementar</p>
+    <h2 class="mk" style="margin:0;font-size:76px;font-weight:200;line-height:1.06;letter-spacing:-.035em">Quando direção também precisa virar expressão contínua, a <em style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-weight:400">LBA soma</em>.</h2>
+    <div style="position:relative;height:70px">
+      <div style="position:absolute;left:0;right:0;top:34px;height:1px;background:linear-gradient(90deg, rgba(244,244,239,.28), rgba(244,244,239,.05))"></div>
+      <div class="flow" style="position:absolute;left:0;top:30px;width:8px;height:8px;border-radius:50%;background:#F4F4EF;box-shadow:0 0 12px rgba(244,244,239,.35)"></div>
+      <div style="position:absolute;inset:0;display:flex;justify-content:space-between;align-items:flex-end;font-size:26px;font-weight:300;color:#9B9F9C">
+        <span class="rv" style="--d:1200ms">Estratégia</span><span class="rv" style="--d:1400ms">Linguagem</span><span class="rv" style="--d:1600ms">Formatos</span><span class="rv" style="--d:1800ms">Produção</span><span class="rv" style="--d:2000ms;color:#F4F4EF">Aprendizado</span>
+      </div>
+    </div>
+    <p class="rv" style="--d:2400ms;margin:0;max-width:860px;font-size:30px;font-weight:300;line-height:1.5;color:#9B9F9C">O Harness Criativo organiza identidade, linguagem, critérios e produção para a marca não recomeçar do zero — nem se diluir no volume.</p>
+  </div>
+  <p class="rv" style="--d:2400ms;position:absolute;left:160px;bottom:96px;margin:0;font-size:24px;letter-spacing:.3em;text-transform:uppercase;color:rgba(155,159,156,.55)">LBA — parceira de infraestrutura criativa</p>
+</section>
+
+<section data-label="LBA · Padrão e escala" data-screen-label="LBA" data-speaker-notes="Complemento LBA. Fala: 'Na frente criativa, primeiro encontramos o padrão. Depois ampliamos. O contrário produz volume sem marca.'" style="background:#000;color:#F4F4EF;font-family:Manrope,system-ui,sans-serif;overflow:hidden">
+  <img src="assets/h12.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.9">
+  <div style="position:absolute;inset:0;background:radial-gradient(110% 80% at 30% 50%, rgba(0,0,0,.28), rgba(0,0,0,.72) 72%, rgba(0,0,0,.92) 100%)"></div>
+  <canvas data-fx="drift" style="position:absolute;inset:0;width:100%;height:100%;display:block;opacity:.4"></canvas>
+  <canvas data-fx="morph" data-shapes="ruido|blocos" data-hold="5200" style="position:absolute;right:150px;top:50%;transform:translateY(-50%);width:620px;height:620px;display:block"></canvas>
+  <div style="position:absolute;inset:0;padding:150px 160px;display:flex;flex-direction:column;justify-content:center;pointer-events:none">
+    <div style="position:relative;height:300px;max-width:960px">
+      <h2 class="s1" style="position:absolute;margin:0;font-size:100px;font-weight:200;line-height:1.05;letter-spacing:-.035em">Escala sem identidade vira <em style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-weight:400">ruído</em>.</h2>
+      <h2 class="s2" style="position:absolute;margin:0;font-size:100px;font-weight:200;line-height:1.05;letter-spacing:-.035em;color:#9B9F9C">Identidade sem escala vira <em style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-weight:400;color:#F4F4EF">decoração</em>.</h2>
+    </div>
+    <p class="rv" style="--d:2600ms;margin:0;max-width:820px;font-size:30px;font-weight:300;line-height:1.5;color:#9B9F9C">Primeiro encontramos o padrão que funciona: uma peça, um fluxo, um critério. Só depois ampliamos em formato, canal e volume.</p>
+  </div>
+  <p class="rv" style="--d:2400ms;position:absolute;left:160px;bottom:96px;margin:0;font-size:24px;letter-spacing:.3em;text-transform:uppercase;color:rgba(155,159,156,.55)">LBA — primeiro o padrão. Depois a escala.</p>
+</section>
+
+<section data-label="LBA · Produção" data-screen-label="LBA" data-speaker-notes="Complemento LBA. Fala: 'Na produção criativa, a IA não substitui direção. Ela multiplica a capacidade de executar uma direção.'" style="background:#000;color:#F4F4EF;font-family:Manrope,system-ui,sans-serif;overflow:hidden">
+  <div style="position:absolute;right:0;top:0;width:1080px;height:1080px">
+    <img class="st1" src="assets/operon-particulas-08-capacidade-aberta.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(2.4) brightness(.5)">
+    <img class="st2" src="assets/operon-particulas-08-capacidade-aberta.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.5) brightness(.75);opacity:.8">
+    <img class="st3" src="assets/operon-particulas-08-capacidade-aberta.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1) blur(2px) brightness(.9)">
+    <img class="st4" src="assets/operon-particulas-08-capacidade-aberta.png" alt="Capacidade criativa emergindo de partículas" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+  </div>
+  <div style="position:absolute;inset:0;background:linear-gradient(90deg, rgba(0,0,0,.9) 16%, rgba(0,0,0,.45) 48%, rgba(0,0,0,0) 80%)"></div>
+  <div style="position:absolute;left:160px;top:0;bottom:0;width:820px;display:flex;flex-direction:column;justify-content:center;gap:44px">
+    <h2 class="mk" style="margin:0;font-size:88px;font-weight:200;line-height:1.06;letter-spacing:-.035em">A IA não substitui direção. Ela multiplica a capacidade de <em style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-weight:400">executar</em> uma direção.</h2>
+    <div style="display:flex;gap:44px;font-size:26px;font-weight:300;color:#9B9F9C"><span class="rv" style="--d:1400ms">Wireframe</span><span class="rv" style="--d:1600ms">Pontos</span><span class="rv" style="--d:1800ms">Vidro</span><span class="rv" style="--d:2000ms;color:#F4F4EF">Matéria</span></div>
+    <p class="rv" style="--d:2300ms;margin:0;max-width:820px;font-size:30px;font-weight:300;line-height:1.5;color:#9B9F9C">A direção humana define a intenção. O harness executa, versiona e devolve variações sem perder o DNA da marca.</p>
+  </div>
+  <p class="rv" style="--d:2400ms;position:absolute;left:160px;bottom:96px;margin:0;font-size:24px;letter-spacing:.3em;text-transform:uppercase;color:rgba(155,159,156,.55)">LBA — produzir é transformar</p>
+</section>
+
+<section data-label="20 · Menos improviso" data-screen-label="20" data-speaker-notes="Fecho. Objetivo: resolver a tensão da abertura com a assinatura editorial da OPERON. Fala: 'É isso que a OPERON constrói: menos dependência do improviso e mais capacidade para a empresa operar, aprender e avançar. Quando expressão contínua também é parte do desafio, a LBA soma como parceira de infraestrutura criativa.'" style="background:#000;color:#F4F4EF;font-family:Manrope,system-ui,sans-serif;overflow:hidden">
+  <img src="assets/operon-slide-22-fecho-capacidade-v1.png" alt="Partículas dispersas convergindo em uma estrutura circular coerente" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:1">
+  <div style="position:absolute;inset:0;background:linear-gradient(90deg, rgba(0,0,0,.94) 16%, rgba(0,0,0,.5) 50%, rgba(0,0,0,0) 88%)"></div>
+  <div style="position:absolute;left:160px;top:148px;width:1120px;display:flex;flex-direction:column;gap:24px;pointer-events:none">
+    <p class="rv" style="margin:0;font-size:24px;letter-spacing:.3em;text-transform:uppercase;color:rgba(155,159,156,.6)">OPERON</p>
+    <h2 class="mk" style="--d:400ms;margin:0;font-size:104px;font-weight:200;line-height:1.02;letter-spacing:-.045em">Menos improviso.</h2>
+    <h2 class="mk" style="--d:1050ms;margin:0;font-size:104px;font-weight:200;line-height:1.02;letter-spacing:-.045em;color:#9B9F9C">Mais <em style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-weight:400;color:#F4F4EF">capacidade</em>.</h2>
+    <p class="rv" style="--d:1850ms;margin:22px 0 0;max-width:860px;font-size:31px;font-weight:300;line-height:1.5;color:#9B9F9C">Estrutura para a empresa operar com mais clareza, consistência e poder de decisão.</p>
+  </div>
+  <div class="rv" style="--d:2550ms;position:absolute;left:160px;bottom:102px;width:1150px;padding-top:26px;border-top:1px solid rgba(244,244,239,.18);display:flex;align-items:center;justify-content:space-between;gap:50px;pointer-events:none">
+    <p style="margin:0;font-size:27px;font-weight:300;color:#F4F4EF">Capacidade para operar além de você.</p>
+    <p style="margin:0;max-width:650px;text-align:right;font-size:22px;font-weight:300;line-height:1.45;color:rgba(155,159,156,.78)">A LBA soma como parceira de infraestrutura criativa quando essa frente faz parte do desafio.</p>
+  </div>
+</section>
+
+</x-import>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { reveal: 'off' };
+  renderVals() {
+    return {
+      reveal: this.state.reveal,
+      toggleReveal: () => this.setState(s => ({ reveal: s.reveal === 'on' ? 'off' : 'on' })),
+    };
+  }
+}
+</script>
+</body>
+</html>

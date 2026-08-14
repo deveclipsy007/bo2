@@ -1,0 +1,46 @@
+VIDEO-TO-VIDEO TRANSFORMATION — 4.68 seconds — landscape 16:9
+
+INPUT ROLES
+- Video: the ONLY identity source and the absolute source of the real face, head, hair, beard, skin, body, performance, timing, speech, lip sync, pose, gesture, camera and composition.
+- Reference image: STYLE REFERENCE ONLY for wardrobe, accessories, monochrome Operon art direction, materials and futuristic environment. Never use the person or face visible in the reference image as an identity source. Never blend, average, transfer or borrow facial traits from the reference image.
+
+PRIMARY REQUEST
+Transform the supplied video into the exact premium monochrome futuristic Operon universe shown in the reference image. The speaker is Maximus, sentado. Preserve the complete original spoken performance and every movement. Change only the environment and wardrobe/accessories necessary to match the supplied reference.
+
+IDENTITY LOCK
+Maximus: preserve exactly his face geometry, light short beard, skin texture and body proportions. His approved look is a matte-black baseball cap and narrow rectangular black sunglasses; keep both stable in every frame.
+The original face from every source-video frame is a PROTECTED, UNEDITED REGION. Preserve it one-to-one, frame by frame. Do not regenerate, redraw, reconstruct, reinterpret, enhance, retouch, relight, smooth, sharpen, stylize or replace any part of the face or head.
+
+Maintain the exact original facial pixels/appearance wherever technically possible: forehead, eyebrows, eye shape and spacing, eyelids, eye color, nose bridge and nostrils, cheeks, pores, blemishes, lips, teeth, mouth interior, jawline, beard boundary and density, ears, hairline, hair silhouette, wrinkles and asymmetries. Preserve the exact apparent age, ethnicity, skull proportions, head size, expression and gaze in every frame.
+
+The output must look like the original video subject was cleanly composited into a transformed environment—not like an AI-generated recreation of that person. Zero identity drift is acceptable. If any requested styling conflicts with facial preservation, preserve the original face and performance instead of applying the styling.
+
+ACCESSORY APPLICATION WITHOUT FACE RECONSTRUCTION
+When adding or stabilizing sunglasses and Maximus's black cap, treat them as tracked overlay/accessory layers fitted onto the unchanged original head. Add only the accessory pixels; do not regenerate the skin, eyes, eyebrows, nose, cheeks, mouth, beard, ears, hairline or skull beneath or around them. Maintain correct occlusion, perspective and motion tracking without changing facial anatomy.
+
+PERFORMANCE AND CONTINUITY LOCK
+Use the video as motion and appearance authority. Preserve original lip sync, phoneme-by-phoneme mouth shapes, speech timing, blinking, micro-expressions, head turns, torso motion, hand choreography, finger count, arm positions, smartphone grip/placement, reflections, camera perspective, lens, crop and framing. Preserve temporal facial consistency with no frame-to-frame facial flicker or feature drift. Do not invent actions. No cuts, no time remapping, no slow motion. First and last frames must remain compositionally consistent with the source video.
+
+SCENE TRANSFORMATION
+Replace the ordinary balcony/neighborhood with a physically plausible monumental neo-futurist city: slender dark towers, black glass, graphite metal and a stormy pale-gray sky. Maintain the original balcony geometry and correct parallax. Domestic clutter becomes minimal dark architecture.
+
+WARDROBE AND LOOK
+Refined matte-black structured technical clothing, understated and premium, no logos, no armor. Strict true black-and-white palette: black, charcoal, graphite, silver and pale gray. Soft directional facial light, deep blacks with shadow detail and natural skin. Grounded photorealistic live-action commercial; restrained futuristic noir, never cosplay.
+Apply the monochrome grade uniformly without changing facial structure or skin texture. Environment and clothing may be transformed; the face and head may only receive the same global black-and-white color conversion as the original footage, with no local facial edits.
+
+BACKGROUND LIFE AND NANOPARTICLE CHOREOGRAPHY
+Keep the original camera behavior exactly as the input video. The futuristic background must feel alive throughout the entire clip, with elegant continuous motion rather than a frozen backdrop.
+
+- 0.0–1.0 s: the city is immediately alive. Several thin streams of thousands of microscopic black and silver nanoparticles are already moving slowly across the distant skyline in smooth coordinated arcs, like intelligent data currents carried through the air.
+- Middle of clip: particle streams gently bend around tower silhouettes, separate into fine filaments and reunite into wider flowing bands. Use multiple depth layers: tiny sharp particles far above the skyline; softer medium-distance particles moving between buildings; only an occasional extremely subtle out-of-focus particle near the lens. Motion remains slow, fluid and physically coherent.
+- Entire clip: storm clouds evolve almost imperceptibly, distant architectural lights breathe very softly, and buildings show minimal correct parallax derived only from the source camera movement. Nothing in the city is static, but nothing distracts from the speaker.
+- Reflections: nanoparticle streams, cloud luminance and tower highlights create faint synchronized moving reflections on every visible black-glass surface, balcony window and glossy table. Each reflection follows correct perspective and moves consistently with its source, never as a separate overlay.
+- Final 0.5 s: environmental motion continues naturally without freezing, accelerating or forming a transition, leaving a clean editable ending.
+
+Particle behavior must read as sophisticated airborne nanotechnology/data matter—not birds, insects, dust, ash, rain, snow, smoke, sparks, glitter, confetti or a screen overlay. Particles never cross or obscure the speaker's face, mouth, hands or phone. No chaotic swarms, rapid pulses, explosions or large foreground blobs. Preserve visual hierarchy: person first, living city second.
+
+TEXT
+Generate no captions, typography, subtitles, logos or interface. Text will be added later in CapCut according to the speech.
+
+NEGATIVE PROMPT
+Different person, reference-image face transfer, identity blending, identity averaging, identity drift, facial flicker, face morphing, face replacement, face regeneration, reconstructed face, redrawn face, altered skull, altered head size, altered forehead, changed eyebrows, changed eye shape or spacing, changed eye color, changed nose, changed cheeks, changed lips, changed teeth, changed jawline, changed beard line or density, changed ears, changed hairline, changed hair volume, altered age, altered ethnicity, beautification, symmetry correction, skin smoothing, pore removal, blemish removal, makeup, facial relighting, artificial sharpening, plastic skin, altered mouth shapes, broken lip sync, changed expression, wardrobe flicker, accessory flicker, sunglasses reshaping the face, cap reshaping the skull, missing or changing sunglasses, missing or changing cap on Maximus, cap on Yohann, deformed hands, extra fingers, fused fingers, duplicated limbs, changed pose, invented gesture, moved or redesigned phone, frozen background, static sky, static reflections, particles stuck to screen, particles crossing face, birds, insects, dust, ash, rain, snow, smoke, sparks, fire, glitter, confetti, bokeh blobs, chaotic swarm, rapid particle motion, particle explosion, broken or unsynchronized reflections, warped architecture, green Matrix code, green tint, neon color, cybernetic implants, armor, leather trench coat, holographic UI, readable text, subtitles, logos, watermark, illustration, CGI-looking human, excessive depth of field, camera shake, zoom, cut, transition or speed change.
