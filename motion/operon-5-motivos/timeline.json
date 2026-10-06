@@ -1,0 +1,465 @@
+{
+ "order": [
+  {
+   "id": "hook",
+   "file": "IMG_5749.MOV (vídeo, não versionado)",
+   "duration": 5.367,
+   "text": "5 motivos para você criar agora seu sistema proprietário inteligente.",
+   "words": [
+    {
+     "start": 0.0,
+     "end": 1.04,
+     "text": "5"
+    },
+    {
+     "start": 1.04,
+     "end": 1.56,
+     "text": "motivos"
+    },
+    {
+     "start": 1.56,
+     "end": 1.72,
+     "text": "para"
+    },
+    {
+     "start": 1.72,
+     "end": 1.92,
+     "text": "você"
+    },
+    {
+     "start": 1.92,
+     "end": 2.18,
+     "text": "criar"
+    },
+    {
+     "start": 2.18,
+     "end": 2.58,
+     "text": "agora"
+    },
+    {
+     "start": 2.58,
+     "end": 2.98,
+     "text": "seu"
+    },
+    {
+     "start": 2.98,
+     "end": 3.34,
+     "text": "sistema"
+    },
+    {
+     "start": 3.34,
+     "end": 4.16,
+     "text": "proprietário"
+    },
+    {
+     "start": 4.16,
+     "end": 4.82,
+     "text": "inteligente."
+    }
+   ]
+  },
+  {
+   "id": "motivo-4",
+   "file": "public/audio/02-motivo-04.ogg",
+   "duration": 10.05,
+   "text": "4. Transformar seu método em vantagem. O concorrente pode contratar a mesma ferramenta. Seu jeito de operar não vem pronto na assinatura.",
+   "words": [
+    {
+     "start": 1.26,
+     "end": 1.78,
+     "text": "4."
+    },
+    {
+     "start": 1.78,
+     "end": 2.3,
+     "text": "Transformar"
+    },
+    {
+     "start": 2.3,
+     "end": 2.44,
+     "text": "seu"
+    },
+    {
+     "start": 2.44,
+     "end": 3.08,
+     "text": "método"
+    },
+    {
+     "start": 3.08,
+     "end": 3.34,
+     "text": "em"
+    },
+    {
+     "start": 3.34,
+     "end": 4.14,
+     "text": "vantagem."
+    },
+    {
+     "start": 4.32,
+     "end": 4.48,
+     "text": "O"
+    },
+    {
+     "start": 4.48,
+     "end": 4.92,
+     "text": "concorrente"
+    },
+    {
+     "start": 4.92,
+     "end": 5.16,
+     "text": "pode"
+    },
+    {
+     "start": 5.16,
+     "end": 5.64,
+     "text": "contratar"
+    },
+    {
+     "start": 5.64,
+     "end": 5.76,
+     "text": "a"
+    },
+    {
+     "start": 5.76,
+     "end": 6.02,
+     "text": "mesma"
+    },
+    {
+     "start": 6.02,
+     "end": 6.86,
+     "text": "ferramenta."
+    },
+    {
+     "start": 7.14,
+     "end": 7.3,
+     "text": "Seu"
+    },
+    {
+     "start": 7.3,
+     "end": 7.54,
+     "text": "jeito"
+    },
+    {
+     "start": 7.54,
+     "end": 7.72,
+     "text": "de"
+    },
+    {
+     "start": 7.72,
+     "end": 8.36,
+     "text": "operar"
+    },
+    {
+     "start": 8.36,
+     "end": 8.54,
+     "text": "não"
+    },
+    {
+     "start": 8.54,
+     "end": 8.74,
+     "text": "vem"
+    },
+    {
+     "start": 8.74,
+     "end": 9.06,
+     "text": "pronto"
+    },
+    {
+     "start": 9.06,
+     "end": 9.24,
+     "text": "na"
+    },
+    {
+     "start": 9.24,
+     "end": 9.74,
+     "text": "assinatura."
+    }
+   ]
+  },
+  {
+   "id": "motivo-5",
+   "file": "public/audio/03-motivo-05.ogg",
+   "duration": 11.41,
+   "text": "5. Colocar inteligência para trabalhar, agentes conectados aos seus dados, executando processos autorizados, sem você empurrar cada etapa.",
+   "words": [
+    {
+     "start": 1.1,
+     "end": 1.86,
+     "text": "5."
+    },
+    {
+     "start": 2.1,
+     "end": 2.44,
+     "text": "Colocar"
+    },
+    {
+     "start": 2.44,
+     "end": 3.14,
+     "text": "inteligência"
+    },
+    {
+     "start": 3.14,
+     "end": 3.36,
+     "text": "para"
+    },
+    {
+     "start": 3.36,
+     "end": 3.94,
+     "text": "trabalhar,"
+    },
+    {
+     "start": 4.42,
+     "end": 4.7,
+     "text": "agentes"
+    },
+    {
+     "start": 4.7,
+     "end": 5.48,
+     "text": "conectados"
+    },
+    {
+     "start": 5.48,
+     "end": 5.66,
+     "text": "aos"
+    },
+    {
+     "start": 5.66,
+     "end": 5.94,
+     "text": "seus"
+    },
+    {
+     "start": 5.94,
+     "end": 6.3,
+     "text": "dados,"
+    },
+    {
+     "start": 6.62,
+     "end": 7.08,
+     "text": "executando"
+    },
+    {
+     "start": 7.08,
+     "end": 7.74,
+     "text": "processos"
+    },
+    {
+     "start": 7.74,
+     "end": 8.72,
+     "text": "autorizados,"
+    },
+    {
+     "start": 8.98,
+     "end": 9.1,
+     "text": "sem"
+    },
+    {
+     "start": 9.1,
+     "end": 9.64,
+     "text": "você"
+    },
+    {
+     "start": 9.64,
+     "end": 10.38,
+     "text": "empurrar"
+    },
+    {
+     "start": 10.38,
+     "end": 10.58,
+     "text": "cada"
+    },
+    {
+     "start": 10.58,
+     "end": 10.96,
+     "text": "etapa."
+    }
+   ]
+  },
+  {
+   "id": "fechamento",
+   "file": "public/audio/04-fechamento.ogg",
+   "duration": 9.07,
+   "text": "Não é só ter um software com a sua marca, é transformar o que a sua empresa sabe fazer numa estrutura capaz de crescer com ela.",
+   "words": [
+    {
+     "start": 0.92,
+     "end": 1.42,
+     "text": "Não"
+    },
+    {
+     "start": 1.42,
+     "end": 1.58,
+     "text": "é"
+    },
+    {
+     "start": 1.58,
+     "end": 1.74,
+     "text": "só"
+    },
+    {
+     "start": 1.74,
+     "end": 1.86,
+     "text": "ter"
+    },
+    {
+     "start": 1.86,
+     "end": 2.1,
+     "text": "um"
+    },
+    {
+     "start": 2.1,
+     "end": 2.44,
+     "text": "software"
+    },
+    {
+     "start": 2.44,
+     "end": 2.7,
+     "text": "com"
+    },
+    {
+     "start": 2.7,
+     "end": 2.76,
+     "text": "a"
+    },
+    {
+     "start": 2.76,
+     "end": 2.92,
+     "text": "sua"
+    },
+    {
+     "start": 2.92,
+     "end": 3.24,
+     "text": "marca,"
+    },
+    {
+     "start": 3.64,
+     "end": 3.76,
+     "text": "é"
+    },
+    {
+     "start": 3.76,
+     "end": 4.4,
+     "text": "transformar"
+    },
+    {
+     "start": 4.4,
+     "end": 4.54,
+     "text": "o"
+    },
+    {
+     "start": 4.54,
+     "end": 4.62,
+     "text": "que"
+    },
+    {
+     "start": 4.62,
+     "end": 4.7,
+     "text": "a"
+    },
+    {
+     "start": 4.7,
+     "end": 4.82,
+     "text": "sua"
+    },
+    {
+     "start": 4.82,
+     "end": 5.14,
+     "text": "empresa"
+    },
+    {
+     "start": 5.14,
+     "end": 5.46,
+     "text": "sabe"
+    },
+    {
+     "start": 5.46,
+     "end": 6.24,
+     "text": "fazer"
+    },
+    {
+     "start": 6.24,
+     "end": 6.48,
+     "text": "numa"
+    },
+    {
+     "start": 6.48,
+     "end": 6.94,
+     "text": "estrutura"
+    },
+    {
+     "start": 6.94,
+     "end": 7.44,
+     "text": "capaz"
+    },
+    {
+     "start": 7.44,
+     "end": 7.86,
+     "text": "de"
+    },
+    {
+     "start": 7.86,
+     "end": 8.26,
+     "text": "crescer"
+    },
+    {
+     "start": 8.26,
+     "end": 8.5,
+     "text": "com"
+    },
+    {
+     "start": 8.5,
+     "end": 8.64,
+     "text": "ela."
+    }
+   ]
+  },
+  {
+   "id": "assinatura",
+   "file": "public/audio/05-assinatura.ogg",
+   "duration": 6.21,
+   "text": "Operon, tecnologia própria, inteligência conectada, você no comando.",
+   "words": [
+    {
+     "start": 1.16,
+     "end": 1.92,
+     "text": "Operon,"
+    },
+    {
+     "start": 2.2,
+     "end": 2.58,
+     "text": "tecnologia"
+    },
+    {
+     "start": 2.58,
+     "end": 3.04,
+     "text": "própria,"
+    },
+    {
+     "start": 3.48,
+     "end": 3.78,
+     "text": "inteligência"
+    },
+    {
+     "start": 3.78,
+     "end": 4.58,
+     "text": "conectada,"
+    },
+    {
+     "start": 4.82,
+     "end": 5.18,
+     "text": "você"
+    },
+    {
+     "start": 5.18,
+     "end": 5.42,
+     "text": "no"
+    },
+    {
+     "start": 5.42,
+     "end": 5.8,
+     "text": "comando."
+    }
+   ]
+  }
+ ],
+ "note": "Tempos em segundos dentro de cada arquivo. 'Operam' é o Whisper ouvindo 'Operon'."
+}

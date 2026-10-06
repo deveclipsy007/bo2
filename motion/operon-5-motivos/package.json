@@ -1,0 +1,20 @@
+{
+  "name": "operon-5-motivos",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "studio": "remotion studio src/index.ts",
+    "render": "remotion render src/index.ts Cinco-Motivos out/operon-5-motivos.mp4 --codec=h264 --crf=16 --pixel-format=yuv420p"
+  },
+  "dependencies": {
+    "@remotion/captions": "^4.0.533",
+    "@remotion/cli": "^4.0.533",
+    "@remotion/media-utils": "^4.0.533",
+    "@remotion/transitions": "^4.0.533",
+    "@types/react": "^18.3.31",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "remotion": "^4.0.533",
+    "typescript": "^7.0.2"
+  }
+}
