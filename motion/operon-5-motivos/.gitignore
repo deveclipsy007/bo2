@@ -1,2 +1,5 @@
-node_modules/
+public/video/
+public/audio/voz.wav
+public/audio/mix*.wav
 out/
+node_modules/

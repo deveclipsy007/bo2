@@ -1,35 +1,50 @@
-# Operon — "5 motivos" (reel vertical 1080×1920, 30 fps)
+# Operon — "5 motivos" (reel vertical 1080×1920, 60 fps)
 
-Projeto Remotion do reel "5 motivos para criar seu sistema proprietário inteligente".
-**Status: preparação concluída, edição final aguardando os áudios dos motivos 1–3.**
+Filme em Remotion no padrão do **Operon Motion System v3.3**: hook gravado com palavras atrás do fundador, cenas que
+alternam preto/papel/azul, nanopartículas nos trechos escuros, Fluffy (rig SVG) em momentos pontuais e o anel dele
+virando o logo oficial no fim. Briefing e cena por cena: [`BRIEFING.md`](BRIEFING.md).
 
-## Sequência correta dos áudios (analisada por transcrição)
+## Sequência da locução (definida por transcrição)
 
-| # | Arquivo | Duração | Conteúdo |
-|---|---|---|---|
-| 1 | `IMG_5749.MOV` (vídeo falando, não versionado) | 5,37 s | Hook: "5 motivos para você criar agora seu sistema proprietário inteligente." |
-| 2 | `public/audio/02-motivo-04.ogg` | 10,05 s | **Motivo 4** — Transformar seu método em vantagem |
-| 3 | `public/audio/03-motivo-05.ogg` | 11,41 s | **Motivo 5** — Colocar inteligência para trabalhar |
-| 4 | `public/audio/04-fechamento.ogg` | 9,07 s | Fechamento — "Não é só ter um software com a sua marca…" |
-| 5 | `public/audio/05-assinatura.ogg` | 6,21 s | Assinatura — "Operon, tecnologia própria, inteligência conectada, você no comando." |
+| # | Trecho | Fala |
+|---|---|---|
+| 0 | Hook (vídeo) | "5 motivos para você criar agora seu sistema proprietário inteligente." |
+| 1–5 | Motivos 1 a 5 | Ativo · Processo define o sistema · Expansão · Método vira vantagem · Inteligência trabalhando |
+| 6 | Fechamento | "Não é só ter um software com a sua marca, é transformar o que a sua empresa sabe fazer numa estrutura capaz de crescer com ela." |
+| 7 | Assinatura | "Operon, tecnologia própria, inteligência conectada, você no comando." |
 
-Os motivos **1, 2 e 3** ainda não foram enviados e entram entre o hook e o motivo 4.
-Transcrição com tempo por palavra (base das legendas): `timeline.json` (gerada por `tools/transcribe.py`, faster-whisper).
+Tempo por palavra: `src/films/cinco/data.ts` (gerado) e `timeline.json`. As cenas são ancoradas em **palavras** (`T('ativo')`,
+`sync(...)` em `src/films/cinco/story.ts`), não em segundos: trocar a locução = regenerar `data.ts`.
 
-## Render neste ambiente
+## Estrutura
 
-O Chromium baixado pelo Remotion não está disponível; usar o headless shell pré-instalado:
-
-```bash
-npx remotion render src/index.ts <ComposicaoId> out/video.mp4 \
-  --browser-executable=/opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell \
-  --chrome-mode=headless-shell --codec=h264 --crf=16
+```
+src/films/cinco/  story.ts (roteiro como dado) · Hook.tsx · Scenes.tsx (motivos 1–5, fechamento, assinatura) · Film.tsx (trechos + transições)
+src/lib/          core (curvas E, P) · ui (Say, Glass, Check, Icon, Dots, Fluffy) · cam (spline) · particles · fonts
+src/mascot/       rig SVG do Fluffy (fonte única do kit)
+tools/            assemble_voice.py · transcribe*.py · score.mjs + audio-engine.mjs · stills.mjs
+public/           fonts, logo oficial; (não versionados) video/hook-bg.mp4, video/hook-fg/*.png, audio/voz.wav, audio/mix-final.wav
 ```
 
-`src/Root.tsx` hoje só tem uma composição de teste do toolchain (renderizou um still com sucesso).
+## Pipeline (reprodutível)
 
-## Pendências do usuário
+1. **Voz** — `python tools/assemble_voice.py <wavs_48k_mono> <palavras.json> .`: cadeia de polimento (high-pass, afftdn, EQ, de-esser,
+   compressor), igualar bandas (≤ 2 dB), −16 LUFS por trecho, cascata de pausas → `public/audio/voz.wav` + `data.ts`.
+   Isolamento prévio de voz: Mel-Band RoFormer (`audio-separator`).
+2. **Hook** — recorte por matting de vídeo (Robust Video Matting, ONNX) → PNGs RGBA em `public/video/hook-fg/`; fundo em `hook-bg.mp4`.
+3. **Som** — `node tools/score.mjs` (trilha + efeitos sintetizados a partir dos mesmos tempos) → `mix-vo-raw.wav`;
+   master em duas passadas `loudnorm=I=-14:TP=-1.5:LRA=11` → `public/audio/mix-final.wav`.
+4. **Storyboard** — `node tools/stills.mjs <pasta> <t1> <t2> …`.
+5. **Render** (headless shell pré-instalado neste ambiente):
 
-- Áudios dos motivos 1, 2 e 3.
-- Arquivo do mascote Fluffy (o endereço `localhost:8765` é da máquina do usuário e não é acessível daqui).
-- Confirmar qual HTML é a "estrutura de motion": no repositório só existe o deck `OPERON-NUCLEO/04-MARKETING/APRESENTACOES/operon-harness-interativo-v1/Harness.dc.html`.
+```bash
+npx remotion render src/index.ts Cinco-Motivos out/operon-5-motivos.mp4 --props='{"audio":"mix"}' \
+  --browser-executable=/opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell \
+  --chrome-mode=headless-shell --codec=h264 --crf=16 --pixel-format=yuv420p --audio-codec=aac --audio-bitrate=320k
+```
+
+## Observações
+
+- Serifa itálica de ênfase: o kit pede Georgia itálica; o render embute **Gelasio itálico** (clone métrico da Georgia) para ser idêntico em qualquer máquina.
+- Sem números ou resultados inventados; interface genérica ("Etapa 1/2/3", "Ferramenta").
+- Não verificável por quem produziu: o resultado **sonoro** (não é possível ouvir). A trilha foi validada por medição (LUFS, pico, re-transcrição do mix).

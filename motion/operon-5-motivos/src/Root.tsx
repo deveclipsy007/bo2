@@ -1,13 +1,8 @@
 import React from 'react';
-import {AbsoluteFill, Composition} from 'remotion';
-
-// Smoke test do toolchain — substituído pela composição real quando os áudios 1–3 chegarem.
-const Smoke: React.FC = () => (
-  <AbsoluteFill style={{backgroundColor: '#000', color: '#F4F4EF', justifyContent: 'center', alignItems: 'center', fontFamily: 'Inter, sans-serif', fontSize: 96}}>
-    Operon
-  </AbsoluteFill>
-);
+import {Composition} from 'remotion';
+import {CincoMotivos} from './films/cinco/Film';
+import {DURATION, FPS, H, W} from './films/cinco/story';
 
 export const RemotionRoot: React.FC = () => (
-  <Composition id="Smoke" component={Smoke} durationInFrames={30} fps={30} width={1080} height={1920} />
+  <Composition id="Cinco-Motivos" component={CincoMotivos} durationInFrames={DURATION} fps={FPS} width={W} height={H} defaultProps={{audio: 'voice' as const}} />
 );
