@@ -2,7 +2,7 @@
 import React from 'react';
 import {Img, staticFile} from 'remotion';
 import {COLORS, FONTS} from '../../brand/tokens';
-import {E, P, clamp, lerp, rnd, ACC, ACC2, AMBER, CYAN, INK, PAPER, MUTE, Say, Glass, Check, Sparkle, Icon, Dots, GhostNum, Fluffy, fl, OM, blurIn, outBlur, MascotPose} from '../../lib/ui';
+import {E, P, clamp, lerp, rnd, ACC, ACC2, AMBER, CYAN, INK, PAPER, MUTE, Say, Glass, Check, Sparkle, Icon, Dots, GhostNum, Fluffy, fl, OM, blurIn, outBlur, MascotPose, rise3d, Sheen} from '../../lib/ui';
 import {LAST, N, T, at, W, H} from './story';
 
 const WHITE = '#ffffff';
@@ -44,15 +44,17 @@ export const M1: React.FC<{t: number}> = ({t}) => {
       <Say t={t} from={T('Construir') - 0.05} out={o} y={TITLE_Y} size={TITLE_SIZE} color={WHITE} lines={[[{t: 'Construir um'}, {t: 'ativo,', em: 'serif'}], [{t: 'não só pagar o acesso.'}]]} />
       <div style={{position: 'absolute', inset: 0, ...fo}}>
         {/* ATIVO */}
-        <Glass style={{left: 70, top: 640, width: 700, height: 290, ...blurIn(t, aAtivo - 0.15, 0.75), boxShadow: `inset 0 1px 0 rgba(255,255,255,.12), 0 0 0 2px ${rgba(ACC, 0.55 + 0.25 * own)}, 0 0 ${50 + 50 * own}px ${rgba(ACC, 0.28 + 0.2 * own)}, 0 40px 90px rgba(0,0,0,.55)`, borderRadius: 38, zIndex: 30}}>
+        <Glass style={{left: 70, top: 640, width: 700, height: 290, ...rise3d(t, aAtivo - 0.15, 0.85, -1), boxShadow: `inset 0 1px 0 rgba(255,255,255,.12), 0 0 0 2px ${rgba(ACC, 0.55 + 0.25 * own)}, 0 0 ${50 + 50 * own}px ${rgba(ACC, 0.28 + 0.2 * own)}, 0 40px 90px rgba(0,0,0,.55)`, borderRadius: 38, zIndex: 30}}>
           <div style={{position: 'absolute', left: 36, top: 70, width: 150, height: 150, borderRadius: 40, background: `linear-gradient(150deg, ${ACC2}, ${ACC})`, boxShadow: `0 20px 50px ${rgba(ACC, 0.5)}`, display: 'flex', alignItems: 'center', justifyContent: 'center'}}><Icon k="house" s={86} c="#fff" sw={1.6} /></div>
+          <Sheen t={t} a={aAtivo + 0.45} radius={38} />
           <div style={{position: 'absolute', left: 224, top: 66, fontFamily: FONTS.display, fontWeight: 700, fontSize: 64, letterSpacing: '-0.04em'}}>Ativo</div>
           <div style={{position: 'absolute', left: 226, top: 146, fontSize: 30, color: 'rgba(255,255,255,.66)', lineHeight: 1.25}}>seu, construído para<br />o seu negócio</div>
           {own > 0 && <div style={{position: 'absolute', right: 28, top: 28, display: 'flex', alignItems: 'center', gap: 10, padding: '8px 16px 8px 8px', borderRadius: 999, background: rgba(ACC, 0.22), boxShadow: `inset 0 0 0 1px ${rgba(ACC2, 0.6)}`, transform: `scale(${lerp(0.6, 1, own)})`, opacity: clamp(own * 2)}}><Check u={own} size={34} fill={ACC} /><span style={{fontFamily: FONTS.display, fontWeight: 650, fontSize: 28}}>é seu</span></div>}
         </Glass>
         {/* ACESSO */}
-        <Glass style={{left: 70, top: 980, width: 700, height: 290, ...blurIn(t, aAcesso - 0.15, 0.75), boxShadow: `inset 0 1px 0 rgba(255,255,255,.1), 0 0 0 1px ${rgba(AMBER, 0.45)}, 0 40px 90px rgba(0,0,0,.55)`, borderRadius: 38, zIndex: 30}}>
+        <Glass style={{left: 70, top: 980, width: 700, height: 290, ...rise3d(t, aAcesso - 0.15, 0.85, 1), boxShadow: `inset 0 1px 0 rgba(255,255,255,.1), 0 0 0 1px ${rgba(AMBER, 0.45)}, 0 40px 90px rgba(0,0,0,.55)`, borderRadius: 38, zIndex: 30}}>
           <div style={{position: 'absolute', left: 36, top: 70, width: 150, height: 150, borderRadius: 40, background: `linear-gradient(150deg, #ffb870, ${AMBER})`, boxShadow: `0 20px 50px ${rgba(AMBER, 0.35)}`, display: 'flex', alignItems: 'center', justifyContent: 'center'}}><Icon k="key" s={86} c={INK} sw={1.7} /></div>
+          <Sheen t={t} a={aAcesso + 0.45} radius={38} strength={0.16} />
           <div style={{position: 'absolute', left: 224, top: 66, fontFamily: FONTS.display, fontWeight: 700, fontSize: 64, letterSpacing: '-0.04em'}}>Acesso</div>
           <div style={{position: 'absolute', left: 226, top: 146, fontSize: 30, color: 'rgba(255,255,255,.66)', lineHeight: 1.25}}>você paga<br />para usar</div>
           {rent > 0 && <div style={{position: 'absolute', right: 28, top: 28, display: 'flex', alignItems: 'center', gap: 10, padding: '10px 20px', borderRadius: 999, background: rgba(AMBER, 0.16), boxShadow: `inset 0 0 0 1px ${rgba(AMBER, 0.6)}`, color: AMBER, transform: `scale(${lerp(0.6, 1, rent)})`, opacity: clamp(rent * 2)}}><Icon k="repeat" s={28} c={AMBER} /><span style={{fontFamily: FONTS.display, fontWeight: 650, fontSize: 28}}>alugar</span></div>}
@@ -135,11 +137,12 @@ export const M3: React.FC<{t: number}> = ({t}) => {
           {lim > 0 && <g opacity={1 - limGone}><path d={`M70 640 L${70 + 940 * E.out(lim)} 640`} stroke={AMBER} strokeWidth={4} strokeDasharray="16 12" strokeLinecap="round" style={{filter: `drop-shadow(0 0 12px ${rgba(AMBER, 0.6)})`}} /></g>}
         </SVG>
         {lim > 0 && <div style={{position: 'absolute', left: 80, top: 575, zIndex: 25, opacity: (1 - limGone) * clamp(lim * 2), fontFamily: FONTS.display, fontWeight: 650, fontSize: 28, color: AMBER, letterSpacing: '0.04em'}}>limite</div>}
-        <Glass style={{left: CORE[0] - 200, top: CORE[1] - 105, width: 400, height: 210, borderRadius: 40, opacity: clamp(cp * 1.6), transform: `scale(${lerp(0.8, 1, E.settle(cp)) * (1 + grow * 0.12)})`, boxShadow: `inset 0 1px 0 rgba(255,255,255,.14), 0 0 0 2px ${rgba(ACC, 0.7)}, 0 0 ${70 + grow * 110}px ${rgba(ACC, 0.35 + grow * 0.3)}, 0 40px 90px rgba(0,0,0,.55)`, zIndex: 30}}>
+        <Glass style={{left: CORE[0] - 200, top: CORE[1] - 105, width: 400, height: 210, borderRadius: 40, opacity: clamp(cp * 1.6), transform: `perspective(1400px) translateZ(${(1 - E.settle(cp)) * -400}px) rotateX(${(1 - E.settle(cp)) * 40}deg) scale(${(1 + grow * 0.12)})`, boxShadow: `inset 0 1px 0 rgba(255,255,255,.14), 0 0 0 2px ${rgba(ACC, 0.7)}, 0 0 ${70 + grow * 110}px ${rgba(ACC, 0.35 + grow * 0.3)}, 0 40px 90px rgba(0,0,0,.55)`, zIndex: 30}}>
           <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 20, height: '100%'}}><div style={{width: 92, height: 92, borderRadius: 28, background: `linear-gradient(150deg, ${ACC2}, ${ACC})`, display: 'flex', alignItems: 'center', justifyContent: 'center'}}><Icon k="grid" s={52} c="#fff" /></div><div style={{fontFamily: FONTS.display, fontWeight: 700, fontSize: 48, letterSpacing: '-0.035em', lineHeight: 1.05}}>Seu<br />sistema</div></div>
+          <Sheen t={t} a={N.m3 + 1.1} radius={40} />
         </Glass>
         {TILES.map(([label, ic, x, y, a], i) => { const p = P(t, a - 0.15, 0.6, E.out), q = P(t, a, 0.5, E.pop); return p > 0 && (
-          <Glass key={label} style={{left: x - 165, top: y - 62, width: 330, height: 124, borderRadius: 32, opacity: clamp(p * 1.8), transform: `translateY(${(1 - p) * 40}px) scale(${lerp(0.85, 1, E.settle(p))})`, boxShadow: `inset 0 1px 0 rgba(255,255,255,.12), 0 0 0 1px rgba(255,255,255,.12), 0 0 ${30 * (1 - clamp((t - a) / 1.2))}px ${rgba(ACC2, 0.7)}, 0 30px 70px rgba(0,0,0,.5)`, zIndex: 30}}>
+          <Glass key={label} style={{left: x - 165, top: y - 62, width: 330, height: 124, borderRadius: 32, ...rise3d(t, a - 0.15, 0.75, x < 540 ? -1 : 1), boxShadow: `inset 0 1px 0 rgba(255,255,255,.12), 0 0 0 1px rgba(255,255,255,.12), 0 0 ${30 * (1 - clamp((t - a) / 1.2))}px ${rgba(ACC2, 0.7)}, 0 30px 70px rgba(0,0,0,.5)`, zIndex: 30}}>
             <div style={{display: 'flex', alignItems: 'center', gap: 16, height: '100%', padding: '0 22px'}}><span style={{display: 'flex', width: 62, height: 62, borderRadius: 20, background: 'rgba(143,162,255,.16)', alignItems: 'center', justifyContent: 'center', color: ACC2, transform: `scale(${q > 0 ? lerp(0.7, 1, q) : 1})`}}><Icon k={ic} s={34} /></span><span style={{fontFamily: FONTS.display, fontWeight: 650, fontSize: 35, letterSpacing: '-0.03em', lineHeight: 1.1}}>{label}</span></div>
           </Glass>); })}
       </div>
@@ -159,7 +162,7 @@ export const M4: React.FC<{t: number}> = ({t}) => {
   const Tool: React.FC<{who: 'you' | 'them'}> = ({who}) => {
     const mine = who === 'you', x = mine ? 70 : 570, glow = mine ? met : 0;
     return (
-      <Glass dark={false} style={{left: x, top: 610, width: 440, height: 500, borderRadius: 38, zIndex: 30, ...blurIn(t, aConc - 0.2 + (mine ? 0 : 0.18), 0.8), boxShadow: mine && glow > 0 ? `0 0 0 3px ${ACC}, 0 0 ${60 * glow}px ${rgba(ACC, 0.55)}, 0 30px 70px rgba(0,0,0,.25)` : '0 1px 0 rgba(0,0,0,.04), 0 30px 70px rgba(0,0,0,.22), 0 0 0 1px rgba(0,0,0,.05)'}}>
+      <Glass dark={false} style={{left: x, top: 610, width: 440, height: 500, borderRadius: 38, zIndex: 30, ...rise3d(t, aConc - 0.2 + (mine ? 0 : 0.18), 0.9, mine ? -1 : 1), boxShadow: mine && glow > 0 ? `0 0 0 3px ${ACC}, 0 0 ${60 * glow}px ${rgba(ACC, 0.55)}, 0 30px 70px rgba(0,0,0,.25)` : '0 1px 0 rgba(0,0,0,.04), 0 30px 70px rgba(0,0,0,.22), 0 0 0 1px rgba(0,0,0,.05)'}}>
         <div style={{position: 'absolute', left: 30, top: 28, display: 'flex', alignItems: 'center', gap: 12, fontFamily: FONTS.display, fontWeight: 700, fontSize: 32, letterSpacing: '-0.03em', color: INK}}><span style={{width: 46, height: 46, borderRadius: 23, background: mine ? ACC : '#d9d9dd', display: 'flex', alignItems: 'center', justifyContent: 'center'}}><Icon k="user" s={26} c={mine ? '#fff' : '#6a6a6e'} /></span>{mine ? 'Você' : 'Concorrente'}</div>
         <div style={{position: 'absolute', left: 30, right: 30, top: 98, height: 126, borderRadius: 24, background: '#f2f2f2', boxShadow: 'inset 0 0 0 1px rgba(0,0,0,.05)', padding: '16px 24px'}}>
           <div style={{display: 'flex', alignItems: 'center', gap: 12, fontFamily: FONTS.display, fontWeight: 650, fontSize: 28, color: '#3a3a3e'}}><Icon k="grid" s={30} c="#3a3a3e" />Ferramenta</div>
@@ -212,11 +215,12 @@ export const M5: React.FC<{t: number}> = ({t}) => {
         <div style={{position: 'absolute', left: CORE[0] - 130, top: CORE[1] - 130, width: 260, height: 260, borderRadius: 130, zIndex: 30, background: `radial-gradient(circle at 35% 28%, #7f94ff, ${ACC} 55%, #2a3fd6)`, boxShadow: `0 0 ${80 + 40 * Math.sin(t * 2)}px ${rgba(ACC, 0.55)}, inset 0 2px 0 rgba(255,255,255,.35), inset 0 -20px 40px rgba(0,0,40,.35)`, transform: `scale(${lerp(0.6, 1, op)})`, opacity: clamp(op * 1.8), display: 'flex', alignItems: 'center', justifyContent: 'center'}}><Icon k="bolt" s={110} c="#fff" sw={1.5} /></div>
         <SVG z={32}>{op > 0.05 && Array.from({length: 70}, (_, k) => { const ang = (k / 70) * Math.PI * 2 + t * 0.9, tail = clamp(-Math.cos(ang) * 1.2), j = (((k * 37) % 17) / 17 - 0.5) * 2; return <circle key={k} cx={CORE[0] + Math.cos(ang) * (190 + j * 30 * tail)} cy={CORE[1] + Math.sin(ang) * 58} r={2.2 + 5 * (1 - tail)} fill={k % 4 ? '#e8fbff' : CYAN} opacity={(0.4 + 0.6 * (1 - tail)) * op} />; })}</SVG>
         {PILLS.map(([label, ic, x, y, a]) => { const p = P(t, a, 0.6, E.out); return p > 0 && (
-          <Glass key={label} style={{left: x - 150, top: y - 52, width: 300, height: 104, borderRadius: 30, opacity: clamp(p * 1.8), transform: `translateY(${(1 - p) * 36}px) scale(${lerp(0.85, 1, E.settle(p))})`, zIndex: 30}}>
+          <Glass key={label} style={{left: x - 150, top: y - 52, width: 300, height: 104, borderRadius: 30, ...rise3d(t, a, 0.75, x < 540 ? -1 : x > 540 ? 1 : 0), zIndex: 30}}>
             <div style={{display: 'flex', alignItems: 'center', gap: 16, height: '100%', padding: '0 24px'}}><span style={{display: 'flex', width: 58, height: 58, borderRadius: 18, background: 'rgba(143,162,255,.16)', alignItems: 'center', justifyContent: 'center', color: ACC2}}><Icon k={ic} s={32} /></span><span style={{fontFamily: FONTS.display, fontWeight: 650, fontSize: 31, letterSpacing: '-0.03em'}}>{label}</span></div>
           </Glass>); })}
         {/* etapas autorizadas */}
-        <Glass style={{left: 70, top: 1230, width: 940, height: 170, borderRadius: 36, zIndex: 30, ...blurIn(t, aExec - 0.3, 0.7)}}>
+        <Glass style={{left: 70, top: 1230, width: 940, height: 170, borderRadius: 36, zIndex: 30, ...rise3d(t, aExec - 0.3, 0.8)}}>
+          <Sheen t={t} a={aExec + 0.4} radius={36} />
           <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '100%', padding: '0 36px'}}>
             {STEPS.map((s, i) => { const u = P(t, lerp(aExec + 0.15, aAut + 0.1, i / 2), 0.5, E.out); return (
               <div key={s} style={{display: 'flex', alignItems: 'center', gap: 14}}><Check u={u} size={46} fill={ACC} /><div style={{lineHeight: 1.15}}><div style={{fontFamily: FONTS.display, fontWeight: 700, fontSize: 31, letterSpacing: '-0.03em'}}>{s}</div><div style={{fontFamily: FONTS.body, fontSize: 24, color: u > 0.3 ? ACC2 : 'rgba(255,255,255,.45)'}}>{u > 0.3 ? 'autorizada' : 'em andamento'}</div></div></div>); })}

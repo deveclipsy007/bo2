@@ -28,7 +28,10 @@ pad(seg.assina, END + 0.3, 'C', 0.03, 1800);
 BEHIND.forEach((b, i) => { X.stamp(b.at, 0.16 + i * 0.04); X.sub(b.at, [33, 31, 28][i], 0.14 + i * 0.05, 0.55); X.whoosh(b.at - 0.05, 0.35, 0.045, true, i % 2 ? 0.6 : -0.6, 0); });
 X.pop(T('sistema') + 0.05, 76, 0.05, -0.5); X.pop(T('inteligente') + 0.05, 79, 0.05, 0.5);
 X.whoosh(HOOK_OUT - 0.1, 0.9, 0.13, true, 0.4, -0.4); X.sub(HOOK_OUT + 0.7, 29, 0.16, 0.9); X.shimmer(HOOK_OUT + 0.6, 1.6, 0.03, 24); X.swell(HOOK_OUT + 0.7, 0.8, 0.08);
-const num = (a, d = 0) => { X.stamp(a, 0.1); X.pop(a + 0.04, 72 + d, 0.06, 0); };
+// número de cada motivo: a poeira voa (whoosh), o numeral assenta (carimbo + brilho)
+const num = (a, d = 0) => { X.whoosh(a - 0.75, 0.8, 0.06, true, -0.4, 0.4); X.stamp(a + 0.08, 0.1); X.pop(a + 0.1, 72 + d, 0.06, 0); X.shimmer(a + 0.05, 0.9, 0.028, 22); };
+// abertura com soco: o hook entra com zoom e foco
+X.sub(0.02, 30, 0.16, 0.8); X.whoosh(0.0, 0.35, 0.05, true, 0.3, -0.3);
 
 // ---- motivo 1 ----
 num(N.m1); X.bell(T('ativo') + 0.05, 79, 0.05, 0, 1.6); X.shimmer(T('ativo'), 1.0, 0.025, 18); X.pop(T('acesso'), 74, 0.06, -0.4); X.pop(T('alugar') + 0.04, 72, 0.05, -0.5);
@@ -58,5 +61,5 @@ const A = N.assina + 0.1;
 X.riser(A - 0.6, A + 1.2, 0.1); X.whoosh(A + 0.1, 1.1, 0.08, true, -0.4, 0.4); X.impact(A + 1.3, 0.4); X.sub(A + 1.3, 26, 0.26, 2.4); X.shimmer(A + 1.3, 2.4, 0.04, 26);
 X.bell(A + 1.4, 84, 0.05, -0.3, 3); X.bell(A + 1.5, 88, 0.045, 0.3, 3); X.bell(A + 1.6, 91, 0.04, 0, 3); X.whoosh(A + 2.2, 1.2, 0.05, true, -0.6, 0.6);
 
-X.render(join(root, 'public/audio'), [{path: join(root, 'public/audio/voz.wav'), at: 0}], {duckDepth: 0.55});
+X.render(join(root, 'public/audio'), [{path: join(root, 'public/audio/voz.wav'), at: 0}], {duckDepth: 0.62});
 console.log('score ok', END);

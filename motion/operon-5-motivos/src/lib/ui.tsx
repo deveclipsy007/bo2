@@ -10,6 +10,13 @@ export const INK = COLORS.ink, PAPER = COLORS.paper, ACC = COLORS.blue, ACC2 = C
 export const rnd = (i: number, s = 1) => { const x = Math.sin(i * 127.1 + s * 311.7) * 43758.5453; return x - Math.floor(x); };
 
 export const blurIn = (t: number, a: number, d = 0.55, dy = 40): React.CSSProperties => { const p = P(t, a, d, E.out); return {opacity: clamp(p * 1.8), transform: `translateY(${(1 - p) * dy}px) scale(${lerp(0.94, 1, p)})`, filter: p < 0.99 ? `blur(${(1 - p) * 16}px)` : undefined}; };
+/** Entrada 3D: o bloco vem do fundo, inclinado, e assenta de frente (perspectiva própria, sem depender do pai). */
+export const rise3d = (t: number, a: number, d = 0.8, dir = 1): React.CSSProperties => { const p = P(t, a, d, E.out), s = E.settle(clamp((t - a) / d)); return {opacity: clamp(p * 1.7), transform: `perspective(1400px) translateY(${(1 - p) * 70}px) translateZ(${(1 - s) * -280}px) rotateX(${(1 - s) * 34}deg) rotateY(${(1 - s) * 10 * dir}deg)`, filter: p < 0.99 ? `blur(${(1 - p) * 14}px)` : undefined}; };
+/** Reflexo que atravessa o vidro uma vez quando o card assenta (luz com direção, não brilho constante). */
+export const Sheen: React.FC<{t: number; a: number; d?: number; strength?: number; radius?: number}> = ({t, a, d = 1.1, strength = 0.22, radius = 34}) => {
+  const u = P(t, a, d, E.io); if (u <= 0 || u >= 1) return null;
+  return <div style={{position: 'absolute', inset: 0, borderRadius: radius, pointerEvents: 'none', background: `linear-gradient(112deg, rgba(255,255,255,0) 38%, rgba(255,255,255,${strength}) 50%, rgba(255,255,255,0) 62%)`, backgroundSize: '260% 100%', backgroundPosition: `${lerp(130, -30, u)}% 0`, mixBlendMode: 'screen', zIndex: 5}} />;
+};
 export const outBlur = (t: number, a: number, d = 0.32): React.CSSProperties => { const q = P(t, a, d, E.in); return {opacity: 1 - q, filter: q > 0.01 ? `blur(${q * 12}px)` : undefined}; };
 
 // ---------- tipografia sincronizada à voz ----------
@@ -20,9 +27,9 @@ export const Say: React.FC<{lines: Wd[][]; t: number; from: number; out: number;
   const ats = sync(words.join(' '), from);
   let k = 0;
   return (
-    <div style={{position: 'absolute', left: align === 'left' ? 90 : 40, right: 40, top: y, textAlign: align, fontFamily: FONTS.display, fontWeight: weight, fontSize: size, lineHeight: lh, letterSpacing: '-0.045em', color, zIndex: z}}>
+    <div style={{position: 'absolute', left: align === 'left' ? 90 : 40, right: 40, top: y, textAlign: align, fontFamily: FONTS.display, fontWeight: weight, fontSize: size, lineHeight: lh, letterSpacing: '-0.045em', color, zIndex: z, transform: 'translateZ(70px)'}}>
       {lines.map((ln, li) => (
-        <div key={li} style={{whiteSpace: 'nowrap'}}>
+        <div key={li} style={{whiteSpace: 'nowrap', perspective: 700}}>
           {ln.map((seg, si) => seg.t.split(' ').filter(Boolean).map((word, wi) => {
             const i = k++, a = ats[Math.min(i, ats.length - 1)];
             const p = P(t, a, 0.5, E.out), q = P(t, out + i * 0.018, 0.32, E.in);
@@ -33,7 +40,7 @@ export const Say: React.FC<{lines: Wd[][]; t: number; from: number; out: number;
             return (
               <React.Fragment key={`${si}-${wi}`}>
                 {sp}
-                <span style={{position: 'relative', display: 'inline-block', opacity: Math.min(1, p * 2.4) * (1 - q), transform: `translateY(${((1 - p) * 0.38 - q * 0.25).toFixed(3)}em)`, filter: p < 0.99 || q > 0.01 ? `blur(${((1 - p) * 14 + q * 10).toFixed(1)}px)` : undefined}}>
+                <span style={{position: 'relative', display: 'inline-block', opacity: Math.min(1, p * 2.4) * (1 - q), transform: `translateY(${((1 - p) * 0.38 - q * 0.25).toFixed(3)}em) rotateX(${((1 - E.settle(clamp((t - a) / 0.6))) * -78 + q * 40).toFixed(1)}deg)`, transformOrigin: '50% 85%', filter: p < 0.99 || q > 0.01 ? `blur(${((1 - p) * 14 + q * 10).toFixed(1)}px)` : undefined}}>
                   {box > 0 && <span style={{position: 'absolute', left: '-0.12em', right: '-0.12em', top: '0.06em', bottom: '-0.02em', background: boxBg, borderRadius: '0.12em', transform: `scaleX(${box})`, transformOrigin: '0 50%'}} />}
                   <span style={{position: 'relative', color: box > 0.5 ? boxFg : seg.em === 'blue' ? blueColor : undefined, ...(seg.em === 'serif' ? {fontFamily: FONTS.serif, fontStyle: 'italic', fontWeight: 400, letterSpacing: '-0.02em', fontSize: '1.1em'} : {}), opacity: st > 0.5 ? 0.55 : 1}}>{word}</span>
                   {st > 0 && <span style={{position: 'absolute', left: '-0.08em', top: '52%', height: '0.09em', width: `calc((100% + 0.16em) * ${st})`, background: strikeColor, borderRadius: 4, boxShadow: `0 0 18px ${strikeColor}88`}} />}
@@ -94,7 +101,7 @@ export const Dots: React.FC<{t: number; idx: number; a: number; out?: number; da
   const p = P(t, a - 0.35, 0.5, E.out), q = P(t, out, 0.3, E.in);
   const rgb = dark ? '255,255,255' : '11,11,12';
   return (
-    <div style={{position: 'absolute', left: 0, right: 0, top: 176, display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 14, opacity: p * (1 - q), transform: `translateY(${(1 - p) * -14}px)`, zIndex: 60}}>
+    <div style={{position: 'absolute', left: 0, right: 0, top: 176, display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 14, opacity: p * (1 - q), transform: `translateZ(90px) translateY(${(1 - p) * -14}px)`, zIndex: 60}}>
       {[0, 1, 2, 3, 4].map((i) => {
         const grow = i === idx ? P(t, a, 0.6, E.settle) : i === idx - 1 ? 1 - P(t, a, 0.5, E.out) : 0;
         return <div key={i} style={{width: 12 + 42 * grow, height: 12, borderRadius: 6, background: `rgba(${rgb},${i === idx ? 0.95 : i < idx ? 0.55 : 0.2})`}} />;
@@ -105,7 +112,7 @@ export const Dots: React.FC<{t: number; idx: number; a: number; out?: number; da
 /** Numeral fantasma em serifa itálica, atrás do palco (profundidade). */
 export const GhostNum: React.FC<{t: number; n: string; a: number; out?: number; rgb?: string; alpha?: number; x?: number; y?: number; size?: number}> = ({t, n, a, out = 1e9, rgb = '255,255,255', alpha = 0.05, x = 560, y = 760, size = 1150}) => {
   const p = P(t, a, 1.1, E.out), q = P(t, out, 0.4, E.in);
-  return <div style={{position: 'absolute', left: x - 500, top: y - size * 0.55, width: 1000, textAlign: 'center', fontFamily: FONTS.serif, fontStyle: 'italic', fontSize: size, lineHeight: 1, color: `rgba(${rgb},${alpha})`, opacity: p * (1 - q), transform: `translate(${Math.sin(t * 0.3) * 12}px, ${(1 - p) * 60 + Math.cos(t * 0.25) * 8}px) scale(${lerp(1.08, 1, p)})`, filter: p < 0.99 ? `blur(${(1 - p) * 20}px)` : undefined, zIndex: 2, pointerEvents: 'none'}}>{n}</div>;
+  return <div style={{position: 'absolute', left: x - 500, top: y - size * 0.55, width: 1000, textAlign: 'center', fontFamily: FONTS.serif, fontStyle: 'italic', fontSize: size, lineHeight: 1, color: `rgba(${rgb},${alpha})`, opacity: p * (1 - q), transform: `translateZ(-320px) translate(${Math.sin(t * 0.3) * 16}px, ${(1 - p) * 60 + Math.cos(t * 0.25) * 10}px) scale(${lerp(1.08, 1, p) * 1.2})`, filter: p < 0.99 ? `blur(${(1 - p) * 20}px)` : undefined, zIndex: 2, pointerEvents: 'none'}}>{n}</div>;
 };
 
 // ---------- Fluffy ----------

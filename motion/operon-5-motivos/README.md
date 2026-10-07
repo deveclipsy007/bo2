@@ -30,8 +30,10 @@ public/           fonts, logo oficial; (não versionados) video/hook-bg.mp4, vid
 
 1. **Voz** — `python tools/assemble_voice.py <wavs_48k_mono> <palavras.json> .`: cadeia de polimento (high-pass, afftdn, EQ, de-esser,
    compressor), igualar bandas (≤ 2 dB), −16 LUFS por trecho, cascata de pausas → `public/audio/voz.wav` + `data.ts`.
-   Isolamento prévio de voz: Mel-Band RoFormer (`audio-separator`).
-2. **Hook** — recorte por matting de vídeo (Robust Video Matting, ONNX) → PNGs RGBA em `public/video/hook-fg/`; fundo em `hook-bg.mp4`.
+   Antes: isolamento (Mel-Band RoFormer, `tools/separate_voice.py`) → realce DeepFilterNet3 (`tools/enhance_voice_df.py`,
+   modelo de raw.githubusercontent.com) → mistura 90 % realçado + 10 % isolado (naturalidade).
+2. **Hook** — recorte por matting de vídeo (Robust Video Matting, ONNX) → PNGs RGBA em `public/video/hook-fg/`; fundo em
+   "modo retrato": pessoa removida por inpainting e desfocada (`tools/hook_cleanplate.py` → `hook-bg-blur.mp4`).
 3. **Som** — `node tools/score.mjs` (trilha + efeitos sintetizados a partir dos mesmos tempos) → `mix-vo-raw.wav`;
    master em duas passadas `loudnorm=I=-14:TP=-1.5:LRA=11` → `public/audio/mix-final.wav`.
 4. **Storyboard** — `node tools/stills.mjs <pasta> <t1> <t2> …`.

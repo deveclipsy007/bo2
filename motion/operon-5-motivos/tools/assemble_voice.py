@@ -26,9 +26,10 @@ CLIPS = [
 FIRST_AT = {'m1': 6.35}
 GAP = {'m2': 0.95, 'm3': 0.95, 'm4': 0.95, 'm5': 0.95, 'fecha': 1.0, 'assina': 0.9}   # fim da última palavra → 1ª palavra seguinte
 LEAD, TAIL, FADE = 0.12, 0.32, 0.04
-CHAIN = ('highpass=f=85,lowpass=f=15500,afftdn=nr=9:nf=-50,agate=threshold=0.007:ratio=1.6:attack=15:release=300:range=0.3,'
-         'equalizer=f=320:t=q:w=1.1:g=-2.2,equalizer=f=3200:t=q:w=1.2:g=3.0,highshelf=f=9000:g=2.5,deesser=i=0.35:m=0.5:f=0.5,'
-         'acompressor=threshold=-21dB:ratio=3.2:attack=6:release=110:makeup=2dB,alimiter=limit=0.9:level=0')
+# a voz chega isolada (RoFormer) e realçada (DeepFilterNet3): a cadeia só esculpe — sem denoise pesado nem gate
+CHAIN = ('highpass=f=90,lowpass=f=16000,afftdn=nr=3:nf=-60,'
+         'equalizer=f=180:t=q:w=1.0:g=-1.0,equalizer=f=320:t=q:w=1.1:g=-2.5,equalizer=f=3400:t=q:w=1.2:g=2.6,highshelf=f=10000:g=2.2,'
+         'deesser=i=0.45:m=0.5:f=0.5,acompressor=threshold=-22dB:ratio=3:attack=5:release=120:makeup=2dB,alimiter=limit=0.9:level=0')
 BANDS = [(80, 250, 140), (250, 800, 450), (800, 2500, 1500), (2500, 6000, 4000), (6000, 12000, 8500)]
 
 def run(*a): subprocess.run(a, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
