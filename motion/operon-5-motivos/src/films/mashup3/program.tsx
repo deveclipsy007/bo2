@@ -14,7 +14,8 @@ const LN: Record<string, number> = Object.fromEntries((SHOTS as {id: string; len
 const pad = (n: number) => String(n).padStart(4, '0');
 
 export type PC = {id: string; from: number; to: number; punch?: boolean; cut?: boolean};
-const seq = (ids: string[], i0: number, step = 1): PC[] => ids.map((id, k) => ({id, from: b(i0 + k * step), to: b(i0 + (k + 1) * step), punch: true}));
+const bf = (x: number) => { const i = Math.floor(x); return lerp(b(i), b(i + 1), x - i); };     // batida fracionária (meio tempo)
+const seq = (ids: string[], i0: number, step = 1): PC[] => ids.map((id, k) => ({id, from: bf(i0 + k * step), to: bf(i0 + (k + 1) * step), punch: true}));
 export const PROG: PC[] = [
   {id: 'v1_00', from: b(2), to: b(6)}, {id: 'v1_07', from: b(6), to: b(10)}, {id: 'v2_16', from: b(10), to: b(14)}, {id: 'v1_05', from: b(14), to: b(18)},
   {id: 'v2_13', from: b(18), to: b(20)}, {id: 'v2_04', from: b(20), to: b(26)}, {id: 'v1_10', from: b(26), to: b(32)},
