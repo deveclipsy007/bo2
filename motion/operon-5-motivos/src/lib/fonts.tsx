@@ -9,6 +9,12 @@ export const useFonts = () => {
       new FontFace('Manrope', `url(${staticFile('fonts/Manrope.woff2')})`, {weight: '200 800'}),
       new FontFace('DM Sans', `url(${staticFile('fonts/DMSans.woff2')})`, {weight: '100 900'}),
       new FontFace('Gelasio', `url(${staticFile('fonts/Gelasio-Italic.woff2')})`, {weight: '400', style: 'italic'}),
+      new FontFace('Inter Tight', `url(${staticFile('fonts/InterTight-800.woff2')})`, {weight: '800'}),
+      new FontFace('Inter Tight', `url(${staticFile('fonts/InterTight-900.woff2')})`, {weight: '900'}),
+      new FontFace('Inter Tight', `url(${staticFile('fonts/InterTight-800-Italic.woff2')})`, {weight: '800', style: 'italic'}),
+      new FontFace('Bodoni Moda', `url(${staticFile('fonts/BodoniModa-500.woff2')})`, {weight: '500'}),
+      new FontFace('Bodoni Moda', `url(${staticFile('fonts/BodoniModa-400-Italic.woff2')})`, {weight: '400', style: 'italic'}),
+      new FontFace('Bodoni Moda', `url(${staticFile('fonts/BodoniModa-700-Italic.woff2')})`, {weight: '700', style: 'italic'}),
     ];
     Promise.all(faces.map((f) => f.load())).then((fs) => { fs.forEach((f) => document.fonts.add(f)); return document.fonts.ready; }).then(() => continueRender(handle)).catch(() => continueRender(handle));
   }, [handle]);
