@@ -9,7 +9,8 @@ mkdirSync(out, {recursive: true});
 const browserExecutable = process.env.BROWSER || '/opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell';
 const serveUrl = await bundle({entryPoint: path.resolve('src/index.ts'), publicDir: path.resolve('public')});
 const inputProps = {audio: 'none'};
-const comp = await selectComposition({serveUrl, id: 'Cinco-Motivos', inputProps, browserExecutable, chromeMode: 'headless-shell'});
+const ID = process.env.COMP || 'Cinco-Motivos';
+const comp = await selectComposition({serveUrl, id: ID, inputProps, browserExecutable, chromeMode: 'headless-shell'});
 for (const s of times) {
   const frame = Math.round(parseFloat(s) * comp.fps);
   const file = path.join(out, `t${String(s).padStart(6, '0')}.png`);
