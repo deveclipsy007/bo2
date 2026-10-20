@@ -342,7 +342,8 @@ export const Ecossistema: React.FC<{audio: 'none' | 'mix'}> = ({audio}) => {
   const frame = useCurrentFrame(), t = frame / FPS;
   const pu = pulse(t), loud = t > T.back && t < T.cut;
   const shake = loud ? pu * 3 : 0;
-  const light = LIGHT.some(([a, b]) => t >= a && t < b);
+  // quanto do quadro é papel (rampa acompanhando a cortina, sem salto de vinheta/grão)
+  const lightK = LIGHT.reduce((m, [a, b]) => Math.max(m, P(t, a, 0.4, E.io) * (1 - P(t, b, 0.35, E.io))), 0), light = lightK > 0.5;
   return (
     <AbsoluteFill style={{background: C.ink, overflow: 'hidden', fontFamily: F.head}}>
       <div style={{position: 'absolute', inset: 0, transform: `translate(${(Math.sin(t * 53) * shake).toFixed(1)}px, ${(Math.cos(t * 41) * shake).toFixed(1)}px) scale(${(1 + (loud ? 0.012 : 0.004) * pu).toFixed(4)})`}}>
@@ -364,7 +365,7 @@ export const Ecossistema: React.FC<{audio: 'none' | 'mix'}> = ({audio}) => {
         <Scene t={t} a={56.2} b={58.0} light wipe={{kind: 'iris', x: 540, y: 760, d: 0.35}} outD={0.45} hold><GiveLife t={t} /></Scene>
         <Scene t={t} a={58.0} b={67} wipe={{kind: 'iris', x: 540, y: 760, d: 0.45}}><Ending t={t} /></Scene>
       </div>
-      <Dust t={t} n={60} opacity={light ? 0 : t > 37.6 && t < 46.7 ? 0.25 : 0.7} warm={t > 46.7 ? 0.3 : 0.06} />
+      <Dust t={t} n={60} opacity={(1 - lightK) * (t > 37.6 && t < 46.7 ? 0.25 : 0.7)} warm={t > 46.7 ? 0.3 : 0.06} />
       <Flash t={t} at={T.hit0} d={0.5} color={C.or} max={0.35} />
       <Flash t={t} at={T.back} d={0.5} max={0.85} />
       <Flash t={t} at={T.medir} d={0.3} color={C.or} max={0.4} />
@@ -373,8 +374,9 @@ export const Ecossistema: React.FC<{audio: 'none' | 'mix'}> = ({audio}) => {
       {[T.sentindo, T.aprendendo, T.inteira].map((a) => <Flash key={a} t={t} at={a} d={0.25} max={0.35} />)}
       <Flash t={t} at={T.dar} d={0.4} color={C.or} max={0.5} />
       <Flash t={t} at={T.sting} d={0.6} color={C.or} max={0.55} />
-      <Vignette strength={light ? 0.32 : 0.8} />
-      <Grain frame={frame} amount={light ? 0.1 : 0.07} dark={light} />
+      <Vignette strength={lerp(0.8, 0.32, lightK)} />
+      <Grain frame={frame} amount={0.07 * (1 - lightK)} />
+      <Grain frame={frame} amount={0.1 * lightK} dark />
       {audio === 'mix' && <Audio src={staticFile('eco/audio/mix.wav')} />}
     </AbsoluteFill>
   );
