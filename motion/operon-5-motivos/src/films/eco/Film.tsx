@@ -6,16 +6,26 @@ import {AbsoluteFill, Audio, staticFile, useCurrentFrame} from 'remotion';
 import {useFonts} from '../../lib/fonts';
 import {E, P, clamp, lerp} from '../../lib/core';
 import {BEAT, FPS, T, pulse} from './time';
-import {Big, C, Cut, Dot, Dust, F, Flash, Grain, Label, Reveal, Ring, Thin, Vignette, usePreload} from './fx';
+import {Big, C, Cut, Dot, Dust, F, Flash, Grain, Label, Paper, Reveal, Ring, Thin, Vignette, usePreload} from './fx';
 import {DoubleSlit, Ecg, Eye, Flock, Forest, Gears, Net, rng} from './sims';
 
+// janelas em papel (fundo claro, cores trocadas) — alternam com as escuras para dar contraste e ritmo
+const LIGHT: [number, number][] = [[6.2, 10.95], [13.55, 18.15], [24.5, 26.95], [29.65, 33.95], [50.85, T.aprendendo - 0.06], [56.35, 58.0]];
 const ALL = ['vitruvian', 'purkinje', 'cajal', 'flammarion', 'mycetozoa', 'newton', 'atlas', 'gears'];
 
 /** janela de cena com entrada/saída curtas (zoom + desfoque) */
-const Scene: React.FC<{t: number; a: number; b: number; inD?: number; outD?: number; zIn?: number; zOut?: number; children: React.ReactNode; bg?: string}> = ({t, a, b, inD = 0.18, outD = 0.18, zIn = 1.06, zOut = 1.1, children, bg}) => {
+type Wipe = {kind: 'iris' | 'slit'; x?: number; y?: number; d: number};
+const Scene: React.FC<{t: number; a: number; b: number; inD?: number; outD?: number; zIn?: number; zOut?: number; children: React.ReactNode; bg?: string; light?: boolean; wipe?: Wipe; hold?: boolean}> = ({t, a, b, inD = 0.18, outD = 0.18, zIn = 1.06, zOut = 1.1, children, bg, light, wipe, hold}) => {
   if (t < a - 0.001 || t > b + outD) return null;
-  const u = inD > 0 ? P(t, a, inD, E.out) : 1, q = P(t, b, outD, E.in);
-  return <div style={{position: 'absolute', inset: 0, background: bg, opacity: Math.min(u * 1.2, 1) * (1 - q), transform: `scale(${lerp(zIn, 1, u) * lerp(1, zOut, q)})`, filter: u < 1 || q > 0 ? `blur(${((1 - u) * 10 + q * 14).toFixed(1)}px)` : undefined}}>{children}</div>;
+  // hold: a cena fica inteira por baixo enquanto a próxima entra com a cortina (sem buraco preto)
+  const q = hold ? 0 : P(t, b, outD, E.in);
+  if (wipe) {
+    const w = P(t, a, wipe.d, E.io), x = wipe.x ?? 540, y = wipe.y ?? 960, z = lerp(1.08, 1, P(t, a, wipe.d + 0.3, E.out));
+    const clip = w >= 1 ? undefined : wipe.kind === 'iris' ? `circle(${(w * 2300).toFixed(0)}px at ${x}px ${y}px)` : `inset(0 ${((1 - w) * 50).toFixed(2)}% 0 ${((1 - w) * 50).toFixed(2)}%)`;
+    return <div style={{position: 'absolute', inset: 0, clipPath: clip, opacity: 1 - q, transform: `scale(${z * lerp(1, zOut, q)})`, filter: q > 0 ? `blur(${(q * 14).toFixed(1)}px)` : undefined}}>{light ? <Paper /> : <div style={{position: 'absolute', inset: 0, background: bg ?? C.ink}} />}{children}</div>;
+  }
+  const u = inD > 0 ? P(t, a, inD, E.out) : 1;
+  return <div style={{position: 'absolute', inset: 0, opacity: Math.min(u * 1.2, 1) * (1 - q), transform: `scale(${lerp(zIn, 1, u) * lerp(1, zOut, q)})`, filter: u < 1 || q > 0 ? `blur(${((1 - u) * 10 + q * 14).toFixed(1)}px)` : undefined}}>{light ? <Paper /> : bg ? <div style={{position: 'absolute', inset: 0, background: bg}} /> : null}{children}</div>;
 };
 /** câmera lenta (push-in) dentro da cena */
 const Cam: React.FC<{t: number; a: number; b: number; z0?: number; z1?: number; ox?: number; oy?: number; rot?: number; x0?: number; y0?: number; x1?: number; y1?: number; children: React.ReactNode}> = ({t, a, b, z0 = 1, z1 = 1.08, ox = 540, oy = 960, rot = 0, x0 = 0, y0 = 0, x1 = 0, y1 = 0, children}) => {
@@ -47,23 +57,23 @@ const qpt = (u: number) => {
 };
 
 // ------------------------------------------------------------------ 1 · Da Vinci
-const VIT = {x: 540, y: 930, w: 1000};
+const VIT = {x: 540, y: 840, w: 960};
 const vit = (nx: number, ny: number) => ({x: VIT.x - VIT.w / 2 + nx * VIT.w, y: VIT.y - (VIT.w * 2000) / 1440 / 2 + ny * ((VIT.w * 2000) / 1440)});
 const DaVinci: React.FC<{t: number}> = ({t}) => {
-  const p = P(t, T.davinci - 0.1, 2.9, E.smooth), c = vit(0.5, 0.455), R = 0.4167 * VIT.w * (720 / 720), sq0 = vit(0.118, 0.195), sq1 = vit(0.889, 0.745);
+  const p = P(t, T.davinci - 0.25, 2.9, E.smooth), c = vit(0.5, 0.455), R = 0.4167 * VIT.w, sq0 = vit(0.118, 0.195), sq1 = vit(0.889, 0.745);
   const dc = P(t, T.corpo - 0.1, 1.1, E.io), ds = P(t, T.corpo + 0.25, 1.0, E.io);
   const beat = t > T.vivo ? Math.exp(-((t - T.vivo) % 0.67) / 0.12) : 0;
   return (
     <Cam t={t} a={6.3} b={10.95} z0={1.02} z1={1.16} oy={c.y} rot={-1.2}>
-      <Reveal name="vitruvian" p={p} x={VIT.x} y={VIT.y} width={VIT.w} />
+      <Reveal name="vitruvian" p={p} x={VIT.x} y={VIT.y} width={VIT.w} light />
       <svg width={1080} height={1920} style={{position: 'absolute', inset: 0}}>
         <circle cx={c.x} cy={c.y} r={R} fill="none" stroke={C.or} strokeWidth={2.5} pathLength={1} strokeDasharray="1 1" strokeDashoffset={1 - dc} transform={`rotate(-90 ${c.x} ${c.y})`} opacity={0.9} />
         <rect x={sq0.x} y={sq0.y} width={sq1.x - sq0.x} height={sq1.y - sq0.y} fill="none" stroke={C.or} strokeWidth={2} pathLength={1} strokeDasharray="1 1" strokeDashoffset={1 - ds} opacity={0.75} />
         {dc > 0 && dc < 1 && <line x1={c.x} y1={c.y} x2={c.x + R * Math.cos(dc * 6.283 - 1.5708)} y2={c.y + R * Math.sin(dc * 6.283 - 1.5708)} stroke={C.or} strokeWidth={1.5} opacity={0.8} />}
       </svg>
-      <Dot x={c.x} y={c.y + 70} r={13 * (1 + 0.5 * beat)} glow={1 + beat} />
-      <Big t={t} at={T.vivo} out={10.75} text="VIVO" size={300} y={1640} glow />
-      <Label t={t} at={6.6} out={10.7} text="FIG. I — LEONARDO DA VINCI · c. 1490" y={150} />
+      {(() => { const m = P(t, 6.05, 0.7, E.io); return <Dot x={c.x} y={lerp(1095, c.y + 70, m)} r={lerp(16, 13, m) * (1 + 0.5 * beat)} glow={1 + beat} />; })()}
+      <Big t={t} at={T.vivo} out={10.75} text="VIVO" size={300} y={1360} color={C.pen} />
+      <Label t={t} at={6.6} out={10.7} text="FIG. I — LEONARDO DA VINCI · c. 1490" y={230} color={C.pdim} />
     </Cam>
   );
 };
@@ -81,30 +91,30 @@ const Newton: React.FC<{t: number}> = ({t}) => {
       <svg width={1080} height={1920} style={{position: 'absolute', inset: 0}}>
         {orbits.map(([rx, ry], i) => { const a = t * (1.4 - i * 0.3) + i * 2, x = 540 + rx * Math.cos(a), y = 640 + ry * Math.sin(a), th = -14 * Math.PI / 180, X = 540 + (x - 540) * Math.cos(th) - (y - 640) * Math.sin(th), Y = 640 + (x - 540) * Math.sin(th) + (y - 640) * Math.cos(th); const front = Math.sin(a) > 0; return front && t > T.newton + 0.4 && <circle key={i} cx={X} cy={Y} r={i ? 6 : 12} fill={i ? C.bone : C.or} style={{filter: i ? undefined : `drop-shadow(0 0 14px ${C.or})`}} />; })}
       </svg>
-      <Label t={t} at={T.newton + 0.6} out={13.2} text="F = G · m₁m₂ / r²" y={1700} align="center" color={C.bone} size={30} />
-      <Label t={t} at={11.1} out={13.2} text="FIG. II — ISAAC NEWTON · 1687" y={150} />
+      <Label t={t} at={T.newton + 0.6} out={13.2} text="F = G · m₁m₂ / r²" y={1330} align="center" color={C.bone} size={32} />
+      <Label t={t} at={11.1} out={13.2} text="FIG. II — ISAAC NEWTON · 1687" y={230} />
     </Cam>
   );
 };
 
 // ------------------------------------------------------------------ 3 · dupla fenda
 const Quantum: React.FC<{t: number}> = ({t}) => (
-  <Cam t={t} a={13.4} b={15.6} z0={1.55} z1={1.0} oy={520} y0={-80} y1={0}>
-    <DoubleSlit t={t} a={13.62} medir={T.medir} />
-    <Label t={t} at={13.6} out={18.0} text="FIG. III — DUPLA FENDA" y={150} />
-    <Label t={t} at={T.medir + 0.25} out={18.0} text="DETECTOR: LIGADO" x={84} y={200} color={C.or} />
-    <Big t={t} at={T.medir} out={17.95} text="MEDIR" size={230} y={1810} glow />
-    <Thin t={t} at={T.muda} out={17.95} text="muda o resultado." size={76} y={990} />
+  <Cam t={t} a={13.4} b={15.6} z0={1.5} z1={1.0} oy={480} y0={-60} y1={0}>
+    <DoubleSlit t={t} a={13.62} medir={T.medir} fg={C.pen} />
+    <Label t={t} at={13.6} out={18.0} text="FIG. III — DUPLA FENDA" y={230} color={C.pdim} />
+    <Label t={t} at={T.medir + 0.25} out={18.0} text="DETECTOR: LIGADO" x={84} y={275} color={C.or} />
+    <Big t={t} at={T.medir} out={17.95} text="MEDIR" size={230} y={1370} color={C.pen} />
+    <Thin t={t} at={T.muda} out={17.95} text="muda o resultado." size={70} y={738} color={C.pen} />
   </Cam>
 );
 
 // ------------------------------------------------------------------ 4 · desde sempre (Flammarion)
-const Always: React.FC<{t: number}> = ({t}) => (
-  <Cam t={t} a={18.2} b={21.5} z0={1.05} z1={1.45} ox={360} oy={1130}>
-    <Reveal name="flammarion" p={P(t, 18.1, 2.4, E.smooth)} x={540} y={960} width={1560} />
-    <Dot x={330} y={1130} r={9} glow={1.4} opacity={P(t, 19.4, 0.6)} />
-    <Label t={t} at={18.3} out={21.3} text="FIG. IV — FLAMMARION · 1888" y={150} />
-    <Thin t={t} at={T.mesma - 0.2} out={21.3} text="a mesma coisa." size={96} y={1560} />
+const Flammarion: React.FC<{t: number}> = ({t}) => (
+  <Cam t={t} a={18.2} b={21.5} z0={1.05} z1={1.4} ox={360} oy={1060}>
+    <Reveal name="flammarion" p={P(t, 18.1, 2.4, E.smooth)} x={540} y={890} width={1560} />
+    <Dot x={330} y={1060} r={9} glow={1.4} opacity={P(t, 19.4, 0.6)} />
+    <Label t={t} at={18.3} out={21.3} text="FIG. IV — FLAMMARION · 1888" y={230} />
+    <Thin t={t} at={T.mesma - 0.2} out={21.3} text="a mesma coisa." size={100} y={1390} />
   </Cam>
 );
 
@@ -121,8 +131,8 @@ const Parts: React.FC<{t: number}> = ({t}) => {
         {pos.map((p, i) => <circle key={i} cx={p.x} cy={p.y} r={p.s * (1 - 0.5 * pull)} fill={C.bone} opacity={0.75} />)}
       </svg>
       <Dot x={lerp(760, 540, pull)} y={lerp(600, 960, pull)} r={11 + 10 * pull} glow={1 + pull * 2} />
-      <Thin t={t} at={T.partes - 0.05} out={T.algo - 0.2} text="partes separadas" size={96} y={1560} />
-      <Thin t={t} at={T.algo} out={24.25} text="algo vivo." size={110} y={1560} color={C.orHi} />
+      <Thin t={t} at={T.partes - 0.05} out={T.algo - 0.2} text="partes separadas" size={100} y={1380} />
+      <Thin t={t} at={T.algo} out={24.25} text="algo vivo." size={116} y={1380} color={C.orHi} />
     </>
   );
 };
@@ -130,11 +140,11 @@ const Parts: React.FC<{t: number}> = ({t}) => {
 // ------------------------------------------------------------------ 6 · floresta
 const Woods: React.FC<{t: number}> = ({t}) => (
   <Cam t={t} a={T.back} b={27.0} z0={1.0} z1={1.16} oy={1150} y0={40} y1={-40}>
-    <Reveal name="mycetozoa" p={P(t, T.back, 2.0, E.smooth)} x={540} y={1250} width={1000} opacity={0.1} edge={0} />
-    <Forest t={t} a={T.back - 0.1} dur={1.7} pulses={P(t, 25.4, 0.5)} />
-    <Big t={t} at={T.floresta - 0.08} out={25.85} text="FLORESTA" size={200} y={330} stagger={0.03} />
-    <Thin t={t} at={T.raizes - 0.15} out={26.85} text="pelas raízes." size={110} y={360} />
-    <Label t={t} at={24.6} out={26.8} text="FIG. V — REDE MICORRÍZICA" y={150} />
+    <Reveal name="mycetozoa" p={P(t, T.back, 2.0, E.smooth)} x={540} y={1250} width={1000} opacity={0.14} edge={0} light />
+    <Forest t={t} a={T.back - 0.1} dur={1.7} pulses={P(t, 25.4, 0.5)} fg={C.pen} />
+    <Big t={t} at={T.floresta - 0.08} out={25.85} text="FLORESTA" size={200} y={400} stagger={0.03} color={C.pen} />
+    <Thin t={t} at={T.raizes - 0.15} out={26.85} text="pelas raízes." size={110} y={420} color={C.pen} />
+    <Label t={t} at={24.6} out={26.8} text="FIG. V — REDE MICORRÍZICA" y={230} color={C.pdim} />
   </Cam>
 );
 
@@ -145,12 +155,12 @@ const Brain: React.FC<{t: number}> = ({t}) => {
     <Cam t={t} a={26.95} b={29.6} z0={1.12} z1={1.0} oy={900}>
       <Reveal name="cajal" p={P(t, 26.9, 1.6, E.smooth)} x={150} y={980} width={520} opacity={0.32} edge={0} />
       <Reveal name="cajal" p={P(t, 27.0, 1.6, E.smooth)} x={930} y={980} width={520} opacity={0.32} edge={0} />
-      <Reveal name="purkinje" p={P(t, T.cerebro - 0.2, 1.5, E.smooth)} x={540} y={930} width={900} />
-      {t > 27.6 && <Reveal name="purkinje" p={ap} x={540} y={930} width={900} edgeOnly />}
-      {t > T.conexoes && <Reveal name="purkinje" p={((t - T.conexoes) / 0.75) % 1} x={540} y={930} width={900} edgeOnly />}
-      <Big t={t} at={T.conexoes - 0.05} out={29.45} text="CONEXÕES" size={190} y={1690} glow />
-      <Thin t={t} at={T.bilhoes - 0.1} out={29.45} text="bilhões de" size={84} y={1540} />
-      <Label t={t} at={27.1} out={29.4} text="FIG. VI — SANTIAGO RAMÓN Y CAJAL · 1899" y={150} />
+      <Reveal name="purkinje" p={P(t, T.cerebro - 0.2, 1.5, E.smooth)} x={540} y={800} width={820} />
+      {t > 27.6 && <Reveal name="purkinje" p={ap} x={540} y={800} width={820} edgeOnly />}
+      {t > T.conexoes && <Reveal name="purkinje" p={((t - T.conexoes) / 0.75) % 1} x={540} y={800} width={820} edgeOnly />}
+      <Big t={t} at={T.conexoes - 0.05} out={29.45} text="CONEXÕES" size={190} y={1380} glow />
+      <Thin t={t} at={T.bilhoes - 0.1} out={29.45} text="bilhões de" size={88} y={1240} />
+      <Label t={t} at={27.1} out={29.4} text="FIG. VI — SANTIAGO RAMÓN Y CAJAL · 1899" y={230} />
     </Cam>
   );
 };
@@ -158,11 +168,10 @@ const Brain: React.FC<{t: number}> = ({t}) => {
 // ------------------------------------------------------------------ 8 · revoada
 const Birds: React.FC<{t: number}> = ({t}) => (
   <Cam t={t} a={29.5} b={34.0} z0={1.0} z1={1.12} oy={900}>
-    <div style={{position: 'absolute', inset: 0, background: `radial-gradient(ellipse 90% 70% at 50% 40%, ${C.graph} 0%, ${C.ink} 75%)`}} />
-    <Flock t={t} a={29.5} cy={880} scale={420} opacity={P(t, 29.5, 0.5)} />
-    <Big t={t} at={T.comoum - 0.05} out={33.85} text="COMO UM SÓ" size={170} y={1590} stagger={0.035} />
-    <Thin t={t} at={T.sem - 0.05} out={33.85} text="sem ninguém dando ordens." size={78} y={1730} />
-    <Label t={t} at={29.7} out={33.8} text="FIG. VII — REVOADA · STURNUS VULGARIS" y={150} />
+    <Flock t={t} a={29.5} cy={860} scale={420} opacity={P(t, 29.5, 0.5)} color={C.pen} />
+    <Big t={t} at={T.comoum - 0.05} out={33.85} text="COMO UM SÓ" size={170} y={400} stagger={0.035} color={C.pen} />
+    <Thin t={t} at={T.sem - 0.05} out={33.85} text="sem ninguém dando ordens." size={80} y={1370} color={C.pen} />
+    <Label t={t} at={29.7} out={33.8} text="FIG. VII — REVOADA · STURNUS VULGARIS" y={230} color={C.pdim} />
   </Cam>
 );
 
@@ -171,36 +180,36 @@ const Machine: React.FC<{t: number}> = ({t}) => {
   const strike = P(t, T.maquina + 0.3, 0.3, E.out);
   return (
     <Cam t={t} a={33.95} b={36.1} z0={1.0} z1={1.06}>
-      <Reveal name="gears" p={P(t, 33.7, 1.2, E.smooth)} x={540} y={900} width={1000} opacity={0.3 * (1 - P(t, 35.3, 0.4))} edge={0} />
-      <Gears t={t} a={33.5} stop={T.maquina} shatter={35.35} />
-      <Label t={t} at={34.0} out={35.9} text="FIG. VIII — LEONARDO · MÁQUINAS" y={150} />
-      <Thin t={t} at={T.nada - 0.05} out={35.9} text="nada disso é uma" size={84} y={1500} />
-      <Big t={t} at={T.maquina - 0.05} out={35.9} text="MÁQUINA" size={210} y={1660} color={C.bone} />
-      <div style={{position: 'absolute', left: 120, top: 1652, width: 840 * strike, height: 12, background: C.or, boxShadow: `0 0 24px ${C.or}`, transform: 'rotate(-4deg)', transformOrigin: '0 50%', opacity: t > 35.9 ? 0 : 1}} />
+      <Reveal name="gears" p={P(t, 33.7, 1.2, E.smooth)} x={540} y={780} width={1000} opacity={0.3 * (1 - P(t, 35.3, 0.4))} edge={0} />
+      <div style={{position: 'absolute', inset: 0, transform: 'translateY(-150px) scale(.92)'}}><Gears t={t} a={33.5} stop={T.maquina} shatter={35.35} /></div>
+      <Label t={t} at={34.0} out={35.9} text="FIG. VIII — LEONARDO · MÁQUINAS" y={230} />
+      <Thin t={t} at={T.nada - 0.05} out={35.9} text="nada disso é uma" size={86} y={1230} />
+      <Big t={t} at={T.maquina - 0.05} out={35.9} text="MÁQUINA" size={210} y={1380} color={C.bone} />
+      <div style={{position: 'absolute', left: 120, top: 1372, width: 840 * strike, height: 12, background: C.or, boxShadow: `0 0 24px ${C.or}`, transform: 'rotate(-4deg)', transformOrigin: '0 50%', opacity: t > 35.9 ? 0 : 1}} />
     </Cam>
   );
 };
 
 // ------------------------------------------------------------------ 10 · ECOSSISTEMA
 const Eco: React.FC<{t: number}> = ({t}) => (
-  <Cam t={t} a={36.04} b={37.7} z0={1.25} z1={1.0} oy={880}>
-    <Flock t={t} a={36.04} cy={880} scale={420} opacity={0.18} orange={false} />
-    <Net t={t} a={36.04} cy={880} r={440} grow={P(t, 36.04, 0.8, E.out)} alive={1} spin={1.6} />
-    <Dot x={540} y={880} r={18} glow={2.2} />
-    <Big t={t} at={T.ecossistema - 0.08} out={37.5} text="ECOSSISTEMA" size={142} y={1610} stagger={0.022} glow />
+  <Cam t={t} a={36.04} b={37.7} z0={1.25} z1={1.0} oy={800}>
+    <Flock t={t} a={36.04} cy={800} scale={400} opacity={0.18} orange={false} />
+    <Net t={t} a={36.04} cy={800} r={400} grow={P(t, 36.04, 0.8, E.out)} alive={1} spin={1.6} />
+    <Dot x={540} y={800} r={18} glow={2.2} />
+    <Big t={t} at={T.ecossistema - 0.08} out={37.5} text="ECOSSISTEMA" size={142} y={1370} stagger={0.022} glow />
   </Cam>
 );
 
 // ------------------------------------------------------------------ 11 · a empresa comum (cinza)
 const TOOLS = ['CRM', 'PLANILHA_v3_final.xlsx', 'ERP', 'E-MAIL', 'WHATSAPP', 'AGENDA', 'FINANCEIRO', 'DRIVE', 'ESTOQUE', 'SUPORTE', 'RELATÓRIO', 'PEDIDOS'];
 const rc = rng(41);
-const CARD = TOOLS.map((n, i) => ({n, x: 140 + (i % 3) * 400, y: 560 + Math.floor(i / 3) * 210, dx: (rc() - 0.5) * 520, dy: (rc() - 0.5) * 640, rot: (rc() - 0.5) * 50, fall: 0.6 + rc() * 0.8}));
+const CARD = TOOLS.map((n, i) => ({n, x: 140 + (i % 3) * 400, y: 470 + Math.floor(i / 3) * 190, dx: (rc() - 0.5) * 520, dy: (rc() - 0.5) * 640, rot: (rc() - 0.5) * 50, fall: 0.6 + rc() * 0.8}));
 const Company: React.FC<{t: number}> = ({t}) => {
   const apart = P(t, T.ferramentas, 1.6, E.io), frozen = t > T.dados, fall = Math.max(0, t - T.pecas), gone = P(t, T.pessoas - 0.3, 0.4);
   const glitch = frozen && t < T.pessoas && Math.floor(t * 12) % 5 === 0;
   return (
     <div style={{position: 'absolute', inset: 0, background: `radial-gradient(ellipse 90% 70% at 50% 45%, #262629 0%, ${C.graph} 55%, #101012 100%)`}}>
-      <Label t={t} at={T.agora} out={46.6} text="FIG. IX — A EMPRESA COMUM" y={150} />
+      <Label t={t} at={T.agora} out={46.6} text="FIG. IX — A EMPRESA COMUM" y={230} />
       <div style={{position: 'absolute', inset: 0, perspective: 1600}}>
         <div style={{position: 'absolute', inset: 0, transform: `rotateX(${lerp(18, 8, P(t, T.agora, 2))}deg) translateY(${lerp(80, 0, P(t, T.agora, 1.2, E.out))}px)`, opacity: 1 - gone * 0.7}}>
           {CARD.map((c, i) => { const u = P(t, T.agora + i * 0.06, 0.5, E.out), fy = fall > 0 ? 1400 * Math.pow(fall * c.fall, 2) : 0; return (
@@ -214,16 +223,16 @@ const Company: React.FC<{t: number}> = ({t}) => {
       {/* Atlas: carrega tudo nas costas */}
       {t > T.pessoas - 0.2 && t < T.pecas + 0.8 && (() => { const u = P(t, T.pessoas - 0.2, 0.6, E.out), f = Math.max(0, t - T.pecas); return (
         <div style={{position: 'absolute', inset: 0, opacity: u * (1 - clamp(f / 0.7)), transform: `translateY(${(1 - u) * 60 + f * f * 900}px)`}}>
-          <Cut name="atlas" x={540} y={1080} width={760} style={{filter: 'grayscale(1) contrast(1.1) brightness(.8)'}} />
-          {[0, 1, 2, 3, 4].map((k) => <div key={k} style={{position: 'absolute', left: 430 + Math.sin(t * 7 + k) * 6 * (1 + k * 0.4), top: 640 - k * 66, width: 220, height: 58, borderRadius: 10, background: '#2b2b2f', boxShadow: '0 0 0 1px #45454b', transform: `rotate(${-8 + Math.sin(t * 5 + k * 1.3) * (2 + k)}deg)`, fontFamily: F.mono, fontSize: 18, color: '#8d8a84', padding: '16px 18px', boxSizing: 'border-box'}}>{TOOLS[(k * 5) % TOOLS.length]}</div>)}
+          <Cut name="atlas" x={540} y={940} width={700} style={{filter: 'grayscale(1) contrast(1.1) brightness(.8)'}} />
+          {[0, 1, 2, 3, 4].map((k) => <div key={k} style={{position: 'absolute', left: 440 + Math.sin(t * 7 + k) * 6 * (1 + k * 0.4), top: 540 - k * 62, width: 220, height: 58, borderRadius: 10, background: '#2b2b2f', boxShadow: '0 0 0 1px #45454b', transform: `rotate(${-8 + Math.sin(t * 5 + k * 1.3) * (2 + k)}deg)`, fontFamily: F.mono, fontSize: 18, color: '#8d8a84', padding: '16px 18px', boxSizing: 'border-box'}}>{TOOLS[(k * 5) % TOOLS.length]}</div>)}
         </div>); })()}
-      <Thin t={t} at={T.agora} out={T.ferramentas - 0.15} text="a maioria das empresas." size={84} y={1560} color="#c9c6bf" />
-      <Thin t={t} at={T.ferramentas} out={T.dados - 0.12} text="ferramentas soltas." size={92} y={1560} color="#c9c6bf" />
-      <Thin t={t} at={T.dados} out={T.pessoas - 0.12} text="dados parados." size={92} y={1560} color="#c9c6bf" />
-      <Thin t={t} at={T.pessoas} out={T.pecas - 0.12} text="tudo nas costas." size={92} y={1640} color="#c9c6bf" />
-      <Big t={t} at={T.pecas} out={T.nao - 0.1} text="PEÇAS." size={230} y={960} color="#8d8a84" />
-      <Big t={t} at={T.nao} out={46.6} text="NÃO VIDA." size={150} y={1400} color="#6e6c67" />
-      {t > T.nao - 0.2 && <Ecg t={t} beats={[]} y={960} opacity={P(t, T.nao - 0.2, 0.3)} />}
+      <Thin t={t} at={T.agora} out={T.ferramentas - 0.15} text="a maioria das empresas." size={86} y={1390} color="#c9c6bf" />
+      <Thin t={t} at={T.ferramentas} out={T.dados - 0.12} text="ferramentas soltas." size={94} y={1390} color="#c9c6bf" />
+      <Thin t={t} at={T.dados} out={T.pessoas - 0.12} text="dados parados." size={94} y={1390} color="#c9c6bf" />
+      <Thin t={t} at={T.pessoas} out={T.pecas - 0.12} text="tudo nas costas." size={94} y={1390} color="#c9c6bf" />
+      <Big t={t} at={T.pecas} out={T.nao - 0.1} text="PEÇAS." size={230} y={900} color="#8d8a84" />
+      <Big t={t} at={T.nao} out={46.6} text="NÃO VIDA." size={150} y={1230} color="#6e6c67" />
+      {t > T.nao - 0.2 && <Ecg t={t} beats={[]} y={900} opacity={P(t, T.nao - 0.2, 0.3)} />}
     </div>
   );
 };
@@ -233,37 +242,44 @@ const HB = BEAT.filter((b) => b >= T.eu - 0.02 && b < 50.7);
 const ring12 = Array.from({length: 12}, (_, i) => ({a: (i / 12) * Math.PI * 2 - Math.PI / 2, n: TOOLS[i]}));
 const Believe: React.FC<{t: number}> = ({t}) => {
   const warm = P(t, T.eu, 1.2, E.io), form = P(t, T.acredito, 1.6, E.io), roots = P(t, 48.0, 1.8, E.io);
-  const pos = ring12.map((c) => ({x: 540 + Math.cos(c.a) * 380, y: 960 + Math.sin(c.a) * 380}));
+  const pos = ring12.map((c) => ({x: 540 + Math.cos(c.a) * 370, y: 900 + Math.sin(c.a) * 370}));
   return (
     <div style={{position: 'absolute', inset: 0, background: `radial-gradient(ellipse 80% 60% at 50% 50%, rgba(255,90,31,${0.12 * warm}) 0%, ${C.ink} 70%)`}}>
-      <Reveal name="mycetozoa" p={P(t, T.natureza - 0.3, 1.6, E.smooth)} x={540} y={980} width={1100} opacity={0.22} edge={0} />
-      <Ecg t={t} beats={HB} y={960} color={C.or} opacity={1 - form * 0.85} />
+      <Reveal name="mycetozoa" p={P(t, T.natureza - 0.3, 1.6, E.smooth)} x={540} y={900} width={1100} opacity={0.22} edge={0} />
+      <Ecg t={t} beats={HB} y={900} color={C.or} opacity={1 - form * 0.85} />
       <svg width={1080} height={1920} style={{position: 'absolute', inset: 0}}>
-        {pos.map((p, i) => { const q = pos[(i + 1) % 12], o = pos[(i + 5) % 12], u = clamp(roots * 1.4 - i * 0.03); const mx = (p.x + q.x) / 2 + (540 - (p.x + q.x) / 2) * 0.35, my = (p.y + q.y) / 2 + (960 - (p.y + q.y) / 2) * 0.35; return <g key={i} opacity={form}>
+        {pos.map((p, i) => { const q = pos[(i + 1) % 12], o = pos[(i + 5) % 12], u = clamp(roots * 1.4 - i * 0.03); const mx = (p.x + q.x) / 2 + (540 - (p.x + q.x) / 2) * 0.35, my = (p.y + q.y) / 2 + (900 - (p.y + q.y) / 2) * 0.35; return <g key={i} opacity={form}>
           <path d={`M${p.x} ${p.y} Q${mx} ${my} ${q.x} ${q.y}`} fill="none" stroke={C.or} strokeWidth={2} pathLength={1} strokeDasharray="1 1" strokeDashoffset={1 - u} style={{filter: `drop-shadow(0 0 6px ${C.or})`}} />
-          {i % 2 === 0 && <path d={`M${p.x} ${p.y} Q540 960 ${o.x} ${o.y}`} fill="none" stroke={C.bone} strokeOpacity={0.35} strokeWidth={1} pathLength={1} strokeDasharray="1 1" strokeDashoffset={1 - u} />}
+          {i % 2 === 0 && <path d={`M${p.x} ${p.y} Q540 900 ${o.x} ${o.y}`} fill="none" stroke={C.bone} strokeOpacity={0.35} strokeWidth={1} pathLength={1} strokeDasharray="1 1" strokeDashoffset={1 - u} />}
         </g>; })}
       </svg>
       {ring12.map((c, i) => { const p = pos[i]; return <div key={i} style={{position: 'absolute', left: p.x - 82, top: p.y - 30, width: 164, height: 60, borderRadius: 14, background: '#1f1f22', boxShadow: `0 0 0 1.5px ${roots > i / 14 ? C.or : '#3c3c41'}`, opacity: form, transform: `scale(${lerp(0.6, 1, form)})`, fontFamily: F.mono, fontSize: 15, color: roots > i / 14 ? C.bone : '#8d8a84', display: 'flex', alignItems: 'center', justifyContent: 'center', letterSpacing: '0.06em', overflow: 'hidden', whiteSpace: 'nowrap'}}>{c.n.length > 11 ? c.n.slice(0, 9) + '…' : c.n}</div>; })}
-      <Dot x={540} y={960} r={14 + 8 * pulse(t, 0.14)} glow={1.5 + pulse(t)} opacity={form} />
+      <Dot x={540} y={900} r={14 + 8 * pulse(t, 0.14)} glow={1.5 + pulse(t)} opacity={form} />
       <Thin t={t} at={T.eu} out={T.natureza - 0.25} text="eu acredito" size={110} y={300} />
-      <Thin t={t} at={T.natureza - 0.1} out={50.6} text="como a natureza funciona." size={86} y={1560} color={C.orHi} />
+      <Thin t={t} at={T.natureza - 0.1} out={50.6} text="como a natureza funciona." size={86} y={1440} color={C.orHi} />
     </div>
   );
 };
 
 // ------------------------------------------------------------------ 13 · vivo: sentindo, aprendendo, se movendo inteira
-const Alive: React.FC<{t: number}> = ({t}) => (
-  <Cam t={t} a={50.7} b={54.15} z0={1.0} z1={1.18} oy={900}>
-    <Flock t={t} a={50.0} cy={900} scale={460} opacity={0.35 + 0.25 * P(t, T.movendo, 0.5)} orange={false} speed={1.6} />
-    <Net t={t} a={50.7} cy={900} r={420} alive={1} spin={2.2} />
-    <Dot x={540} y={900} r={16 + 10 * pulse(t)} glow={2} />
-    <Big t={t} at={T.sentindo - 0.04} out={T.aprendendo - 0.12} text="SENTINDO." size={170} y={1620} />
-    <Big t={t} at={T.aprendendo - 0.04} out={T.movendo - 0.3} text="APRENDENDO." size={150} y={1620} />
-    <Thin t={t} at={T.movendo - 0.15} out={54.0} text="se movendo" size={90} y={1480} />
-    <Big t={t} at={T.inteira - 0.05} out={54.0} text="INTEIRA." size={210} y={1640} color={C.or} glow />
-  </Cam>
-);
+const FLIP = T.aprendendo - 0.06;
+const Alive: React.FC<{t: number}> = ({t}) => {
+  const lt = t < FLIP, fg = lt ? C.pen : C.bone;
+  return (
+    <>
+      {lt && <Paper />}
+      <Cam t={t} a={50.7} b={54.15} z0={1.0} z1={1.18} oy={800}>
+        <Flock t={t} a={50.0} cy={800} scale={440} opacity={0.35 + 0.25 * P(t, T.movendo, 0.5)} orange={false} speed={1.6} color={fg} />
+        <Net t={t} a={50.7} cy={800} r={390} alive={1} spin={2.2} fg={fg} />
+        <Dot x={540} y={800} r={16 + 10 * pulse(t)} glow={2} />
+        <Big t={t} at={T.sentindo - 0.04} out={FLIP - 0.02} text="SENTINDO." size={170} y={1370} color={C.pen} />
+        <Big t={t} at={T.aprendendo - 0.04} out={T.movendo - 0.3} text="APRENDENDO." size={150} y={1370} />
+        <Thin t={t} at={T.movendo - 0.15} out={54.0} text="se movendo" size={92} y={1220} />
+        <Big t={t} at={T.inteira - 0.05} out={54.0} text="INTEIRA." size={210} y={1380} color={C.or} glow />
+      </Cam>
+    </>
+  );
+};
 
 // ------------------------------------------------------------------ 14 · não é sobre ter mais tecnologia
 const More: React.FC<{t: number}> = ({t}) => {
@@ -271,28 +287,29 @@ const More: React.FC<{t: number}> = ({t}) => {
   return (
     <div style={{position: 'absolute', inset: 0, background: C.graph}}>
       {Array.from({length: n}, (_, i) => <div key={i} style={{position: 'absolute', left: 40 + (i % lv) * cw + cw * 0.08, top: 160 + Math.floor(i / lv) * cw * 0.62, width: cw * 0.84, height: cw * 0.5, borderRadius: Math.max(3, cw * 0.06), background: '#2b2b2f', boxShadow: '0 0 0 1px #3c3c41', fontFamily: F.mono, fontSize: Math.max(6, cw * 0.09), color: '#77756f', padding: cw * 0.06, boxSizing: 'border-box', overflow: 'hidden', whiteSpace: 'nowrap'}}>{TOOLS[i % TOOLS.length]}</div>)}
-      <div style={{position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(27,27,29,0) 55%, rgba(27,27,29,.95) 78%)'}} />
-      <Thin t={t} at={T.naoe} out={56.1} text="não é sobre ter mais" size={86} y={1500} color="#c9c6bf" />
-      <Big t={t} at={T.tecnologia - 0.05} out={56.1} text="TECNOLOGIA" size={150} y={1650} color="#9a978f" />
+      <div style={{position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(27,27,29,0) 40%, rgba(27,27,29,.96) 58%)'}} />
+      <Thin t={t} at={T.naoe} out={56.1} text="não é sobre ter mais" size={88} y={1230} color="#c9c6bf" />
+      <Big t={t} at={T.tecnologia - 0.05} out={56.1} text="TECNOLOGIA" size={150} y={1380} color="#9a978f" />
     </div>
   );
 };
 
 // ------------------------------------------------------------------ 15 · é sobre dar vida a ela
 const GiveLife: React.FC<{t: number}> = ({t}) => {
-  const lv = 16, cw = 1000 / lv, wave = (t - T.dar) * 1500;
+  const lv = 16, cw = 1000 / lv, wave = (t - T.dar) * 1500, CY = 760;
   return (
-    <div style={{position: 'absolute', inset: 0, background: C.ink}}>
-      {Array.from({length: lv * 26}, (_, i) => { const x = 40 + (i % lv) * cw + cw * 0.5, y = 160 + Math.floor(i / lv) * cw * 0.62 + cw * 0.25, d = Math.hypot(x - 540, y - 900), lit = wave > d ? Math.exp(-(wave - d) / 700) : 0, on = wave > d; return <div key={i} style={{position: 'absolute', left: x - cw * 0.42, top: y - cw * 0.25, width: cw * 0.84, height: cw * 0.5, borderRadius: 4, background: on ? `rgba(255,90,31,${0.15 + 0.6 * lit})` : '#1f1f22', boxShadow: on ? `0 0 ${10 + 30 * lit}px rgba(255,90,31,${0.5 * lit})` : 'none', transform: `scale(${1 + 0.25 * lit})`}} />; })}
+    <div style={{position: 'absolute', inset: 0}}>
+      {Array.from({length: lv * 26}, (_, i) => { const x = 40 + (i % lv) * cw + cw * 0.5, y = 160 + Math.floor(i / lv) * cw * 0.62 + cw * 0.25, d = Math.hypot(x - 540, y - CY), lit = wave > d ? Math.exp(-(wave - d) / 700) : 0, on = wave > d; return <div key={i} style={{position: 'absolute', left: x - cw * 0.42, top: y - cw * 0.25, width: cw * 0.84, height: cw * 0.5, borderRadius: 4, background: on ? `rgba(255,90,31,${0.12 + 0.75 * lit})` : '#ddd7cb', boxShadow: on ? `0 0 ${8 + 26 * lit}px rgba(255,90,31,${0.45 * lit})` : 'none', transform: `scale(${1 + 0.25 * lit})`}} />; })}
       <svg width={1080} height={1920} style={{position: 'absolute', inset: 0}}>
-        {Array.from({length: 40}, (_, k) => { const a = (k / 40) * 6.283, r = Math.min(1500, Math.max(0, wave)); return <line key={k} x1={540} y1={900} x2={540 + Math.cos(a) * r * 0.9} y2={900 + Math.sin(a) * r * 0.9} stroke={C.or} strokeOpacity={0.18} strokeWidth={1.5} />; })}
+        {Array.from({length: 40}, (_, k) => { const a = (k / 40) * 6.283, r = Math.min(1500, Math.max(0, wave)); return <line key={k} x1={540} y1={CY} x2={540 + Math.cos(a) * r * 0.9} y2={CY + Math.sin(a) * r * 0.9} stroke={C.or} strokeOpacity={0.25} strokeWidth={1.5} />; })}
       </svg>
-      <Ring t={t} at={T.dar} x={540} y={900} r1={1500} d={1.2} />
-      <Ring t={t} at={T.vida2} x={540} y={900} r1={1200} d={1.0} color={C.bone} width={2} />
-      <Dot x={540} y={900} r={22 + 14 * pulse(t, 0.15)} glow={2.5} />
-      <Thin t={t} at={T.sobre2 - 0.1} out={T.vida2 - 0.1} text="é sobre dar" size={90} y={1450} />
-      <Big t={t} at={T.vida2 - 0.06} out={57.95} text="VIDA" size={400} y={1560} color={C.or} glow stagger={0.06} />
-      <Thin t={t} at={T.ela - 0.05} out={57.95} text="a ela." size={90} y={1800} />
+      <div style={{position: 'absolute', left: 0, right: 0, top: 1060, bottom: 0, background: 'linear-gradient(180deg, rgba(239,235,227,0) 0%, rgba(239,235,227,.94) 22%)'}} />
+      <Ring t={t} at={T.dar} x={540} y={CY} r1={1500} d={1.2} />
+      <Ring t={t} at={T.vida2} x={540} y={CY} r1={1200} d={1.0} color={C.pen} width={2} />
+      <Dot x={540} y={CY} r={22 + 14 * pulse(t, 0.15)} glow={2.5} />
+      <Thin t={t} at={T.sobre2 - 0.1} out={T.vida2 - 0.1} text="é sobre dar" size={92} y={1230} color={C.pen} />
+      <Big t={t} at={T.vida2 - 0.06} out={57.95} text="VIDA" size={360} y={1300} color={C.or} stagger={0.06} />
+      <Thin t={t} at={T.ela - 0.05} out={57.95} text="a ela." size={92} y={1440} color={C.pen} />
     </div>
   );
 };
@@ -306,16 +323,16 @@ const Ending: React.FC<{t: number}> = ({t}) => {
   const fade = P(t, 65.2, 1.2, E.in);
   return (
     <div style={{position: 'absolute', inset: 0, opacity: 1 - fade}}>
-      {t < T.por + 0.3 && <div style={{position: 'absolute', inset: 0, transformOrigin: '540px 900px', transform: `scale(${lerp(1, 0.18, back)})`, opacity: 1 - P(t, T.por - 0.3, 0.5)}}>
-        <Net t={t} a={50.7} cy={900} r={420} alive={1} spin={2.2} />
+      {t < T.por + 0.3 && <div style={{position: 'absolute', inset: 0, transformOrigin: '540px 760px', transform: `scale(${lerp(1, 0.18, back)})`, opacity: 1 - P(t, T.por - 0.3, 0.5)}}>
+        <Net t={t} a={50.7} cy={760} r={420} alive={1} spin={2.2} />
       </div>}
-      {t > T.comeco - 0.3 && close < 1 && <Eye t={t} open={Math.max(0.02, open)} pupil={pupil} cy={900} R={300} opacity={P(t, T.comeco - 0.3, 0.8)} />}
-      {t > T.sting && <Dot x={540} y={900} r={dotR} glow={2} />}
-      <Ring t={t} at={T.sting} x={540} y={900} r1={1300} d={1.5} />
-      <Thin t={t} at={T.isso} out={T.por - 0.2} text="isso é só o começo." size={92} y={1500} />
-      <Thin t={t} at={T.por} out={T.sting - 0.1} text="por enquanto…" size={86} y={1460} color={C.dim} />
-      <Thin t={t} at={T.so - 0.05} out={64.6} text="só observa." size={132} y={1600} />
-      <Label t={t} at={62.4} out={65.0} text="Nº 01" y={1760} align="center" color={C.or} size={26} />
+      {t > T.comeco - 0.3 && close < 1 && <Eye t={t} open={Math.max(0.02, open)} pupil={pupil} cy={800} R={290} opacity={P(t, T.comeco - 0.3, 0.8)} />}
+      {t > T.sting && <Dot x={540} y={800} r={dotR} glow={2} />}
+      <Ring t={t} at={T.sting} x={540} y={800} r1={1300} d={1.5} />
+      <Thin t={t} at={T.isso} out={T.por - 0.2} text="isso é só o começo." size={94} y={1300} />
+      <Thin t={t} at={T.por} out={T.sting - 0.1} text="por enquanto…" size={86} y={1230} color={C.dim} />
+      <Thin t={t} at={T.so - 0.05} out={64.6} text="só observa." size={136} y={1370} />
+      <Label t={t} at={62.4} out={65.0} text="Nº 01" y={1460} align="center" color={C.or} size={26} />
     </div>
   );
 };
@@ -325,28 +342,29 @@ export const Ecossistema: React.FC<{audio: 'none' | 'mix'}> = ({audio}) => {
   const frame = useCurrentFrame(), t = frame / FPS;
   const pu = pulse(t), loud = t > T.back && t < T.cut;
   const shake = loud ? pu * 3 : 0;
+  const light = LIGHT.some(([a, b]) => t >= a && t < b);
   return (
     <AbsoluteFill style={{background: C.ink, overflow: 'hidden', fontFamily: F.head}}>
       <div style={{position: 'absolute', inset: 0, transform: `translate(${(Math.sin(t * 53) * shake).toFixed(1)}px, ${(Math.cos(t * 41) * shake).toFixed(1)}px) scale(${(1 + (loud ? 0.012 : 0.004) * pu).toFixed(4)})`}}>
-        <Scene t={t} a={0} b={6.35} inD={0} outD={0.1}><Question t={t} /><Thin t={t} at={T.pergunta - 0.1} out={6.15} text="uma pergunta." size={104} y={1480} /><Label t={t} at={1.3} out={6.1} text="Nº 01" y={150} /></Scene>
-        <Scene t={t} a={6.35} b={10.95} zIn={1.6} inD={0.35}><DaVinci t={t} /></Scene>
-        <Scene t={t} a={10.95} b={13.4}><Newton t={t} /></Scene>
-        <Scene t={t} a={13.4} b={18.15}><Quantum t={t} /></Scene>
-        <Scene t={t} a={18.15} b={21.45}><Always t={t} /></Scene>
-        <Scene t={t} a={21.45} b={T.back - 0.02} outD={0.02}><Parts t={t} /></Scene>
-        <Scene t={t} a={T.back} b={26.95} inD={0.1} zIn={1.25}><Woods t={t} /></Scene>
-        <Scene t={t} a={26.95} b={29.5}><Brain t={t} /></Scene>
-        <Scene t={t} a={29.5} b={33.95}><Birds t={t} /></Scene>
-        <Scene t={t} a={33.95} b={36.04} outD={0.08}><Machine t={t} /></Scene>
+        <Scene t={t} a={0} b={6.35} inD={0} outD={0.45} hold><Question t={t} /><Thin t={t} at={T.pergunta - 0.1} out={6.15} text="uma pergunta." size={108} y={1330} /><Label t={t} at={1.3} out={6.1} text="Nº 01" y={230} /></Scene>
+        <Scene t={t} a={6.0} b={10.95} light wipe={{kind: 'iris', x: 540, y: 1095, d: 0.45}} outD={0.4} hold><DaVinci t={t} /></Scene>
+        <Scene t={t} a={10.95} b={13.4} wipe={{kind: 'slit', d: 0.35}} outD={0.4} hold><Newton t={t} /></Scene>
+        <Scene t={t} a={13.4} b={18.15} light wipe={{kind: 'iris', x: 540, y: 640, d: 0.4}} outD={0.4} hold><Quantum t={t} /></Scene>
+        <Scene t={t} a={18.15} b={21.45} wipe={{kind: 'slit', d: 0.35}}><Flammarion t={t} /></Scene>
+        <Scene t={t} a={21.45} b={T.back} outD={0.4} hold><Parts t={t} /></Scene>
+        <Scene t={t} a={T.back} b={26.95} light wipe={{kind: 'iris', x: 540, y: 960, d: 0.32}} outD={0.4} hold><Woods t={t} /></Scene>
+        <Scene t={t} a={26.95} b={29.5} wipe={{kind: 'slit', d: 0.32}} outD={0.4} hold><Brain t={t} /></Scene>
+        <Scene t={t} a={29.5} b={33.95} light wipe={{kind: 'iris', x: 540, y: 800, d: 0.4}} outD={0.4} hold><Birds t={t} /></Scene>
+        <Scene t={t} a={33.95} b={36.04} wipe={{kind: 'slit', d: 0.3}} outD={0.08}><Machine t={t} /></Scene>
         <Scene t={t} a={36.04} b={37.62} inD={0.1} zIn={1.3}><Eco t={t} /></Scene>
         <Scene t={t} a={37.62} b={46.72} inD={0.3} zIn={1.0}><Company t={t} /></Scene>
-        <Scene t={t} a={46.72} b={50.7} inD={0.4} zIn={1.0}><Believe t={t} /></Scene>
-        <Scene t={t} a={50.7} b={54.12} inD={0.1} zIn={1.2}><Alive t={t} /></Scene>
-        <Scene t={t} a={54.12} b={56.2} inD={0.08}><More t={t} /></Scene>
-        <Scene t={t} a={56.2} b={58.0} inD={0.06}><GiveLife t={t} /></Scene>
-        <Scene t={t} a={58.0} b={67} inD={0.2} zIn={1.0}><Ending t={t} /></Scene>
+        <Scene t={t} a={46.72} b={50.7} inD={0.4} zIn={1.0} outD={0.4} hold><Believe t={t} /></Scene>
+        <Scene t={t} a={50.7} b={54.12} wipe={{kind: 'iris', x: 540, y: 900, d: 0.3}} outD={0.35} hold><Alive t={t} /></Scene>
+        <Scene t={t} a={54.12} b={56.2} wipe={{kind: 'slit', d: 0.22}} bg={C.graph} outD={0.4} hold><More t={t} /></Scene>
+        <Scene t={t} a={56.2} b={58.0} light wipe={{kind: 'iris', x: 540, y: 760, d: 0.35}} outD={0.45} hold><GiveLife t={t} /></Scene>
+        <Scene t={t} a={58.0} b={67} wipe={{kind: 'iris', x: 540, y: 760, d: 0.45}}><Ending t={t} /></Scene>
       </div>
-      <Dust t={t} n={60} opacity={t > 37.6 && t < 46.7 ? 0.25 : 0.7} warm={t > 46.7 ? 0.3 : 0.06} />
+      <Dust t={t} n={60} opacity={light ? 0 : t > 37.6 && t < 46.7 ? 0.25 : 0.7} warm={t > 46.7 ? 0.3 : 0.06} />
       <Flash t={t} at={T.hit0} d={0.5} color={C.or} max={0.35} />
       <Flash t={t} at={T.back} d={0.5} max={0.85} />
       <Flash t={t} at={T.medir} d={0.3} color={C.or} max={0.4} />
@@ -355,8 +373,8 @@ export const Ecossistema: React.FC<{audio: 'none' | 'mix'}> = ({audio}) => {
       {[T.sentindo, T.aprendendo, T.inteira].map((a) => <Flash key={a} t={t} at={a} d={0.25} max={0.35} />)}
       <Flash t={t} at={T.dar} d={0.4} color={C.or} max={0.5} />
       <Flash t={t} at={T.sting} d={0.6} color={C.or} max={0.55} />
-      <Vignette strength={0.8} />
-      <Grain frame={frame} amount={0.07} />
+      <Vignette strength={light ? 0.32 : 0.8} />
+      <Grain frame={frame} amount={light ? 0.1 : 0.07} dark={light} />
       {audio === 'mix' && <Audio src={staticFile('eco/audio/mix.wav')} />}
     </AbsoluteFill>
   );

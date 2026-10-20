@@ -22,14 +22,14 @@ const r1 = rng(11);
 const INTF: number[] = []; while (INTF.length < 7000) { const X = r1() * 2 - 1, s = 2.6 * X, sinc = Math.abs(s) < 1e-4 ? 1 : Math.sin(s) / s, I = Math.cos(10.5 * X) ** 2 * sinc * sinc; if (r1() < I) INTF.push(X); }
 const TWO: number[] = Array.from({length: 4000}, () => (r1() < 0.5 ? -1 : 1) * 0.15 + gauss(r1) * 0.085);
 const YS: number[] = Array.from({length: 7000}, () => r1());
-const SL = {ey: 300, by: 760, sx: 64, sw: 20, py0: 1130, py1: 1660, px: 430};
+const SL = {ey: 330, by: 640, sx: 64, sw: 20, py0: 830, py1: 1230, px: 430};
 /** quantas partículas já chegaram, τ s depois do início */
 const fired = (tau: number) => (tau < 0 ? 0 : tau < 1.5 ? Math.floor(tau / 0.3) + 1 : Math.min(7000, Math.floor(6 + Math.pow(tau - 1.5, 2.4) * 3600)));
-export const DoubleSlit: React.FC<{t: number; a: number; medir: number}> = ({t, a, medir}) => {
+export const DoubleSlit: React.FC<{t: number; a: number; medir: number; fg?: string}> = ({t, a, medir, fg = C.bone}) => {
   const ref = useCanvas((g) => {
     const tau = t - a, after = t - medir;
     // aparato (traço de gravura)
-    g.strokeStyle = C.bone; g.lineWidth = 2; g.globalAlpha = 0.85 * P(t, a - 0.3, 0.5);
+    g.strokeStyle = fg; g.lineWidth = 2; g.globalAlpha = 0.85 * P(t, a - 0.3, 0.5);
     g.beginPath(); g.arc(540, SL.ey, 26, 0, Math.PI * 2); g.stroke();
     for (let k = -3; k <= 3; k++) { g.beginPath(); g.moveTo(540 + k * 7, SL.ey - 26); g.lineTo(540 + k * 7, SL.ey - 70); g.stroke(); }
     g.beginPath(); g.moveTo(90, SL.by); g.lineTo(540 - SL.sx - SL.sw / 2, SL.by); g.moveTo(540 - SL.sx + SL.sw / 2, SL.by); g.lineTo(540 + SL.sx - SL.sw / 2, SL.by); g.moveTo(540 + SL.sx + SL.sw / 2, SL.by); g.lineTo(990, SL.by); g.stroke();
@@ -40,14 +40,14 @@ export const DoubleSlit: React.FC<{t: number; a: number; medir: number}> = ({t, 
     if (waveA > 0) for (const s of [-1, 1]) for (let k = 0; k < 7; k++) { const rr = ((t * 160 + k * 60) % 420); g.globalAlpha = waveA * 0.22 * (1 - rr / 420); g.lineWidth = 1.5; g.beginPath(); g.arc(540 + s * SL.sx, SL.by, rr, 0.12 * Math.PI, 0.88 * Math.PI); g.stroke(); }
     // partículas
     const n = fired(Math.min(tau, medir - a)), fade = 1 - 0.82 * P(t, medir + 0.12, 0.7, E.io);
-    for (let i = 0; i < n; i++) { const X = INTF[i], x = 540 + X * SL.px, y = SL.py0 + YS[i] * (SL.py1 - SL.py0); const age = tau - (i < 5 ? i * 0.3 : 1.5 + Math.pow((i - 6) / 3600, 1 / 2.4)); const hot = age < (i < 40 ? 0.18 : 0.025) && after < 0; g.globalAlpha = (hot ? 1 : 0.78) * fade; g.fillStyle = hot ? C.or : C.bone; const s = hot ? 6 : 3; g.fillRect(x - s / 2, y - s / 2, s, s); }
-    if (after > 0) { const m = Math.min(4000, Math.floor(Math.pow(after, 1.6) * 2600)); for (let i = 0; i < m; i++) { const x = 540 + TWO[i] * SL.px, y = SL.py0 + YS[(i * 7) % 7000] * (SL.py1 - SL.py0); g.globalAlpha = 0.85; g.fillStyle = i > m - 40 ? C.or : C.bone; g.fillRect(x - 1.5, y - 1.5, 3, 3); } }
+    for (let i = 0; i < n; i++) { const X = INTF[i], x = 540 + X * SL.px, y = SL.py0 + YS[i] * (SL.py1 - SL.py0); const age = tau - (i < 5 ? i * 0.3 : 1.5 + Math.pow((i - 6) / 3600, 1 / 2.4)); const hot = age < (i < 40 ? 0.18 : 0.025) && after < 0; g.globalAlpha = (hot ? 1 : 0.78) * fade; g.fillStyle = hot ? C.or : fg; const s = hot ? 6 : 3; g.fillRect(x - s / 2, y - s / 2, s, s); }
+    if (after > 0) { const m = Math.min(4000, Math.floor(Math.pow(after, 1.6) * 2600)); for (let i = 0; i < m; i++) { const x = 540 + TWO[i] * SL.px, y = SL.py0 + YS[(i * 7) % 7000] * (SL.py1 - SL.py0); g.globalAlpha = 0.85; g.fillStyle = i > m - 40 ? C.or : fg; g.fillRect(x - 1.5, y - 1.5, 3, 3); } }
     // as primeiras viajam visíveis (o ponto laranja)
     for (let i = 0; i < 5; i++) { const t0 = a + i * 0.3 - 0.55, u = (t - t0) / 0.55; if (u < 0 || u > 1) continue; const X = INTF[i], sx = 540 + (X > 0 ? 1 : -1) * SL.sx; const p = u < 0.45 ? {x: lerp(540, sx, u / 0.45), y: lerp(SL.ey, SL.by, u / 0.45)} : {x: lerp(sx, 540 + X * SL.px, (u - 0.45) / 0.55), y: lerp(SL.by, SL.py0 + YS[i] * (SL.py1 - SL.py0), (u - 0.45) / 0.55)}; g.globalAlpha = 1; g.fillStyle = C.or; g.shadowColor = C.or; g.shadowBlur = 24; g.beginPath(); g.arc(p.x, p.y, 7, 0, Math.PI * 2); g.fill(); g.shadowBlur = 0; }
     // detector (o olho) liga nas fendas
-    if (after > -0.05) { const u = P(t, medir - 0.05, 0.35, E.out); g.globalAlpha = u; g.strokeStyle = C.or; g.lineWidth = 3; g.shadowColor = C.or; g.shadowBlur = 18; const ex = 540, ey = SL.by - 150, ew = 120 * u; g.beginPath(); g.moveTo(ex - ew, ey); g.quadraticCurveTo(ex, ey - 70 * u, ex + ew, ey); g.quadraticCurveTo(ex, ey + 70 * u, ex - ew, ey); g.stroke(); g.beginPath(); g.arc(ex, ey, 30 * u, 0, Math.PI * 2); g.fillStyle = C.or; g.fill(); g.fillStyle = C.ink; g.beginPath(); g.arc(ex, ey, 12 * u, 0, Math.PI * 2); g.fill(); g.shadowBlur = 0; for (const s of [-1, 1]) { g.setLineDash([6, 8]); g.beginPath(); g.moveTo(ex + s * 40, ey + 40); g.lineTo(540 + s * SL.sx, SL.by - 6); g.stroke(); g.setLineDash([]); } }
+    if (after > -0.05) { const u = P(t, medir - 0.05, 0.35, E.out); g.globalAlpha = u; g.strokeStyle = C.or; g.lineWidth = 3; g.shadowColor = C.or; g.shadowBlur = 18; const ex = 540, ey = SL.by - 150, ew = 120 * u; g.beginPath(); g.moveTo(ex - ew, ey); g.quadraticCurveTo(ex, ey - 70 * u, ex + ew, ey); g.quadraticCurveTo(ex, ey + 70 * u, ex - ew, ey); g.stroke(); g.beginPath(); g.arc(ex, ey, 30 * u, 0, Math.PI * 2); g.fillStyle = C.or; g.fill(); g.fillStyle = '#050505'; g.beginPath(); g.arc(ex, ey, 12 * u, 0, Math.PI * 2); g.fill(); g.shadowBlur = 0; for (const s of [-1, 1]) { g.setLineDash([6, 8]); g.beginPath(); g.moveTo(ex + s * 40, ey + 40); g.lineTo(540 + s * SL.sx, SL.by - 6); g.stroke(); g.setLineDash([]); } }
     g.globalAlpha = 1;
-  }, [t]);
+  }, [t, fg]);
   return <Cv cref={ref} />;
 };
 
@@ -106,17 +106,17 @@ const MYC: {a: number; b: number; t0: number; bend: number}[] = (() => {
   return out;
 })();
 const ROOT_END = Math.max(...SEGS.map((s) => s.t1));
-export const Forest: React.FC<{t: number; a: number; dur?: number; opacity?: number; pulses?: number; ground?: boolean}> = ({t, a, dur = 1.6, opacity = 1, pulses = 1, ground = true}) => {
+export const Forest: React.FC<{t: number; a: number; dur?: number; opacity?: number; pulses?: number; ground?: boolean; fg?: string}> = ({t, a, dur = 1.6, opacity = 1, pulses = 1, ground = true, fg = C.bone}) => {
   const ref = useCanvas((g) => {
     const tg = ((t - a) / dur) * ROOT_END;
-    g.lineCap = 'round'; g.strokeStyle = C.bone;
+    g.lineCap = 'round'; g.strokeStyle = fg;
     if (ground) { g.globalAlpha = opacity * 0.6; g.lineWidth = 2; g.beginPath(); g.moveTo(40, 760); g.lineTo(1040, 760); g.stroke(); for (let x = 50; x < 1040; x += 18) { g.globalAlpha = opacity * 0.25; g.beginPath(); g.moveTo(x, 762); g.lineTo(x - 12, 778); g.stroke(); } }
     for (const s of SEGS) { if (tg < s.t0) continue; const u = clamp((tg - s.t0) / (s.t1 - s.t0)); g.globalAlpha = opacity * (0.35 + 0.55 * clamp(s.w / 3)); g.lineWidth = s.w; g.beginPath(); g.moveTo(s.x1, s.y1); g.lineTo(lerp(s.x1, s.x2, u), lerp(s.y1, s.y2, u)); g.stroke(); }
     // micélio
-    for (const m of MYC) { const p = TIPS[m.a], q = TIPS[m.b], u = clamp((tg - m.t0) / 0.5); if (u <= 0) continue; const mx = (p.x + q.x) / 2, my = (p.y + q.y) / 2 + m.bend; g.globalAlpha = opacity * 0.4; g.lineWidth = 1; g.strokeStyle = C.bone; g.beginPath(); g.moveTo(p.x, p.y); const N = 16; for (let k = 1; k <= N * u; k++) { const v = k / N; g.lineTo((1 - v) ** 2 * p.x + 2 * (1 - v) * v * mx + v * v * q.x, (1 - v) ** 2 * p.y + 2 * (1 - v) * v * my + v * v * q.y); } g.stroke();
+    for (const m of MYC) { const p = TIPS[m.a], q = TIPS[m.b], u = clamp((tg - m.t0) / 0.5); if (u <= 0) continue; const mx = (p.x + q.x) / 2, my = (p.y + q.y) / 2 + m.bend; g.globalAlpha = opacity * 0.4; g.lineWidth = 1; g.strokeStyle = fg; g.beginPath(); g.moveTo(p.x, p.y); const N = 16; for (let k = 1; k <= N * u; k++) { const v = k / N; g.lineTo((1 - v) ** 2 * p.x + 2 * (1 - v) * v * mx + v * v * q.x, (1 - v) ** 2 * p.y + 2 * (1 - v) * v * my + v * v * q.y); } g.stroke();
       if (pulses > 0 && u >= 1) { const v = ((t * 0.9 + m.a * 0.137) % 1); g.globalAlpha = opacity * pulses; g.fillStyle = C.or; g.shadowColor = C.or; g.shadowBlur = 16; g.beginPath(); g.arc((1 - v) ** 2 * p.x + 2 * (1 - v) * v * mx + v * v * q.x, (1 - v) ** 2 * p.y + 2 * (1 - v) * v * my + v * v * q.y, 4.5, 0, Math.PI * 2); g.fill(); g.shadowBlur = 0; } }
     g.globalAlpha = 1;
-  }, [t, opacity]);
+  }, [t, opacity, fg]);
   return <Cv cref={ref} />;
 };
 
@@ -126,17 +126,17 @@ export const Forest: React.FC<{t: number; a: number; dur?: number; opacity?: num
 const r3 = rng(31);
 const NODES = Array.from({length: 170}, (_, i) => { const u = r3() * 2 - 1, th = r3() * 6.283, rr = i < 30 ? 0.35 + r3() * 0.3 : 0.75 + r3() * 0.3, s = Math.sqrt(1 - u * u); return {x: s * Math.cos(th) * rr, y: u * rr * 1.25, z: s * Math.sin(th) * rr}; });
 const EDGES: [number, number][] = []; NODES.forEach((p, i) => { NODES.map((q, j) => [j, Math.hypot(p.x - q.x, p.y - q.y, p.z - q.z)] as [number, number]).filter(([j]) => j !== i).sort((m, n) => m[1] - n[1]).slice(0, 3).forEach(([j]) => { if (!EDGES.some(([a, b]) => (a === j && b === i))) EDGES.push([i, j]); }); });
-export const Net: React.FC<{t: number; a: number; cx?: number; cy?: number; r?: number; grow?: number; alive?: number; opacity?: number; spin?: number}> = ({t, a, cx = 540, cy = 960, r = 420, grow = 1, alive = 1, opacity = 1, spin = 1}) => {
+export const Net: React.FC<{t: number; a: number; cx?: number; cy?: number; r?: number; grow?: number; alive?: number; opacity?: number; spin?: number; fg?: string}> = ({t, a, cx = 540, cy = 960, r = 420, grow = 1, alive = 1, opacity = 1, spin = 1, fg = C.bone}) => {
   const ref = useCanvas((g) => {
     const ang = (t - a) * 0.35 * spin + 0.6, ca = Math.cos(ang), sa = Math.sin(ang), tilt = 0.32, ct = Math.cos(tilt), st = Math.sin(tilt);
     const P2 = NODES.map((p) => { const x = p.x * ca - p.z * sa, z0 = p.x * sa + p.z * ca, y = p.y * ct - z0 * st, z = p.y * st + z0 * ct, k = 3 / (z + 3.4); return {x: cx + x * r * k, y: cy + y * r * k, z, k}; });
     const nE = Math.floor(EDGES.length * clamp(grow));
     g.lineCap = 'round';
-    for (let e = 0; e < nE; e++) { const [i, j] = EDGES[e], p = P2[i], q = P2[j], d = clamp(1.1 - (p.z + q.z) * 0.35); g.globalAlpha = opacity * (0.12 + 0.35 * d); g.strokeStyle = C.bone; g.lineWidth = 1 + d; g.beginPath(); g.moveTo(p.x, p.y); g.lineTo(q.x, q.y); g.stroke();
+    for (let e = 0; e < nE; e++) { const [i, j] = EDGES[e], p = P2[i], q = P2[j], d = clamp(1.1 - (p.z + q.z) * 0.35); g.globalAlpha = opacity * (0.12 + 0.35 * d); g.strokeStyle = fg; g.lineWidth = 1 + d; g.beginPath(); g.moveTo(p.x, p.y); g.lineTo(q.x, q.y); g.stroke();
       if (alive > 0) { const sp = 0.6 + ((e * 0.37) % 1) * 0.9, v = ((t - a) * sp + e * 0.211) % 1; if (e % 2 === 0) { g.globalAlpha = opacity * alive * d; g.fillStyle = C.or; g.shadowColor = C.or; g.shadowBlur = 14; g.beginPath(); g.arc(lerp(p.x, q.x, v), lerp(p.y, q.y, v), 2.5 + 2 * d, 0, Math.PI * 2); g.fill(); g.shadowBlur = 0; } } }
-    P2.forEach((p, i) => { if (i / NODES.length > clamp(grow * 1.2)) return; const d = clamp(1.1 - p.z * 0.6), lit = alive * (0.5 + 0.5 * Math.sin(t * 3 + i * 1.7)); g.globalAlpha = opacity * (0.4 + 0.6 * d); g.fillStyle = lit > 0.7 ? C.or : C.bone; if (lit > 0.7) { g.shadowColor = C.or; g.shadowBlur = 18; } g.beginPath(); g.arc(p.x, p.y, (2.5 + 4 * d) * (i < 30 ? 1.3 : 1), 0, Math.PI * 2); g.fill(); g.shadowBlur = 0; });
+    P2.forEach((p, i) => { if (i / NODES.length > clamp(grow * 1.2)) return; const d = clamp(1.1 - p.z * 0.6), lit = alive * (0.5 + 0.5 * Math.sin(t * 3 + i * 1.7)); g.globalAlpha = opacity * (0.4 + 0.6 * d); g.fillStyle = lit > 0.7 ? C.or : fg; if (lit > 0.7) { g.shadowColor = C.or; g.shadowBlur = 18; } g.beginPath(); g.arc(p.x, p.y, (2.5 + 4 * d) * (i < 30 ? 1.3 : 1), 0, Math.PI * 2); g.fill(); g.shadowBlur = 0; });
     g.globalAlpha = 1;
-  }, [t, grow, alive, opacity, cx, cy, r]);
+  }, [t, grow, alive, opacity, cx, cy, r, fg]);
   return <Cv cref={ref} />;
 };
 

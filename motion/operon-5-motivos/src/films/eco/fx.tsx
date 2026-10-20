@@ -4,7 +4,7 @@ import React, {useLayoutEffect, useState} from 'react';
 import {continueRender, delayRender, staticFile} from 'remotion';
 import {E, P, clamp, lerp} from '../../lib/core';
 
-export const C = {ink: '#0a0a0a', graph: '#1b1b1d', mid: '#3a3a3e', bone: '#f2efe8', dim: '#8d8a84', or: '#ff5a1f', orHi: '#ff9a5c'};
+export const C = {ink: '#0a0a0a', graph: '#1b1b1d', mid: '#3a3a3e', bone: '#f2efe8', dim: '#8d8a84', or: '#ff5a1f', orHi: '#ff9a5c', paper: '#efebe3', pen: '#121110', pdim: '#6f6a60'};
 export const F = {
   head: "Fraunces, 'Bodoni Moda', Georgia, serif",
   thin: "'Instrument Serif', 'Fraunces', Georgia, serif",
@@ -30,12 +30,12 @@ export const usePreload = (names: string[]) => {
 
 let rid = 0;
 /** Gravura que se desenha: p 0→1 percorre o mapa; a frente do traço brilha em laranja (tinta fresca). */
-export const Reveal: React.FC<{name: string; p: number; x: number; y: number; width: number; opacity?: number; edge?: number; style?: React.CSSProperties; tint?: string; edgeOnly?: boolean}> = ({name, p, x, y, width, opacity = 1, edge = 1, style, tint, edgeOnly}) => {
+export const Reveal: React.FC<{name: string; p: number; x: number; y: number; width: number; opacity?: number; edge?: number; style?: React.CSSProperties; tint?: string; edgeOnly?: boolean; light?: boolean}> = ({name, p, x, y, width, opacity = 1, edge = 1, style, tint, edgeOnly, light}) => {
   const [id] = useState(() => `rv${rid++}`);
   const [w, h] = IMG[name], k = 14, q = lerp(-0.02, 1 + 1 / k, clamp(p));
   if (p <= 0) return null;
   return (
-    <svg width={width} height={(width * h) / w} viewBox={`0 0 ${w} ${h}`} style={{position: 'absolute', left: x - width / 2, top: y - (width * h) / w / 2, opacity, overflow: 'visible', filter: tint, ...style}}>
+    <svg width={width} height={(width * h) / w} viewBox={`0 0 ${w} ${h}`} style={{position: 'absolute', left: x - width / 2, top: y - (width * h) / w / 2, opacity, overflow: 'visible', filter: light ? 'invert(1)' : tint, ...style}}>
       <defs>
         <filter id={id} x={0} y={0} width={w} height={h} filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
           <feImage href={map(name)} x={0} y={0} width={w} height={h} preserveAspectRatio="none" result="m" />
@@ -43,7 +43,7 @@ export const Reveal: React.FC<{name: string; p: number; x: number; y: number; wi
           <feColorMatrix in="m" type="matrix" values={`0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  ${-k} 0 0 0 ${k * q - 0.9}`} result="a2" />
           <feComposite in="SourceGraphic" in2="a2" operator="in" result="ink" />
           <feComposite in="a1" in2="a2" operator="arithmetic" k1={0} k2={1} k3={-1} k4={0} result="band" />
-          <feFlood floodColor={C.or} result="or" />
+          <feFlood floodColor={light ? '#00a5e0' : C.or} result="or" />
           <feComposite in="or" in2="band" operator="in" result="orb" />
           <feComposite in="orb" in2="SourceGraphic" operator="in" result="edge" />
           <feGaussianBlur in="edge" stdDeviation={2.2} result="glow" />
@@ -66,7 +66,7 @@ export const Cut: React.FC<{name: string; x: number; y: number; width: number; s
 // avanço de cada glifo da Fraunces 900 (em; medido do arquivo da fonte) — a palavra nunca vaza da tela
 const ADV: Record<string, number> = {A: 0.785, B: 0.772, C: 0.721, D: 0.835, E: 0.691, F: 0.65, G: 0.783, H: 0.9, I: 0.46, J: 0.598, K: 0.863, L: 0.665, M: 0.983, N: 0.77, O: 0.803, P: 0.765, Q: 0.803, R: 0.829, S: 0.647, T: 0.744, U: 0.765, V: 0.756, W: 1.117, X: 0.752, Y: 0.709, Z: 0.66, 'Á': 0.785, 'É': 0.691, 'Í': 0.46, 'Ó': 0.803, 'Ú': 0.765, 'Ã': 0.785, 'Õ': 0.803, 'Ç': 0.721, 'Â': 0.785, 'Ê': 0.691, 'Ô': 0.803, ' ': 0.203, '.': 0.326, ',': 0.339, '…': 1.042};
 export const emWidth = (text: string) => [...text].reduce((a, ch) => a + (ADV[ch] ?? 0.75), 0) * 1.06;
-export const Big: React.FC<{t: number; at: number; out: number; text: string; size: number; y: number; color?: string; italic?: boolean; x?: number; track?: string; glow?: boolean; stagger?: number; maxW?: number}> = ({t, at, out, text, size: want, y, color = C.bone, italic, x = 540, track = '-0.035em', glow, stagger = 0.028, maxW = 960}) => {
+export const Big: React.FC<{t: number; at: number; out: number; text: string; size: number; y: number; color?: string; italic?: boolean; x?: number; track?: string; glow?: boolean; stagger?: number; maxW?: number}> = ({t, at, out, text, size: want, y, color = C.bone, italic, x = 540, track = '-0.035em', glow, stagger = 0.028, maxW = 880}) => {
   if (t < at - 0.05 || t > out + 0.4) return null;
   const size = Math.min(want, maxW / (emWidth(text) - 0.035 * (text.length - 1)));
   const q = P(t, out, 0.3, E.in);
@@ -77,11 +77,12 @@ export const Big: React.FC<{t: number; at: number; out: number; text: string; si
   );
 };
 
+const isDark = (c: string) => { const h = c.replace('#', ''); if (h.length < 6) return false; const v = (parseInt(h.slice(0, 2), 16) * 299 + parseInt(h.slice(2, 4), 16) * 587 + parseInt(h.slice(4, 6), 16) * 114) / 1000; return v < 110; };
 /** Linha fina, itálica (o "resto da frase") */
 export const Thin: React.FC<{t: number; at: number; out: number; text: string; size: number; y: number; color?: string; x?: number; italic?: boolean}> = ({t, at, out, text, size, y, color = C.bone, x = 540, italic = true}) => {
   if (t < at - 0.05 || t > out + 0.35) return null;
   const u = P(t, at, 0.7, E.out), q = P(t, out, 0.3, E.in);
-  return <div style={{position: 'absolute', left: x - 1000, width: 2000, top: y - size * 0.6, textAlign: 'center', fontFamily: F.thin, fontStyle: italic ? 'italic' : 'normal', fontSize: size, color, opacity: clamp(u * 1.5) * (1 - q), transform: `translateY(${((1 - u) * 26).toFixed(1)}px)`, filter: u < 0.99 || q > 0 ? `blur(${((1 - u) * 10 + q * 10).toFixed(1)}px)` : undefined, letterSpacing: '0.005em', whiteSpace: 'nowrap', textShadow: '0 4px 30px rgba(0,0,0,.8)'}}>{text}</div>;
+  return <div style={{position: 'absolute', left: x - 1000, width: 2000, top: y - size * 0.6, textAlign: 'center', fontFamily: F.thin, fontStyle: italic ? 'italic' : 'normal', fontSize: size, color, opacity: clamp(u * 1.5) * (1 - q), transform: `translateY(${((1 - u) * 26).toFixed(1)}px)`, filter: u < 0.99 || q > 0 ? `blur(${((1 - u) * 10 + q * 10).toFixed(1)}px)` : undefined, letterSpacing: '0.005em', whiteSpace: 'nowrap', textShadow: isDark(color) ? undefined : '0 4px 30px rgba(0,0,0,.8)'}}>{text}</div>;
 };
 
 /** Legenda de figura (mono, digitada) — dá o tom de caderno de laboratório */
@@ -105,12 +106,14 @@ export const Ring: React.FC<{t: number; at: number; x: number; y: number; r0?: n
 
 // ---------- atmosfera ----------
 /** grão de filme animado (feTurbulence com semente por quadro) */
-export const Grain: React.FC<{frame: number; amount?: number}> = ({frame, amount = 0.09}) => (
-  <svg width={1080} height={1920} style={{position: 'absolute', inset: 0, opacity: amount, mixBlendMode: 'screen', pointerEvents: 'none'}}>
-    <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves={2} seed={frame % 97} /><feColorMatrix values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 1.4 -0.2" /></filter>
-    <rect width={1080} height={1920} filter="url(#grain)" />
+export const Grain: React.FC<{frame: number; amount?: number; dark?: boolean}> = ({frame, amount = 0.09, dark}) => (
+  <svg width={1080} height={1920} style={{position: 'absolute', inset: 0, opacity: amount, mixBlendMode: dark ? 'multiply' : 'screen', pointerEvents: 'none'}}>
+    <filter id={dark ? 'grainD' : 'grain'}><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves={2} seed={frame % 97} /><feColorMatrix values={dark ? '0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1.4 -0.2' : '0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 1.4 -0.2'} /></filter>
+    <rect width={1080} height={1920} filter={`url(#${dark ? 'grainD' : 'grain'})`} />
   </svg>
 );
+/** papel (fundo claro das cenas invertidas) */
+export const Paper: React.FC = () => <div style={{position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 85% 70% at 50% 45%, #f4f1ea 0%, #ece7dc 60%, #d9d2c3 100%)'}} />;
 export const Vignette: React.FC<{strength?: number}> = ({strength = 0.85}) => (
   <div style={{position: 'absolute', inset: 0, background: `radial-gradient(ellipse 75% 60% at 50% 48%, rgba(0,0,0,0) 40%, rgba(0,0,0,${strength}) 100%)`, pointerEvents: 'none'}} />
 );
