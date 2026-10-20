@@ -22,6 +22,11 @@ export const useFonts = () => {
       new FontFace('Inter', `url(${staticFile('fonts/Inter-700.woff2')})`, {weight: '700'}),
       new FontFace('Bodoni Moda', `url(${staticFile('fonts/BodoniModa-400-Italic.woff2')})`, {weight: '400', style: 'italic'}),
       new FontFace('Bodoni Moda', `url(${staticFile('fonts/BodoniModa-700-Italic.woff2')})`, {weight: '700', style: 'italic'}),
+      new FontFace('Fraunces', `url(${staticFile('fonts/Fraunces-900.woff2')})`, {weight: '900'}),
+      new FontFace('Fraunces', `url(${staticFile('fonts/Fraunces-900-Italic.woff2')})`, {weight: '900', style: 'italic'}),
+      new FontFace('Fraunces', `url(${staticFile('fonts/Fraunces-400-Italic.woff2')})`, {weight: '400', style: 'italic'}),
+      new FontFace('Plex Mono', `url(${staticFile('fonts/PlexMono-400.woff2')})`, {weight: '400'}),
+      new FontFace('Plex Mono', `url(${staticFile('fonts/PlexMono-500.woff2')})`, {weight: '500'}),
     ];
     Promise.all(faces.map((f) => f.load())).then((fs) => { fs.forEach((f) => document.fonts.add(f)); return document.fonts.ready; }).then(() => continueRender(handle)).catch(() => continueRender(handle));
   }, [handle]);
