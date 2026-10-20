@@ -188,7 +188,7 @@ export const Ecg: React.FC<{t: number; beats: number[]; y?: number; color?: stri
 // =====================================================================================================
 const r5 = rng(51);
 const FIB = Array.from({length: 260}, () => ({a: r5() * 6.283, r0: 0.28 + r5() * 0.12, r1: 0.8 + r5() * 0.2, w: 0.6 + r5() * 1.6, c: r5()}));
-export const Eye: React.FC<{t: number; open: number; pupil: number; cx?: number; cy?: number; R?: number; opacity?: number}> = ({t, open, pupil, cx = 540, cy = 900, R = 300, opacity = 1}) => {
+export const Eye: React.FC<{t: number; open: number; pupil: number; cx?: number; cy?: number; R?: number; opacity?: number; grid?: number}> = ({t, open, pupil, cx = 540, cy = 900, R = 300, opacity = 1, grid = 0}) => {
   const ref = useCanvas((g) => {
     const o = clamp(open), lw = 2.5;
     g.globalAlpha = opacity; g.strokeStyle = C.bone; g.lineWidth = lw;
@@ -200,6 +200,8 @@ export const Eye: React.FC<{t: number; open: number; pupil: number; cx?: number;
     const grd = g.createRadialGradient(cx, cy, pr, cx, cy, R * 0.95); grd.addColorStop(0, '#7a2a08'); grd.addColorStop(0.35, C.or); grd.addColorStop(0.8, '#b8400f'); grd.addColorStop(1, '#2a0d03');
     g.fillStyle = grd; g.beginPath(); g.arc(cx, cy, R * 0.95, 0, Math.PI * 2); g.fill();
     FIB.forEach((f) => { g.strokeStyle = f.c < 0.5 ? C.orHi : '#3a1204'; g.globalAlpha = opacity * (0.35 + 0.4 * f.c); g.lineWidth = f.w; const a2 = f.a + Math.sin(t * 0.7 + f.a * 3) * 0.02; g.beginPath(); g.moveTo(cx + Math.cos(a2) * Math.max(pr, f.r0 * R), cy + Math.sin(a2) * Math.max(pr, f.r0 * R)); g.lineTo(cx + Math.cos(a2 + 0.05) * f.r1 * R * 0.95, cy + Math.sin(a2 + 0.05) * f.r1 * R * 0.95); g.stroke(); });
+    // reflexo do tema do episódio na íris (ex.: o tabuleiro no Nº 03)
+    if (grid > 0) { g.save(); g.beginPath(); g.arc(cx, cy, R * 0.95, 0, Math.PI * 2); g.clip(); g.globalAlpha = opacity * grid; g.fillStyle = '#fff3e6'; const sq = R * 0.16, x0 = cx - R * 0.7, y0 = cy - R * 0.55; for (let r = 0; r < 8; r++) for (let c = 0; c < 8; c++) if ((r + c) % 2 === 0) { const sk = 1 - r * 0.045; g.fillRect(x0 + c * sq * sk + r * sq * 0.18, y0 + r * sq * 0.72, sq * sk * 0.96, sq * 0.7); } g.restore(); }
     g.globalAlpha = opacity; g.fillStyle = '#050505'; g.beginPath(); g.arc(cx, cy, pr, 0, Math.PI * 2); g.fill();
     g.fillStyle = 'rgba(255,255,255,.85)'; g.beginPath(); g.ellipse(cx - R * 0.28, cy - R * 0.3, R * 0.09, R * 0.06, -0.5, 0, Math.PI * 2); g.fill();
     // sombra da pálpebra
@@ -209,6 +211,6 @@ export const Eye: React.FC<{t: number; open: number; pupil: number; cx?: number;
     g.strokeStyle = C.bone; g.globalAlpha = opacity * 0.28; g.lineWidth = 1.2;
     for (let k = 0; k < 46; k++) { const v = k / 45, x = cx - ew + v * ew * 2, top = cy - eh * 1.25 * Math.sin(v * Math.PI) * 0.75; g.beginPath(); g.moveTo(x, top - 30 - 40 * Math.sin(v * Math.PI)); g.lineTo(x + 18, top - 6); g.stroke(); }
     g.globalAlpha = 1;
-  }, [t, open, pupil, opacity, cx, cy, R]);
+  }, [t, open, pupil, opacity, cx, cy, R, grid]);
   return <Cv cref={ref} />;
 };

@@ -7,22 +7,25 @@ import {AbsoluteFill, Audio, staticFile, useCurrentFrame} from 'remotion';
 import {useFonts} from '../../lib/fonts';
 import {E, P, clamp, lerp} from '../../lib/core';
 import {FPS, T, pulse} from './time3';
-import {Big, C, Cut, Dot, Dust, F, Flash, Grain, IMG, Label, Paper, Reveal, Ring, Thin, Vignette, usePreload} from './fx';
-import {Net, rng} from './sims';
+import {Big as BigBase, C, Cut, Dot, Dust, F, Flash, Grain, IMG, Label, Paper, Reveal, Ring, Thin, Vignette, usePreload} from './fx';
+import {Eye, rng} from './sims';
 import DIMS from './img3.json';
 
 Object.assign(IMG, DIMS as unknown as Record<string, [number, number]>);
 const ALL = Object.keys(DIMS);
+const Big: typeof BigBase = (p) => <BigBase {...p} anim="clip" />;
 
 // ---------- cena / câmera (mesmas regras do Nº 01) ----------
-type Wipe = {kind: 'iris' | 'slit'; x?: number; y?: number; d: number};
+type Wipe = {kind: 'iris' | 'slit' | 'checker'; x?: number; y?: number; d: number};
+// casas de 135 px que abrem em onda diagonal (a partir de um canto) — clip-path com vários quadrados
+const checker = (w: number, dir = 1) => { let d = ''; const n = 135; for (let r = 0; r < 15; r++) for (let c = 0; c < 8; c++) { const k = dir > 0 ? r + c : 14 - r + 7 - c, u = clamp(w * 2.2 - k / 21), h = (n / 2) * u * 1.02; if (h <= 0) continue; const cx = c * n + n / 2, cy = r * n + n / 2 - 22; d += `M${(cx - h).toFixed(1)} ${(cy - h).toFixed(1)}H${(cx + h).toFixed(1)}V${(cy + h).toFixed(1)}H${(cx - h).toFixed(1)}Z`; } return `path('${d || 'M0 0Z'}')`; };
 const Scene: React.FC<{t: number; a: number; b: number; inD?: number; outD?: number; zIn?: number; zOut?: number; children: React.ReactNode; bg?: string; light?: boolean; wipe?: Wipe; hold?: boolean}> = ({t, a, b, inD = 0.18, outD = 0.18, zIn = 1.06, zOut = 1.1, children, bg, light, wipe, hold}) => {
   if (t < a - 0.001 || t > b + outD) return null;
   const q = hold ? 0 : P(t, b, outD, E.in);
   const back = light ? <Paper /> : <div style={{position: 'absolute', inset: 0, background: bg ?? C.ink}} />;
   if (wipe) {
     const w = P(t, a, wipe.d, E.io), x = wipe.x ?? 540, y = wipe.y ?? 960, z = lerp(1.08, 1, P(t, a, wipe.d + 0.3, E.out));
-    const clip = w >= 1 ? undefined : wipe.kind === 'iris' ? `circle(${(w * 2300).toFixed(0)}px at ${x}px ${y}px)` : `inset(0 ${((1 - w) * 50).toFixed(2)}% 0 ${((1 - w) * 50).toFixed(2)}%)`;
+    const clip = w >= 1 ? undefined : wipe.kind === 'iris' ? `circle(${(w * 2300).toFixed(0)}px at ${x}px ${y}px)` : wipe.kind === 'checker' ? checker(w, (wipe.x ?? 1) > 540 ? -1 : 1) : `inset(0 ${((1 - w) * 50).toFixed(2)}% 0 ${((1 - w) * 50).toFixed(2)}%)`;
     return <div style={{position: 'absolute', inset: 0, clipPath: clip, opacity: 1 - q, transform: `scale(${z * lerp(1, zOut, q)})`, filter: q > 0 ? `blur(${(q * 14).toFixed(1)}px)` : undefined}}>{back}{children}</div>;
   }
   const u = inD > 0 ? P(t, a, inD, E.out) : 1;
@@ -41,6 +44,8 @@ const PIECE: Record<string, string> = {
   king: 'M26 100 L74 100 L72 92 L62 86 Q60 66 58 52 L64 47 L60 41 L54 41 L54 31 L61 31 L61 25 L54 25 L54 16 L46 16 L46 25 L39 25 L39 31 L46 31 L46 41 L40 41 L36 47 L42 52 Q40 66 38 86 L28 92 Z',
   queen: 'M26 100 L74 100 L72 92 L62 86 Q60 66 59 54 L66 34 L58 44 L55 26 L50 42 L45 26 L42 44 L34 34 L41 54 Q40 66 38 86 L28 92 Z',
   rook: 'M28 100 L72 100 L70 92 L63 88 L61 50 L66 46 L66 32 L59 32 L59 38 L54 38 L54 32 L46 32 L46 38 L41 38 L41 32 L34 32 L34 46 L39 50 L37 88 L30 92 Z',
+  bishop: 'M30 100 L70 100 L68 92 L60 88 Q58 72 57 62 Q67 54 62 40 Q58 31 50 24 Q42 31 38 40 Q33 54 43 62 Q42 72 40 88 L32 92 Z M47 22 Q50 16 53 22 Z',
+  knight: 'M28 100 L72 100 L70 92 L64 88 Q68 66 64 50 Q61 34 50 26 L47 18 L43 27 Q33 32 29 44 L27 52 L36 56 L43 50 L47 54 Q34 66 35 88 L30 92 Z',
 };
 const Piece: React.FC<{kind: keyof typeof PIECE | string; x: number; y: number; s: number; color: string; fill?: string; rot?: number; glow?: boolean; opacity?: number}> = ({kind, x, y, s, color, fill = 'none', rot = 0, glow, opacity = 1}) => (
   <g transform={`translate(${x} ${y}) rotate(${rot}) scale(${s / 100}) translate(-50 -100)`} opacity={opacity} style={glow ? {filter: `drop-shadow(0 0 ${12 / (s / 100)}px ${C.or})`} : undefined}>
@@ -60,29 +65,36 @@ const Board: React.FC<{t: number; a: number; fg: string; d?: number; children?: 
   );
 };
 const at = (u: number, v: number) => { const p = proj(u + 0.5, v + 0.5); return {x: p.x, y: p.y, s: 190 * p.k}; };
+/** casa do xadrez (coluna a=0…h=7, fileira 1=0…8=7) vista do lado das brancas, peças em escala menor */
+const sq = (file: number, rank: number) => { const p = proj(file + 0.5, 7 - rank + 0.5); return {x: p.x, y: p.y, s: 112 * p.k}; };
 
-// ------------------------------------------------------------------ 0–1 · 1997: a máquina vence
+// ------------------------------------------------------------------ 0–1 · 1997: a máquina vence (posição real da partida 6)
+const W6: [string, number, number][] = [['rook', 0, 0], ['king', 6, 0], ['pawn', 1, 1], ['pawn', 5, 1], ['pawn', 6, 1], ['pawn', 7, 1], ['bishop', 6, 2], ['knight', 5, 2], ['queen', 3, 2], ['pawn', 3, 3]];
+const B6: [string, number, number][] = [['rook', 0, 7], ['rook', 7, 7], ['pawn', 0, 6], ['knight', 3, 6], ['bishop', 4, 6], ['pawn', 6, 6], ['bishop', 2, 5], ['pawn', 7, 5], ['pawn', 1, 4], ['knight', 3, 4], ['pawn', 5, 4]];
 const Open: React.FC<{t: number}> = ({t}) => {
-  const born = P(t, T.hit0, 0.5, E.out), k = at(4, 0), pa = at(4, 1);
-  const fall = P(t, T.xadrez - 0.05, 0.55, E.in), shake = t > T.xadrez + 0.5 && t < T.xadrez + 0.8 ? Math.sin(t * 90) * 6 * (1 - (t - T.xadrez - 0.5) / 0.3) : 0;
+  const born = P(t, T.hit0, 0.5, E.out), k = sq(2, 7);
+  const mv = P(t, T.maquina + 0.35, 0.55, E.io), c2 = sq(2, 1), c4 = sq(2, 3), cp = {x: lerp(c2.x, c4.x, mv), y: lerp(c2.y, c4.y, mv), s: lerp(c2.s, c4.s, mv)};
+  const fall = P(t, T.xadrez - 0.05, 0.5, E.in), shake = t > T.xadrez + 0.45 && t < T.xadrez + 0.75 ? Math.sin(t * 90) * 5 * (1 - (t - T.xadrez - 0.45) / 0.3) : 0;
+  const tower = P(t, T.maquina - 0.45, 1.3, E.out);
   return (
-    <Cam t={t} a={0} b={8.9} z0={1.18} z1={1.0} oy={1250}>
+    <Cam t={t} a={0} b={8.9} z0={1.16} z1={1.0} oy={1250}>
+      {/* Deep Blue sobe atrás do tabuleiro */}
+      <div style={{position: 'absolute', inset: 0, transform: `translateY(${((1 - tower) * 160).toFixed(1)}px)`, opacity: tower}}>
+        <Reveal name="deepblue" p={P(t, T.maquina - 0.45, 1.1, E.smooth)} x={540} y={655} width={262} edge={0} />
+      </div>
       <Board t={t} a={0.8} fg={C.bone} d={2.2}>
-        <Piece kind="king" x={k.x + fall * 60} y={k.y + shake} s={k.s * 1.25} color={C.bone} rot={fall * 88} opacity={P(t, 2.2, 0.6)} />
-        <Piece kind="queen" x={at(3, 0).x} y={at(3, 0).y} s={at(3, 0).s * 1.15} color={C.bone} opacity={P(t, 2.4, 0.6) * 0.8} />
-        <Piece kind="rook" x={at(0, 0).x} y={at(0, 0).y} s={at(0, 0).s} color={C.bone} opacity={P(t, 2.6, 0.6) * 0.7} />
-        <Piece kind="pawn" x={at(2, 1).x} y={at(2, 1).y} s={at(2, 1).s} color={C.bone} opacity={P(t, 2.7, 0.6) * 0.7} />
-        <Piece kind="pawn" x={at(6, 1).x} y={at(6, 1).y} s={at(6, 1).s} color={C.bone} opacity={P(t, 2.8, 0.6) * 0.7} />
+        {B6.map(([kd, u, v], i) => { const q = sq(u, v); return <Piece key={`b${i}`} kind={kd} x={q.x} y={q.y} s={q.s * (kd === 'pawn' ? 1 : 1.12)} color={C.bone} fill="#55534e" opacity={P(t, 2.0 + i * 0.05, 0.5)} />; })}
+        {W6.map(([kd, u, v], i) => { const q = sq(u, v); return <Piece key={`w${i}`} kind={kd} x={q.x} y={q.y} s={q.s * (kd === 'pawn' ? 1 : 1.12)} color={C.bone} opacity={P(t, 2.3 + i * 0.05, 0.5)} />; })}
+        <Piece kind="pawn" x={cp.x} y={cp.y} s={cp.s} color={C.or} glow opacity={P(t, 2.3, 0.5)} />
+        <Piece kind="king" x={k.x + fall * 26} y={k.y + shake} s={k.s * 1.2} color={C.bone} fill="#55534e" rot={fall * 88} opacity={P(t, 2.0, 0.5)} />
       </Board>
-      <Dot x={pa.x} y={pa.y - pa.s * 0.45} r={15 * born * (1 + 0.08 * Math.sin(t * 3.2))} glow={1.2} />
-      <Ring t={t} at={T.hit0} x={pa.x} y={pa.y - pa.s * 0.45} r1={1100} d={1.6} />
-      {/* o Turco: a "máquina" de xadrez (1770) se desenha atrás do tabuleiro */}
-      <Reveal name="turk1" p={P(t, T.maquina - 0.4, 2.2, E.smooth)} x={540} y={520} width={940} opacity={0.92} />
-      <Big t={t} at={T.ano - 0.05} out={T.maquina - 0.2} text="1997" size={300} y={330} stagger={0.05} />
-      <Thin t={t} at={T.maquina - 0.1} out={T.xadrez - 0.1} text="uma máquina venceu o campeão mundial" size={66} y={1000} />
-      <Big t={t} at={T.xadrez - 0.04} out={8.75} text="XADREZ" size={150} y={1000} color={C.bone} />
-      <Label t={t} at={1.2} out={8.7} text="Nº 03" y={230} />
-      <Label t={t} at={T.maquina + 0.3} out={8.7} text="FIG. I — O TURCO · KEMPELEN, 1770" y={1110} align="center" />
+      <Dot x={c2.x} y={c2.y - c2.s * 0.45} r={15 * born * (1 - P(t, 2.3, 0.4))} glow={1.2} />
+      <Ring t={t} at={T.hit0} x={c2.x} y={c2.y - c2.s * 0.45} r1={1100} d={1.6} />
+      <Big t={t} at={T.ano - 0.05} out={T.maquina - 0.2} text="1997" size={300} y={360} stagger={0.05} />
+      <Thin t={t} at={T.maquina - 0.1} out={T.xadrez - 0.1} text="uma máquina venceu o campeão mundial" size={62} y={318} />
+      <Big t={t} at={T.xadrez - 0.04} out={8.75} text="XADREZ" size={150} y={318} color={C.bone} />
+      <Label t={t} at={1.2} out={T.maquina - 0.3} text="Nº 03" y={230} />
+      <Label t={t} at={T.maquina - 0.1} out={8.7} text="FIG. I — DEEP BLUE × KASPAROV · 1997, PARTIDA 6" y={200} align="center" size={21} />
     </Cam>
   );
 };
@@ -102,19 +114,20 @@ const End: React.FC<{t: number}> = ({t}) => (
 );
 
 // ------------------------------------------------------------------ 3 · a outra pergunta
-const qpt = (u: number) => { const seg = (p0: number[], p1: number[], p2: number[], p3: number[], s: number) => ({x: (1 - s) ** 3 * p0[0] + 3 * (1 - s) ** 2 * s * p1[0] + 3 * (1 - s) * s * s * p2[0] + s ** 3 * p3[0], y: (1 - s) ** 3 * p0[1] + 3 * (1 - s) ** 2 * s * p1[1] + 3 * (1 - s) * s * s * p2[1] + s ** 3 * p3[1]}); return u < 0.62 ? seg([372, 560], [372, 330], [708, 330], [708, 550], u / 0.62) : seg([708, 550], [708, 690], [540, 700], [540, 870], (u - 0.62) / 0.38); };
 const Question: React.FC<{t: number}> = ({t}) => {
-  const d = P(t, T.outra - 0.2, 0.9, E.io);
+  const d = P(t, T.outra - 0.2, 0.9, E.io), sx = 0.5, ox = 470, oy = 120;
   return (
-    <Cam t={t} a={11.0} b={13.7} z0={1.0} z1={1.08} oy={800}>
+    <Cam t={t} a={11.0} b={13.7} z0={1.06} z1={1.0} oy={900}>
+      <Reveal name="kasparov" p={P(t, 10.95, 0.85, E.smooth)} x={470} y={1020} width={860} edge={0} />
       <svg width={1080} height={1920} style={{position: 'absolute', inset: 0}}>
-        <path d="M 372 560 C 372 330, 708 330, 708 550 C 708 690, 540 700, 540 870" fill="none" stroke={C.bone} strokeWidth={40} strokeLinecap="round" pathLength={1} strokeDasharray="1 1" strokeDashoffset={1 - d} />
-        {d > 0 && d < 1 && (() => { const p = qpt(d); return <circle cx={p.x} cy={p.y} r={13} fill={C.or} style={{filter: `drop-shadow(0 0 16px ${C.or})`}} />; })()}
+        <g transform={`translate(${ox} ${oy}) scale(${sx})`}>
+          <path d="M 372 560 C 372 330, 708 330, 708 550 C 708 690, 540 700, 540 870" fill="none" stroke={C.or} strokeWidth={34} strokeLinecap="round" pathLength={1} strokeDasharray="1 1" strokeDashoffset={1 - d} style={{filter: `drop-shadow(0 0 18px ${C.or})`}} />
+        </g>
       </svg>
-      <Dot x={540} y={1000} r={15 * P(t, T.pergunta - 0.2, 0.4, E.out)} glow={1.4} />
-      <Label t={t} at={T.mas} out={13.5} text="GARRY KASPAROV · 1998" y={230} />
-      <Thin t={t} at={T.mas - 0.05} out={T.pergunta - 0.15} text="mas o próprio Kasparov…" size={80} y={1260} />
-      <Thin t={t} at={T.pergunta - 0.1} out={13.55} text="fez outra pergunta." size={92} y={1260} />
+      <Dot x={ox + 540 * sx} y={oy + 1000 * sx} r={13 * P(t, T.pergunta - 0.2, 0.4, E.out)} glow={1.4} />
+      <Label t={t} at={T.mas} out={13.5} text="GARRY KASPAROV · CAMPEÃO MUNDIAL 1985–2000" y={230} />
+      <Thin t={t} at={T.mas - 0.05} out={T.pergunta - 0.15} text="mas o próprio Kasparov…" size={80} y={1360} />
+      <Thin t={t} at={T.pergunta - 0.1} out={13.55} text="fez outra pergunta." size={92} y={1360} />
     </Cam>
   );
 };
@@ -239,6 +252,7 @@ const Equation: React.FC<{t: number}> = ({t}) => {
   return (
     <Cam t={t} a={37.2} b={46.4} z0={1.0} z1={1.06} oy={820}>
       <Label t={t} at={T.kasparov2} out={46.2} text="KASPAROV, 2010 · A CONCLUSÃO" y={230} color={C.pdim} />
+      {(() => { const u = P(t, T.kasparov2 - 0.1, 0.6, E.out); return <div style={{position: 'absolute', left: 840, top: 280, width: 170, height: 170, borderRadius: '50%', overflow: 'hidden', opacity: u, transform: `scale(${lerp(0.8, 1, u)})`, boxShadow: `0 0 0 3px ${C.pen}, 0 0 0 9px ${C.paper}, 0 0 0 10.5px ${C.or}`, background: '#d9d2c3'}}><Cut name="kasparov" x={85} y={135} width={240} style={{filter: 'grayscale(1) contrast(1.1)'}} /></div>; })()}
       <Tok t={t} at={T.gente - 0.05} text="HUMANO COMUM" y={430} size={58} />
       <Tok t={t} at={T.maqC - 0.05} text="+ MÁQUINA" y={530} size={58} />
       <Tok t={t} at={T.processo2 - 0.05} text="+ PROCESSO MELHOR" y={650} size={76} color={C.or} head />
@@ -287,7 +301,7 @@ const System: React.FC<{t: number}> = ({t}) => {
   const nodes = Array.from({length: 14}, (_, i) => { const r = rings[i % 3], a = (i / 14) * Math.PI * 2 - Math.PI / 2 + (i % 3) * 0.2; return {x: 540 + Math.cos(a) * r, y: CY + Math.sin(a) * r * 0.92, a}; });
   return (
     <Cam t={t} a={54.0} b={58.9} z0={1.0} z1={1.1} oy={CY}>
-      <Reveal name="turk1" p={P(t, 53.95, 1.4, E.smooth)} x={540} y={CY} width={600} light />
+      <Reveal name="deepblue" p={P(t, 53.95, 1.2, E.smooth)} x={540} y={CY} width={300} edge={0} style={{filter: 'contrast(1.1)'}} />
       <svg width={1080} height={1920} style={{position: 'absolute', inset: 0}}>
         {rings.map((r, k) => <ellipse key={k} cx={540} cy={CY} rx={r} ry={r * 0.92} fill="none" stroke={C.or} strokeWidth={k === 1 ? 2.5 : 1.5} opacity={0.85} pathLength={1} strokeDasharray="1 1" strokeDashoffset={1 - clamp(g * 1.3 - k * 0.15)} transform={`rotate(${-90 + k * 30} 540 ${CY})`} />)}
         {nodes.map((n, i) => { const u = clamp(g * 1.6 - 0.4 - i * 0.03); return <g key={i} opacity={u}><line x1={540 + Math.cos(n.a) * 170} y1={CY + Math.sin(n.a) * 160} x2={n.x} y2={n.y} stroke={C.pen} strokeWidth={1} opacity={0.4} /><line x1={n.x} y1={n.y} x2={nodes[(i + 3) % 14].x} y2={nodes[(i + 3) % 14].y} stroke={C.or} strokeWidth={1.2} opacity={0.5} /><circle cx={n.x} cy={n.y} r={9} fill={C.or} style={{filter: `drop-shadow(0 0 8px ${C.or})`}} /></g>; })}
@@ -300,23 +314,19 @@ const System: React.FC<{t: number}> = ({t}) => {
   );
 };
 
-// ------------------------------------------------------------------ 14 · por enquanto… só observa (o peão anda)
+// ------------------------------------------------------------------ 14 · por enquanto… só observa — o olho (fecho da série)
 const Final: React.FC<{t: number}> = ({t}) => {
-  const mv = P(t, T.observa - 0.05, 0.6, E.io), p0 = at(4, 1), p1 = at(4, 3), px = lerp(p0.x, p1.x, mv), py = lerp(p0.y, p1.y, mv), ps = lerp(p0.s, p1.s, mv);
-  const collapse = P(t, T.sting, 0.5, E.in), fade = P(t, 64.9, 1.0, E.in);
+  const open = t < T.sting ? P(t, T.por - 0.05, 0.95, E.io) * 0.92 + P(t, T.observa - 0.05, 0.4, E.out) * 0.08 : 1 - P(t, T.sting, 0.18, E.in);
+  const pupil = t < T.observa ? 0.35 : t < T.sting ? lerp(0.35, 1, P(t, T.observa, 0.5, E.out)) : 1;
+  const close = P(t, T.sting, 0.18, E.in), dotR = t > T.sting ? 14 * (1 + 0.6 * Math.exp(-(t - T.sting) / 0.2)) : 0, fade = P(t, 64.9, 1.0, E.in);
   return (
     <div style={{position: 'absolute', inset: 0, opacity: 1 - fade}}>
-      <div style={{position: 'absolute', inset: 0, transformOrigin: `${px}px ${py}px`, transform: `scale(${lerp(1, 0.02, collapse)})`, opacity: 1 - collapse}}>
-        <Board t={t} a={58.8} fg={C.bone} d={1.0}>
-          {[[0, 0, 'rook'], [3, 0, 'queen'], [4, 0, 'king'], [7, 0, 'rook'], [2, 1, 'pawn'], [6, 1, 'pawn']].map(([u, v, k], i) => { const q = at(u as number, v as number); return <Piece key={i} kind={k as string} x={q.x} y={q.y} s={q.s * (k === 'pawn' ? 1 : 1.15)} color={C.bone} opacity={0.75} />; })}
-          <Piece kind="pawn" x={px} y={py} s={ps} color={C.or} fill={C.or} glow />
-        </Board>
-      </div>
-      {t > T.sting && <Dot x={px} y={py - ps * 0.5} r={14 * (1 + 0.6 * Math.exp(-(t - T.sting) / 0.2))} glow={2} />}
-      <Ring t={t} at={T.sting} x={px} y={py - ps * 0.5} r1={1300} d={1.5} />
-      <Thin t={t} at={T.por - 0.02} out={T.sting - 0.1} text="por enquanto…" size={86} y={420} color={C.dim} />
-      <Thin t={t} at={T.so - 0.05} out={64.4} text="só observa." size={136} y={560} />
-      <Label t={t} at={62.0} out={64.6} text="Nº 03" y={700} align="center" color={C.or} size={26} />
+      {close < 1 && <Eye t={t} open={Math.max(0.02, open)} pupil={pupil} cy={800} R={290} grid={0.13} />}
+      {t > T.sting && <Dot x={540} y={800} r={dotR} glow={2} />}
+      <Ring t={t} at={T.sting} x={540} y={800} r1={1300} d={1.5} />
+      <Thin t={t} at={T.por - 0.02} out={T.sting - 0.1} text="por enquanto…" size={86} y={1230} color={C.dim} />
+      <Thin t={t} at={T.so - 0.05} out={64.4} text="só observa." size={136} y={1370} />
+      <Label t={t} at={62.0} out={64.6} text="Nº 03" y={1460} align="center" color={C.or} size={26} />
     </div>
   );
 };
@@ -332,18 +342,18 @@ export const Centauros: React.FC<{audio: 'none' | 'mix'}> = ({audio}) => {
     <AbsoluteFill style={{background: C.ink, overflow: 'hidden', fontFamily: F.head}}>
       <div style={{position: 'absolute', inset: 0, transform: `translate(${(Math.sin(t * 53) * shake).toFixed(1)}px, ${(Math.cos(t * 41) * shake).toFixed(1)}px) scale(${(1 + (loud ? 0.012 : 0.004) * pu).toFixed(4)})`}}>
         <Scene t={t} a={0} b={8.9} inD={0} outD={0.45} hold><Open t={t} /></Scene>
-        <Scene t={t} a={8.9} b={11.0} light wipe={{kind: 'iris', x: 600, y: 1150, d: 0.42}} outD={0.4} hold><End t={t} /></Scene>
-        <Scene t={t} a={11.0} b={13.6} wipe={{kind: 'slit', d: 0.32}} outD={0.4} hold><Question t={t} /></Scene>
+        <Scene t={t} a={8.9} b={11.0} light wipe={{kind: 'checker', x: 0, d: 0.5}} outD={0.5} hold><End t={t} /></Scene>
+        <Scene t={t} a={11.0} b={13.6} wipe={{kind: 'checker', x: 1080, d: 0.45}} outD={0.45} hold><Question t={t} /></Scene>
         <Scene t={t} a={13.6} b={16.35} light wipe={{kind: 'iris', x: 540, y: 1000, d: 0.38}} outD={0.4} hold><Together t={t} /></Scene>
         <Scene t={t} a={16.35} b={22.0} wipe={{kind: 'slit', d: 0.32}} outD={0.25}><Tournament t={t} /></Scene>
         <Scene t={t} a={22.0} b={T.back} inD={0.25} zIn={1.0} outD={0.4} hold bg={C.ink}><Who t={t} /></Scene>
         <Scene t={t} a={T.back} b={27.6} light wipe={{kind: 'iris', x: 880, y: 1010, d: 0.3}} outD={0.4} hold><Amateurs t={t} /></Scene>
-        <Scene t={t} a={27.6} b={31.3} wipe={{kind: 'slit', d: 0.3}} outD={0.4} hold><NotBest t={t} /></Scene>
+        <Scene t={t} a={27.6} b={31.3} wipe={{kind: 'checker', x: 1080, d: 0.42}} outD={0.45} hold><NotBest t={t} /></Scene>
         <Scene t={t} a={31.3} b={33.6} light wipe={{kind: 'iris', x: 540, y: 1370, d: 0.32}} outD={0.4} hold><Process t={t} /></Scene>
         <Scene t={t} a={33.6} b={37.2} wipe={{kind: 'slit', d: 0.3}} outD={0.4} hold><Centaur t={t} /></Scene>
-        <Scene t={t} a={37.2} b={46.35} light wipe={{kind: 'iris', x: 540, y: 1300, d: 0.38}} outD={0.4} hold><Equation t={t} /></Scene>
+        <Scene t={t} a={37.2} b={46.35} light wipe={{kind: 'checker', x: 0, d: 0.45}} outD={0.45} hold><Equation t={t} /></Scene>
         <Scene t={t} a={46.35} b={54.0} wipe={{kind: 'slit', d: 0.3}} bg={C.graph} outD={0.4} hold><Race t={t} /></Scene>
-        <Scene t={t} a={54.0} b={58.8} light wipe={{kind: 'iris', x: 540, y: 760, d: 0.38}} outD={0.45} hold><System t={t} /></Scene>
+        <Scene t={t} a={54.0} b={58.8} light wipe={{kind: 'checker', x: 1080, d: 0.45}} outD={0.45} hold><System t={t} /></Scene>
         <Scene t={t} a={58.8} b={67} wipe={{kind: 'iris', x: 540, y: 760, d: 0.45}}><Final t={t} /></Scene>
       </div>
       <Dust t={t} n={60} opacity={(1 - lightK) * (t > 46.3 && t < 54 ? 0.25 : 0.7)} warm={0.08} />

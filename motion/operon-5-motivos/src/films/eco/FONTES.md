@@ -23,6 +23,12 @@ Todas em domínio público ou CC0 (Wikimedia Commons). Processadas por `tools/ec
 | chessplayers | Chess Players engraving (cropped).jpg | Domínio público |
 | hercules | Hercules fighting the Centaurs, wood engraving, 1878.jpg | Domínio público |
 
+| kasparov | Garry Kasparov European Union 2023 (cropped).jpg — foto: Lukasz Kobus / Comissão Europeia | CC BY 4.0 (crédito obrigatório) |
+| deepblue | IBM Deep Blue at Computer History Museum (9361685537).jpg — foto: Anton Chiang | CC BY 2.0 (crédito obrigatório) |
+| posição da partida 6 | Deep Blue versus Kasparov, 1997, Game 6.gif (Morn) — posição redesenhada | CC0 |
+
+**Crédito para a legenda do post (Nº 03):** Fotos: Lukasz Kobus / Comissão Europeia (CC BY 4.0) · Anton Chiang (CC BY 2.0). Gravuras: domínio público / Rijksmuseum (CC0).
+
 Exemplos de uso:
 `python tools/eco_lineart.py raw/vitruvian.jpg vitruvian ink 2000 0.5 0.45 0.045 0.035 0.955 0.965` (com `LO=86 HI=98.3 GAM=0.75`) ·
 `python tools/eco_lineart.py raw/newton.jpg newton cut 1600`.

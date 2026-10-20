@@ -66,13 +66,16 @@ export const Cut: React.FC<{name: string; x: number; y: number; width: number; s
 // avanço de cada glifo da Fraunces 900 (em; medido do arquivo da fonte) — a palavra nunca vaza da tela
 const ADV: Record<string, number> = {A: 0.785, B: 0.772, C: 0.721, D: 0.835, E: 0.691, F: 0.65, G: 0.783, H: 0.9, I: 0.46, J: 0.598, K: 0.863, L: 0.665, M: 0.983, N: 0.77, O: 0.803, P: 0.765, Q: 0.803, R: 0.829, S: 0.647, T: 0.744, U: 0.765, V: 0.756, W: 1.117, X: 0.752, Y: 0.709, Z: 0.66, 'Á': 0.785, 'É': 0.691, 'Í': 0.46, 'Ó': 0.803, 'Ú': 0.765, 'Ã': 0.785, 'Õ': 0.803, 'Ç': 0.721, 'Â': 0.785, 'Ê': 0.691, 'Ô': 0.803, ' ': 0.203, '.': 0.326, ',': 0.339, '…': 1.042};
 export const emWidth = (text: string) => [...text].reduce((a, ch) => a + (ADV[ch] ?? 0.75), 0) * 1.06;
-export const Big: React.FC<{t: number; at: number; out: number; text: string; size: number; y: number; color?: string; italic?: boolean; x?: number; track?: string; glow?: boolean; stagger?: number; maxW?: number}> = ({t, at, out, text, size: want, y, color = C.bone, italic, x = 540, track = '-0.035em', glow, stagger = 0.028, maxW = 880}) => {
+export const Big: React.FC<{t: number; at: number; out: number; text: string; size: number; y: number; color?: string; italic?: boolean; x?: number; track?: string; glow?: boolean; stagger?: number; maxW?: number; anim?: 'rise' | 'clip'}> = ({t, at, out, text, size: want, y, color = C.bone, italic, x = 540, track = '-0.035em', glow, stagger = 0.028, maxW = 880, anim = 'rise'}) => {
   if (t < at - 0.05 || t > out + 0.4) return null;
   const size = Math.min(want, maxW / (emWidth(text) - 0.035 * (text.length - 1)));
   const q = P(t, out, 0.3, E.in);
   return (
     <div style={{position: 'absolute', left: x - 1400, width: 2800, top: y - size * 0.62, textAlign: 'center', fontFamily: F.head, fontWeight: 900, fontStyle: italic ? 'italic' : 'normal', fontSize: size, lineHeight: 1.1, letterSpacing: track, color, whiteSpace: 'nowrap', opacity: 1 - q, filter: q > 0 ? `blur(${(q * 14).toFixed(1)}px)` : undefined, transform: `scale(${lerp(1, 1.12, q)})`, textShadow: glow ? `0 0 40px ${C.or}aa, 0 0 120px ${C.or}55` : undefined}}>
-      {[...text].map((ch, i) => { const u = P(t, at + i * stagger, 0.5, E.out); return <span key={i} style={{display: 'inline-block', whiteSpace: 'pre', opacity: clamp(u * 1.8), transform: `translateY(${((1 - u) * 0.42).toFixed(3)}em) scale(${lerp(1.3, 1, u).toFixed(3)})`, filter: u < 0.99 ? `blur(${((1 - u) * 16).toFixed(1)}px)` : undefined}}>{ch}</span>; })}
+      {anim === 'clip'
+        // "tipo móvel": cada letra sobe de dentro da linha (máscara), seca, sem desfoque — com um leve passo além do lugar
+        ? <span style={{display: 'inline-block', overflow: 'hidden', padding: '0.06em 0.04em 0.02em', verticalAlign: 'top'}}>{[...text].map((ch, i) => { const u = P(t, at + i * stagger * 0.8, 0.42, E.settle); return <span key={i} style={{display: 'inline-block', whiteSpace: 'pre', transform: `translateY(${((1 - u) * 1.05).toFixed(3)}em)`}}>{ch}</span>; })}</span>
+        : [...text].map((ch, i) => { const u = P(t, at + i * stagger, 0.5, E.out); return <span key={i} style={{display: 'inline-block', whiteSpace: 'pre', opacity: clamp(u * 1.8), transform: `translateY(${((1 - u) * 0.42).toFixed(3)}em) scale(${lerp(1.3, 1, u).toFixed(3)})`, filter: u < 0.99 ? `blur(${((1 - u) * 16).toFixed(1)}px)` : undefined}}>{ch}</span>; })}
     </div>
   );
 };
