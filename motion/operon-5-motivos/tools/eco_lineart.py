@@ -22,6 +22,7 @@ im.thumbnail((mx, mx), Image.LANCZOS)
 a = np.asarray(im).astype(np.float32) / 255
 L = a @ np.array([0.299, 0.587, 0.114], np.float32)
 
+import os
 if mode == 'ink':
     # papel estimado por fechamento + desfoque grande → razão tira manchas e amarelado
     paper = ndi.grey_closing(L, size=(25, 25)); paper = ndi.gaussian_filter(paper, 18)
@@ -38,7 +39,18 @@ elif mode == 'light':
     lo, hi = np.percentile(L, 40), np.percentile(L, 99.5)
     alpha = np.clip((L - lo) / max(hi - lo, 1e-3), 0, 1) ** 0.9
     rgb = np.ones_like(a) * np.array([0.96, 0.95, 0.92], np.float32)
-else:  # cut
+if mode == 'inkcut':
+    # traço de tinta só dentro do objeto (rembg tira a sala/o fundo da gravura)
+    from rembg import remove, new_session
+    m = np.asarray(remove(im, session=new_session('isnet-general-use'), only_mask=True)).astype(np.float32) / 255
+    m = ndi.gaussian_filter(m, 2)
+    paper = ndi.grey_closing(L, size=(25, 25)); paper = ndi.gaussian_filter(paper, 18)
+    d = np.clip(1 - L / np.maximum(paper, 1e-3), 0, 1)
+    core = d[m > 0.5]
+    lo, hi = np.percentile(core, float(os.environ.get('LO', 45))), np.percentile(core, float(os.environ.get('HI', 99.3)))
+    alpha = np.clip((d - lo - 0.02) / max(hi - lo, 1e-3), 0, 1) ** float(os.environ.get('GAM', 0.8)) * m
+    rgb = np.ones_like(a) * np.array([0.96, 0.95, 0.92], np.float32)
+elif mode == 'cut':
     from rembg import remove, new_session
     sess = new_session('isnet-general-use')
     rgba = np.asarray(remove(im, session=sess)).astype(np.float32) / 255
