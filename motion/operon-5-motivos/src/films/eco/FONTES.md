@@ -35,3 +35,17 @@ Exemplos de uso:
 
 Áudio (não versionado): voz do autor (ElevenLabs) + trilha "Fear of The Dark" (soundridemusic, distribuída como sem direitos autorais),
 mixados em `public/eco/audio/mix.wav` — voz entra em 3,34 s; a trilha corta em 59,47 s e volta (122,1 s da faixa) em 61,55 s.
+
+## Turing e a Enigma
+
+| Nome | Arquivo no Commons | Licença |
+|---|---|---|
+| enigma | Enigma Machine at NSA.jpg | Domínio público (NSA) |
+| rotors | Enigma rotors with alphabet rings.jpg | CC0 |
+| bombe | US-bombe.jpg (Bombe americana, 1943) | Domínio público |
+| turing | Alan Turing Aged 16.jpg (1928) | Domínio público |
+| valentine | Jean Valentine bombe operator.jpg | Domínio público |
+| weather | June 23, 1944 weather map.png | Domínio público |
+
+Trilha: coletânea "17 músicas clássicas…" (Adriano Starty) — trechos 978–1000,6 s, 2540,7–2578,9 s e 1495–1502,4 s. Obras em domínio público; a gravação pode ter dono.
+Logo: Yohann Escher (arquivo do autor), separado em duas camadas (preto e laranja) para animar.
