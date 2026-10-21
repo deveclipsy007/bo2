@@ -76,3 +76,16 @@ Ampulheta, fábrica, filas e logo de areia: desenhados em código (sem imagem ex
 Trilha: coletânea clássica, trecho 3603,0–3618,6 s (abertura); playlist de jazz, trecho 2130,0–2180,6 s (a faixa respira e volta em
 "destrava") e o acorde final em 1610,55 s com o logo.
 Legenda sugerida para o post: "Gravura: Wellcome Collection (CC BY 4.0). Foto: Ford Motor Company, 1913 (domínio público)."
+
+## Seu melhor funcionário vai embora (B-17)
+
+| Nome | Arquivo no Commons | Licença |
+|---|---|---|
+| m299 | Boeing Model 299 b299.jpg | Domínio público |
+| crash | Boeing Model 299 crash fire (050406-F-1234P-029).jpg | Domínio público (USAF) |
+| cockpit | B-17 Flying Fortress Cockpit.jpg | Domínio público |
+| b17f | Boeing B-17F Flying Fortresses in flight with contrails.jpg | Domínio público (USAF) |
+
+Avatar: sprites do autor (Yohann Escher), boca guiada pelo envelope da voz.
+Trilha: coletânea clássica 1623,1–1639,85 s (golpe em "caiu") e 3136,0–3155,3 s; playlist de jazz 895,35–914,55 s
+(entra em "Sabe o que é um checklist hoje?") e o acorde final em 3435,05 s com o logo.
