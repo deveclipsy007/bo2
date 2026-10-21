@@ -43,7 +43,7 @@ const Cv: React.FC<{cref: React.RefObject<HTMLCanvasElement>; opacity?: number}>
 
 // ---------- tinta fresca (a mesma assinatura tipográfica do episódio anterior) ----------
 const fitSize = (text: string, want: number, maxW: number) => Math.min(want, maxW / (emWidth(text) - 0.035 * (text.length - 1)));
-const Ink: React.FC<{t: number; at: number; out: number; text: string; size: number; y: number; color?: string; x?: number; stagger?: number; maxW?: number}> = ({t, at, out, text, size: want, y, color = C.bone, x = 540, stagger = 0.034, maxW = 880}) => {
+export const Ink: React.FC<{t: number; at: number; out: number; text: string; size: number; y: number; color?: string; x?: number; stagger?: number; maxW?: number}> = ({t, at, out, text, size: want, y, color = C.bone, x = 540, stagger = 0.034, maxW = 880}) => {
   if (t < at - 0.05 || t > out + 0.4) return null;
   const size = fitSize(text, want, maxW), q = P(t, out, 0.3, E.in), hot = color === C.or ? C.orHi : C.or;
   return (
@@ -186,14 +186,14 @@ const Factory: React.FC<{t: number; draw: number}> = ({t, draw}) => {
 
 // a empresa: seis etapas na vertical (as mesmas posições nas cenas 4, 5 e 6)
 const STAGES = ['LEAD', 'ATENDIMENTO', 'PROPOSTA', 'FECHAMENTO', 'ENTREGA', 'PÓS-VENDA'];
-const VX = 330, VY = (i: number) => 380 + i * 150;
+export const VX = 330, VY = (i: number) => 380 + i * 150;
 const VST = STAGES.map((_, i) => ({x: VX, y: VY(i)}));
 const svcFix = (v: number) => () => v;
 // cena 4: três gargalos ao mesmo tempo
-const CO1 = simulate([svcFix(0.1), svcFix(0.8), svcFix(1.0), svcFix(0.15), svcFix(0.15), svcFix(1.5)].map((svc, i) => ({...VST[i], svc})), {x: VX, y: 230}, {x: VX, y: 1260}, every(27.5, 42.5, 0.5), 520);
+export const CO1 = simulate([svcFix(0.1), svcFix(0.8), svcFix(1.0), svcFix(0.15), svcFix(0.15), svcFix(1.5)].map((svc, i) => ({...VST[i], svc})), {x: VX, y: 230}, {x: VX, y: 1260}, every(27.5, 42.5, 0.5), 520);
 // cena 5: cada agente destrava uma etapa, e o gargalo muda de lugar sozinho
 const CO2 = simulate([svcFix(0.1), (s: number) => (s < T.destrava ? 1.0 : 0.14), (s: number) => (s < T.segundo + 0.3 ? 0.72 : 0.14), svcFix(0.12), svcFix(0.12), (s: number) => (s < T.terceiro + 0.3 ? 0.85 : 0.14)].map((svc, i) => ({...VST[i], svc})), {x: VX, y: 230}, {x: VX, y: 1260}, every(37.0, 52.0, 0.5), 520);
-const Company: React.FC<{t: number; sim: Sim; fg: string; draw: number; agents?: {i: number; at: number}[]; focus?: number; dim?: string}> = ({t, sim, fg, draw, agents = [], focus = -1, dim = C.dim}) => {
+export const Company: React.FC<{t: number; sim: Sim; fg: string; draw: number; agents?: {i: number; at: number}[]; focus?: number; dim?: string}> = ({t, sim, fg, draw, agents = [], focus = -1, dim = C.dim}) => {
   const {pieces, queue} = simState(sim, t, 15), worst = queue.indexOf(Math.max(...queue));
   return (
     <svg width={1080} height={1920} style={{position: 'absolute', inset: 0}}>
