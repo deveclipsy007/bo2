@@ -109,8 +109,8 @@ const S0: React.FC<{t: number}> = ({t}) => {
       </svg>
       <Stamp t={t} at={T.demissao - 0.05} text="DEMISSÃO" x={BADGE.x} y={BADGE.y + 40} />
       <Label t={t} at={0.3} out={8.4} text="FIG. I — O FUNCIONÁRIO DO MÊS" y={230} />
-      <Thin t={t} at={T.seu - 0.2} out={T.levar - 0.3} text="o seu melhor funcionário" size={58} y={1190} x={RX} />
-      <Ink t={t} at={T.pedir - 0.1} out={T.levar - 0.3} text="VAI PEDIR DEMISSÃO." size={110} y={1320} x={RX} maxW={RW} color={C.or} />
+      <Thin t={t} at={T.seu - 0.2} out={T.levar - 0.55} text="o seu melhor funcionário" size={58} y={1190} x={RX} />
+      <Ink t={t} at={T.pedir - 0.1} out={T.levar - 0.55} text="VAI PEDIR DEMISSÃO." size={110} y={1320} x={RX} maxW={RW} color={C.or} />
       <Thin t={t} at={T.levar - 0.2} out={8.45} text="e levar uma parte da empresa" size={54} y={1190} x={RX} />
       <Ink t={t} at={T.cabeca - 0.35} out={8.45} text="NA CABEÇA DELE." size={110} y={1320} x={RX} maxW={RW} />
     </>
@@ -122,8 +122,8 @@ const S1: React.FC<{t: number}> = ({t}) => (
     <div style={{position: 'absolute', inset: 0, transform: `translateX(${lerp(30, -30, P(t, 8.6, 7.5)).toFixed(1)}px)`}}><Reveal name="m299" p={P(t, 8.65, 1.4, E.smooth)} x={540} y={700} width={1060} edge={0} /></div>
     <Label t={t} at={8.8} out={16.2} text="FIG. II — BOEING MODELO 299 · 1935" y={230} color={C.pdim} />
     <Label t={t} at={T.avancado - 0.2} out={16.2} text="4 MOTORES · 31,6 m DE ENVERGADURA" y={272} color={C.or} />
-    <Ink t={t} at={T.n1935 - 0.15} out={T.boeing + 0.6} text="1935." size={240} y={1240} color={C.pen} stagger={0.06} />
-    <Thin t={t} at={T.boeing + 0.4} out={T.voo - 0.3} text="o avião mais avançado do mundo." size={72} y={1240} color={C.pen} />
+    <Ink t={t} at={T.n1935 - 0.15} out={T.boeing + 0.05} text="1935." size={240} y={1240} color={C.pen} stagger={0.06} />
+    <Thin t={t} at={T.boeing + 0.45} out={T.voo - 0.5} text="o avião mais avançado do mundo." size={72} y={1240} color={C.pen} />
     <Thin t={t} at={T.voo - 0.15} out={16.3} text="no voo de demonstração," size={72} y={1210} color={C.pen} />
     <Ink t={t} at={T.caiu - 0.32} out={16.35} text="ELE CAIU." size={190} y={1350} color={C.or} stagger={0.022} />
   </Cam>
@@ -137,7 +137,7 @@ const S2: React.FC<{t: number}> = ({t}) => {
         <Reveal name="crash" p={P(t, 15.95, 0.55, E.out)} x={540} y={700} width={1080} edge={0} />
       </Cam>
       <Label t={t} at={16.2} out={20.8} text="30 DE OUTUBRO DE 1935 · WRIGHT FIELD, OHIO" y={230} />
-      <Thin t={t} at={T.segundos - 0.2} out={T.piloto - 0.35} text="segundos depois de decolar." size={70} y={1250} />
+      <Thin t={t} at={T.segundos - 0.2} out={T.piloto - 0.6} text="segundos depois de decolar." size={70} y={1250} />
       <Thin t={t} at={T.piloto - 0.25} out={20.85} text="o piloto era um dos" size={70} y={1200} />
       <Ink t={t} at={T.melhores - 0.1} out={20.85} text="MELHORES DO PAÍS." size={140} y={1340} />
     </div>
@@ -168,7 +168,7 @@ const S3: React.FC<{t: number}> = ({t}) => {
         {hot > 0 && <><circle cx={TRAVA.x} cy={TRAVA.y} r={lerp(220, 78, hot)} fill="none" stroke={C.or} strokeWidth={2.5} opacity={hot} /><text x={TRAVA.x - 100} y={TRAVA.y + 120} textAnchor="middle" fontFamily={F.mono} fontSize={20} letterSpacing="0.16em" fill={C.or} opacity={hot}>TRAVA DOS COMANDOS · TRAVADA</text></>}
       </svg>
       <Label t={t} at={21.1} out={26.7} text={`FIG. III — O PAINEL · ITENS PARA LEMBRAR: ${n}`} y={230} color={C.pdim} />
-      <Thin t={t} at={T.problema - 0.2} out={T.esqueceu - 0.3} text="o avião tinha coisa demais pra lembrar." size={60} y={1250} color={C.pen} />
+      <Thin t={t} at={T.problema - 0.2} out={T.esqueceu - 0.55} text="o avião tinha coisa demais pra lembrar." size={60} y={1250} color={C.pen} />
       <Thin t={t} at={T.esqueceu - 0.2} out={26.75} text="e ele esqueceu uma." size={72} y={1230} color={C.pen} />
       <Ink t={t} at={T.trava - 0.1} out={26.75} text="UMA TRAVA." size={190} y={1370} color={C.or} />
     </Cam>
@@ -199,7 +199,7 @@ const S4: React.FC<{t: number}> = ({t}) => (
   <Cam t={t} a={26.75} b={32.0} z0={1.0} z1={1.05} oy={700}>
     <Card t={t} typeAt={27.0} tickAt={(i) => (i === 0 ? 27.45 : T.cartao + 0.15 + i * 0.32)} title="B-17 · CHECKLIST DO PILOTO" />
     <Label t={t} at={26.9} out={31.8} text="FIG. IV — O CARTÃO DE PAPEL" y={230} color={C.pdim} />
-    <Thin t={t} at={T.solucao - 0.2} out={T.cartao - 0.5} text="a solução não foi contratar um piloto melhor." size={50} y={1210} color={C.pen} />
+    <Thin t={t} at={T.solucao - 0.2} out={T.cartao - 0.75} text="a solução não foi contratar um piloto melhor." size={50} y={1210} color={C.pen} />
     <Thin t={t} at={T.cartao - 0.4} out={31.85} text="foi um cartão de papel." size={72} y={1210} color={C.pen} />
     <Ink t={t} at={T.checklist - 0.35} out={31.85} text="UM CHECKLIST." size={170} y={1350} color={C.or} />
   </Cam>
@@ -209,8 +209,8 @@ const S5: React.FC<{t: number}> = ({t}) => (
   <Cam t={t} a={31.9} b={37.7} z0={1.06} z1={1.0} oy={700}>
     <Reveal name="b17f" p={P(t, 31.95, 1.3, E.smooth)} x={540} y={720} width={1080} edge={0} />
     <Label t={t} at={32.1} out={37.5} text="FIG. V — B-17 FLYING FORTRESS" y={230} />
-    <Thin t={t} at={T.ele2 - 0.1} out={T.quase - 0.35} text="com ele, aquele mesmo avião virou o" size={56} y={1200} />
-    <Ink t={t} at={T.b17 - 0.1} out={T.quase - 0.35} text="B-17." size={230} y={1360} color={C.or} stagger={0.06} />
+    <Thin t={t} at={T.ele2 - 0.1} out={T.quase - 0.45} text="com ele, aquele mesmo avião virou o" size={56} y={1200} />
+    <Ink t={t} at={T.b17 - 0.1} out={T.quase - 0.45} text="B-17." size={230} y={1360} color={C.or} stagger={0.06} />
     <Odo t={t} at={T.quase - 0.1} text="12.731" size={190} y={1230} color={C.bone} />
     <Label t={t} at={T.fabricados - 0.3} out={37.5} text="FABRICADOS ENTRE 1936 E 1945" y={1360} align="center" color={C.or} />
   </Cam>
@@ -227,12 +227,12 @@ const S6: React.FC<{t: number}> = ({t}) => {
         {TABS.map((k, i) => { const u = P(t, k.at - 0.1, 0.35, E.pop); return u > 0 && <div key={i} style={{position: 'absolute', left: CARD.x - CARD.w / 2 + 40 + i * 200, top: CARD.y - CARD.h / 2 - 54, width: 180, height: 56, borderRadius: '12px 12px 0 0', background: i === tabsIn - 1 ? C.or : '#fbf7ee', boxShadow: '0 0 0 2px #121110', display: 'grid', placeItems: 'center', fontFamily: F.mono, fontSize: 20, letterSpacing: '0.16em', color: i === tabsIn - 1 ? '#fff' : C.pen, transform: `translateY(${((1 - u) * 30).toFixed(0)}px)`, opacity: clamp(u * 2)}}>{k.n}</div>; })}
       </div>
       <Label t={t} at={37.8} out={47.9} text="FIG. VI — O CHECKLIST DE HOJE" y={230} color={C.pdim} />
-      <Thin t={t} at={T.sabe - 0.15} out={T.exatamente - 0.3} text="sabe o que é um checklist hoje?" size={52} y={1250} x={RX} color={C.pen} />
-      <Thin t={t} at={T.exatamente - 0.2} out={T.pega - 0.35} text="é o que um agente precisa" size={54} y={1210} x={RX} color={C.pen} />
-      <Ink t={t} at={T.trabalhar - 0.4} out={T.pega - 0.35} text="PRA TRABALHAR." size={110} y={1340} x={RX} maxW={RW} color={C.or} />
-      <Thin t={t} at={T.pega - 0.2} out={T.escreve - 0.3} text="o jeito que o seu melhor" size={52} y={1170} x={RX} color={C.pen} />
-      <Thin t={t} at={T.pega + 0.3} out={T.escreve - 0.3} text="funcionário…" size={52} y={1235} x={RX} color={C.pen} />
-      {TABS.map((k, i) => <Ink key={i} t={t} at={k.at - 0.06} out={(TABS[i + 1]?.at ?? T.escreve) - 0.12} text={`${k.n}.`} size={120} y={1360} x={RX} maxW={RW} color={C.pen} />)}
+      <Thin t={t} at={T.sabe - 0.15} out={T.exatamente - 0.55} text="sabe o que é um checklist hoje?" size={52} y={1250} x={RX} color={C.pen} />
+      <Thin t={t} at={T.exatamente - 0.2} out={T.pega - 0.6} text="é o que um agente precisa" size={54} y={1210} x={RX} color={C.pen} />
+      <Ink t={t} at={T.trabalhar - 0.4} out={T.pega - 0.6} text="PRA TRABALHAR." size={110} y={1340} x={RX} maxW={RW} color={C.or} />
+      <Thin t={t} at={T.pega - 0.2} out={T.escreve - 0.55} text="o jeito que o seu melhor" size={52} y={1170} x={RX} color={C.pen} />
+      <Thin t={t} at={T.pega + 0.3} out={T.escreve - 0.55} text="funcionário…" size={52} y={1235} x={RX} color={C.pen} />
+      {TABS.map((k, i) => <Ink key={i} t={t} at={k.at - 0.06} out={(TABS[i + 1]?.at ?? T.escreve) - 0.42} text={`${k.n}.`} size={120} y={1360} x={RX} maxW={RW} color={C.pen} />)}
       <Thin t={t} at={T.escreve - 0.15} out={47.95} text="e escreve," size={60} y={1220} x={RX} color={C.pen} />
       <Ink t={t} at={T.passo - 0.1} out={47.95} text="PASSO A PASSO." size={110} y={1350} x={RX} maxW={RW} color={C.or} />
     </Cam>
@@ -251,8 +251,8 @@ const S7: React.FC<{t: number}> = ({t}) => {
       </svg>
       <Dot x={AGT.x} y={AGT.y} r={30 + 4 * Math.sin(t * 4)} glow={2} />
       <Label t={t} at={48.1} out={56.7} text="FIG. VII — O AGENTE" y={230} />
-      <Thin t={t} at={T.isso - 0.15} out={T.esquece - 0.35} text="isso vira um agente." size={66} y={1240} x={RX} />
-      {[{s: 'NÃO ESQUECE.', at: T.esquece}, {s: 'NÃO FALTA.', at: T.falta}, {s: 'NÃO PEDE DEMISSÃO.', at: T.pede - 0.2}].map((k, i) => <Ink key={i} t={t} at={k.at - 0.1} out={T.conhecimento - 0.35} text={k.s} size={78} y={1150 + i * 105} x={RX} maxW={RW} color={i === 2 ? C.or : C.bone} />)}
+      <Thin t={t} at={T.isso - 0.15} out={T.esquece - 0.5} text="isso vira um agente." size={66} y={1240} x={RX} />
+      {[{s: 'NÃO ESQUECE.', at: T.esquece}, {s: 'NÃO FALTA.', at: T.falta}, {s: 'NÃO PEDE DEMISSÃO.', at: T.pede - 0.2}].map((k, i) => <Ink key={i} t={t} at={k.at - 0.1} out={T.conhecimento - 0.55} text={k.s} size={78} y={1150 + i * 105} x={RX} maxW={RW} color={i === 2 ? C.or : C.bone} />)}
       <Thin t={t} at={T.conhecimento - 0.2} out={56.75} text="e o conhecimento finalmente" size={52} y={1210} x={RX} />
       <Ink t={t} at={T.fica - 0.1} out={56.75} text="FICA NA SUA EMPRESA." size={100} y={1340} x={RX} maxW={RW} color={C.or} />
     </>
