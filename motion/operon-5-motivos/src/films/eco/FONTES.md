@@ -49,3 +49,17 @@ mixados em `public/eco/audio/mix.wav` — voz entra em 3,34 s; a trilha corta em
 
 Trilha: coletânea "17 músicas clássicas…" (Adriano Starty) — trechos 978–1000,6 s, 2540,7–2578,9 s e 1495–1502,4 s. Obras em domínio público; a gravação pode ter dono.
 Logo: Yohann Escher (arquivo do autor), separado em duas camadas (preto e laranja) para animar.
+
+## Fazer sem pensar
+
+| Nome | Arquivo no Commons | Licença |
+|---|---|---|
+| typus | Typus arithmeticae LCCN92518152.jpg (Reisch, *Margarita Philosophica*, 1503) | Domínio público (Library of Congress) |
+| liber | Liber abbaci magliab f124r.jpg (Fibonacci, *Liber Abaci*) | Domínio público |
+| fibo | Leonardo Fibonacci.png (gravura do séc. XIX) | Domínio público |
+| whitehead | ANWhitehead.jpg | Domínio público |
+| money | Massysm Quentin — The Moneylender and his Wife — 1514.jpg | Domínio público |
+
+Citação: A. N. Whitehead, *An Introduction to Mathematics* (1911).
+Trilha: coletânea clássica, trecho 23,44–57,04 s (a peça seguinte entra forte em "o comércio explodiu"); playlist de jazz, trecho 3071,3–3115,6 s
+(a faixa respira e volta com o grupo inteiro no primeiro "Agentes.") e o acorde final da mesma faixa (3254,95 s) com o logo.
