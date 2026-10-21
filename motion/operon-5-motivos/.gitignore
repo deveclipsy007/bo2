@@ -4,3 +4,4 @@ public/audio/mix*.wav
 out/
 node_modules/
 public/eco/
+__pycache__/
