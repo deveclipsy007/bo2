@@ -14,6 +14,8 @@ import {Turing} from './films/eco/Film4';
 import {DURATION as TDUR} from './films/eco/time4';
 import {SemPensar} from './films/eco/Film5';
 import {DURATION as SDUR} from './films/eco/time5';
+import {LugarErrado} from './films/eco/Film6';
+import {DURATION as LDUR} from './films/eco/time6';
 
 export const RemotionRoot: React.FC = () => (
   <>
@@ -23,6 +25,7 @@ export const RemotionRoot: React.FC = () => (
     <Composition id="Mashup-Royalty-v3" component={MashupRoyaltyV3} durationInFrames={MDUR} fps={60} width={1080} height={1920} defaultProps={{audio: 'music' as const}} />
     <Composition id="Ecossistema" component={Ecossistema} durationInFrames={EDUR} fps={60} width={1080} height={1920} defaultProps={{audio: 'mix' as const}} />
     <Composition id="Turing" component={Turing} durationInFrames={TDUR} fps={60} width={1080} height={1920} defaultProps={{audio: 'mix' as const}} />
+    <Composition id="Lugar-Errado" component={LugarErrado} durationInFrames={LDUR} fps={60} width={1080} height={1920} defaultProps={{audio: 'mix' as const}} />
     <Composition id="Sem-Pensar" component={SemPensar} durationInFrames={SDUR} fps={60} width={1080} height={1920} defaultProps={{audio: 'mix' as const}} />
     <Composition id="Centauros" component={Centauros} durationInFrames={CDUR} fps={60} width={1080} height={1920} defaultProps={{audio: 'mix' as const}} />
   </>

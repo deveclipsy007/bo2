@@ -1,0 +1,196 @@
+<title>Espelho do Render</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,900&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@1&display=swap">
+<style>
+/* Mesa de montagem da série: fundo de sala escura, papel para os quadros de cena, um único laranja = o que está em andamento agora. */
+:root {
+  --ink: #0d0d0e;
+  --panel: #161618;
+  --line: #2a2a2e;
+  --bone: #f2efe8;
+  --dim: #8d8a84;
+  --or: #ff5a1f;
+  --ok: #7fb58a;
+  --paper: #e9e4d9;
+  --display: "Fraunces", Georgia, serif;
+  --italic: "Instrument Serif", Georgia, serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { background: var(--ink); }
+body {
+  background: var(--ink); color: var(--bone); font-family: var(--mono); font-size: 14px; line-height: 1.5;
+  padding-block: 28px 56px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.wrap { max-width: 1080px; margin: 0 auto; display: grid; gap: 28px; }
+.eyebrow { font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--dim); }
+header { display: grid; gap: 6px; }
+h1 { font-family: var(--display); font-weight: 900; font-size: clamp(34px, 7vw, 64px); line-height: 1; margin: 0; letter-spacing: -.02em; text-wrap: balance; }
+.sub { font-family: var(--italic); font-style: italic; font-size: clamp(18px, 3vw, 24px); color: var(--dim); }
+.live { display: inline-flex; align-items: center; gap: 8px; }
+.dot { width: 9px; height: 9px; border-radius: 50%; background: var(--dim); }
+.dot.on { background: var(--or); box-shadow: 0 0 10px var(--or); animation: pulse 1.6s ease-in-out infinite; }
+@keyframes pulse { 50% { opacity: .35; } }
+
+.now { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 18px 28px; align-items: end; padding: 22px; background: var(--panel); border: 1px solid var(--line); border-radius: 4px; }
+.now .stage { font-family: var(--display); font-weight: 900; font-size: clamp(22px, 4vw, 34px); line-height: 1.1; }
+.now .pct { font-family: var(--display); font-weight: 900; font-size: clamp(56px, 12vw, 120px); line-height: .85; font-variant-numeric: tabular-nums; color: var(--or); text-align: right; }
+.now .pct small { font-size: .4em; color: var(--dim); }
+.bar { grid-column: 1 / -1; height: 6px; background: var(--line); border-radius: 3px; overflow: hidden; }
+.bar i { display: block; height: 100%; width: 0; background: var(--or); transition: width .6s ease; }
+.meta { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 6px 22px; color: var(--dim); font-size: 12px; font-variant-numeric: tabular-nums; }
+.meta b { color: var(--bone); font-weight: 500; }
+
+.stages { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 4px; overflow: hidden; }
+.st { background: var(--panel); padding: 12px 12px 14px; display: grid; gap: 6px; min-width: 0; }
+.st .n { font-size: 11px; color: var(--dim); font-variant-numeric: tabular-nums; }
+.st .l { font-size: 13px; }
+.st .s { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--dim); }
+.st.done .s { color: var(--ok); }
+.st.run { background: #1e1712; }
+.st.run .s { color: var(--or); }
+
+section { display: grid; gap: 12px; }
+h2 { font-family: var(--display); font-weight: 400; font-size: 22px; margin: 0; }
+.timeline { position: relative; height: 54px; border: 1px solid var(--line); border-radius: 4px; overflow: hidden; display: flex; }
+.seg { height: 100%; border-right: 1px solid var(--ink); position: relative; min-width: 2px; cursor: pointer; }
+.seg.paper { background: var(--paper); }
+.seg.ink { background: #26262a; }
+.seg.sel { outline: 2px solid var(--or); outline-offset: -2px; }
+.seg span { position: absolute; left: 6px; top: 6px; font-size: 10px; color: var(--dim); }
+.seg.paper span { color: #6f6a60; }
+.head { position: absolute; top: 0; bottom: 0; width: 2px; background: var(--or); box-shadow: 0 0 8px var(--or); left: 0; transition: left .6s ease; }
+.axis { display: flex; justify-content: space-between; font-size: 11px; color: var(--dim); font-variant-numeric: tabular-nums; }
+
+.scenes { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px; }
+.card { display: grid; gap: 8px; min-width: 0; cursor: pointer; }
+.thumb { aspect-ratio: 9 / 16; max-width: 100%; border: 1px solid var(--line); border-radius: 3px; background: var(--panel); overflow: hidden; position: relative; display: grid; place-items: center; }
+.thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.thumb .ph { font-family: var(--italic); font-style: italic; color: var(--dim); font-size: 15px; padding: 10px; text-align: center; }
+.card.sel .thumb { border-color: var(--or); }
+.card .tc { font-size: 11px; color: var(--dim); font-variant-numeric: tabular-nums; display: flex; justify-content: space-between; gap: 8px; }
+.card .tt { font-size: 13px; line-height: 1.35; }
+.card .ln { font-family: var(--italic); font-style: italic; color: var(--dim); font-size: 15px; line-height: 1.3; }
+
+.log { border: 1px solid var(--line); border-radius: 4px; background: var(--panel); padding: 6px 0; max-height: 320px; overflow: auto; }
+.log div { display: grid; grid-template-columns: 70px minmax(0, 1fr); gap: 12px; padding: 6px 14px; font-size: 12px; }
+.log time { color: var(--dim); font-variant-numeric: tabular-nums; }
+.empty { color: var(--dim); font-family: var(--italic); font-style: italic; font-size: 17px; padding: 14px; }
+footer { color: var(--dim); font-size: 11px; }
+:focus-visible { outline: 2px solid var(--or); outline-offset: 2px; }
+@media (max-width: 560px) { .now { grid-template-columns: 1fr; } .now .pct { text-align: left; } }
+@media (prefers-reduced-motion: reduce) { .dot.on { animation: none; } .bar i, .head { transition: none; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow live"><span class="dot" id="dot"></span><span id="conn">Conectando ao espelho…</span></div>
+    <h1 id="ep">Espelho do Render</h1>
+    <div class="sub" id="epsub">O vídeo em produção aparece aqui, etapa por etapa.</div>
+  </header>
+
+  <div class="now">
+    <div>
+      <div class="eyebrow">Agora</div>
+      <div class="stage" id="stage">Aguardando a primeira atualização</div>
+    </div>
+    <div class="pct" id="pct">0<small>%</small></div>
+    <div class="bar"><i id="barfill"></i></div>
+    <div class="meta">
+      <span>Quadros <b id="frames">—</b></span>
+      <span>Falta <b id="eta">—</b></span>
+      <span>Duração <b id="dur">—</b></span>
+      <span>Atualizado <b id="upd">—</b></span>
+    </div>
+  </div>
+
+  <div class="stages" id="stages"></div>
+
+  <section>
+    <h2>Linha do tempo</h2>
+    <div class="timeline" id="tl"><div class="head" id="playhead"></div></div>
+    <div class="axis" id="axis"></div>
+  </section>
+
+  <section>
+    <h2>Cenas</h2>
+    <div class="scenes" id="scenes"><div class="empty">As cenas aparecem aqui assim que o roteiro visual estiver montado.</div></div>
+  </section>
+
+  <section>
+    <h2>Registro</h2>
+    <div class="log" id="log"><div class="empty">Nenhum evento ainda.</div></div>
+  </section>
+
+  <footer>Papel e escuro na linha do tempo mostram o fundo de cada cena. A linha laranja marca até onde o render já chegou.</footer>
+</div>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const fmtT = (s) => { s = Math.max(0, +s || 0); const m = Math.floor(s / 60), r = s - m * 60; return m + ':' + r.toFixed(1).padStart(4, '0'); };
+const esc = (v) => String(v ?? '').replace(/[&<>"]/g, (c) => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c]));
+let sel = null, last = null;
+
+function render(d) {
+  last = d;
+  $('ep').textContent = d.ep || 'Espelho do Render';
+  $('epsub').textContent = d.sub || '';
+  $('stage').textContent = d.stage || '—';
+  const pct = Math.max(0, Math.min(100, Math.round(d.overall ?? 0)));
+  $('pct').innerHTML = pct + '<small>%</small>';
+  $('barfill').style.width = pct + '%';
+  const f = d.frames || {};
+  $('frames').textContent = f.total ? `${(f.done || 0).toLocaleString('pt-BR')} / ${f.total.toLocaleString('pt-BR')}` : '—';
+  $('eta').textContent = d.eta || '—';
+  $('dur').textContent = d.duration ? fmtT(d.duration) : '—';
+  $('upd').textContent = d.updated ? new Date(d.updated).toLocaleTimeString('pt-BR', {hour: '2-digit', minute: '2-digit'}) : '—';
+  const running = (d.stages || []).some((s) => s.state === 'run');
+  $('dot').className = 'dot' + (running ? ' on' : '');
+  $('conn').textContent = running ? 'Ao vivo · produzindo' : (pct >= 100 ? 'Concluído' : 'Ao vivo');
+
+  $('stages').innerHTML = (d.stages || []).map((s, i) =>
+    `<div class="st ${s.state === 'done' ? 'done' : s.state === 'run' ? 'run' : ''}"><span class="n">${String(i + 1).padStart(2, '0')}</span><span class="l">${esc(s.label)}</span><span class="s">${s.state === 'done' ? 'Pronto' : s.state === 'run' ? 'Em andamento' : 'Na fila'}</span></div>`).join('');
+
+  const sc = d.scenes || [], D = d.duration || (sc.length ? sc[sc.length - 1].b : 0) || 1;
+  const tl = $('tl');
+  tl.querySelectorAll('.seg').forEach((e) => e.remove());
+  sc.forEach((s, i) => {
+    const e = document.createElement('div');
+    e.className = 'seg ' + (s.bg === 'paper' ? 'paper' : 'ink') + (sel === i ? ' sel' : '');
+    e.style.width = (((s.b - s.a) / D) * 100) + '%';
+    e.title = `${s.title} · ${fmtT(s.a)}–${fmtT(s.b)}`;
+    e.innerHTML = `<span>${i + 1}</span>`;
+    e.onclick = () => pick(i);
+    tl.insertBefore(e, $('playhead'));
+  });
+  const head = f.total ? (f.done || 0) / f.total : 0;
+  $('playhead').style.left = `calc(${(head * 100).toFixed(2)}% - 1px)`;
+  $('playhead').hidden = !f.total;
+  $('axis').innerHTML = sc.length ? [0, .25, .5, .75, 1].map((k) => `<span>${fmtT(D * k)}</span>`).join('') : '';
+
+  $('scenes').innerHTML = sc.length ? sc.map((s, i) => `
+    <div class="card${sel === i ? ' sel' : ''}" data-i="${i}" tabindex="0">
+      <div class="thumb">${s.thumb ? `<img src="${esc(s.thumb)}" alt="Prévia da cena ${i + 1}" loading="lazy">` : `<span class="ph">${esc(s.state === 'done' ? 'sem prévia' : 'prévia em breve')}</span>`}</div>
+      <div class="tc"><span>${String(i + 1).padStart(2, '0')} · ${s.bg === 'paper' ? 'papel' : 'escuro'}</span><span>${fmtT(s.a)}–${fmtT(s.b)}</span></div>
+      <div class="tt">${esc(s.title)}</div>
+      ${s.line ? `<div class="ln">${esc(s.line)}</div>` : ''}
+    </div>`).join('') : '<div class="empty">As cenas aparecem aqui assim que o roteiro visual estiver montado.</div>';
+  document.querySelectorAll('.card').forEach((c) => { c.onclick = () => pick(+c.dataset.i); c.onkeydown = (ev) => { if (ev.key === 'Enter') pick(+c.dataset.i); }; });
+
+  const lg = (d.log || []).slice().reverse();
+  $('log').innerHTML = lg.length ? lg.map((x) => `<div><time>${esc(x.t)}</time><span>${esc(x.msg)}</span></div>`).join('') : '<div class="empty">Nenhum evento ainda.</div>';
+}
+function pick(i) { sel = sel === i ? null : i; if (last) render(last); const c = document.querySelector(`.card[data-i="${i}"]`); if (c && sel === i) c.scrollIntoView({block: 'nearest', behavior: 'smooth'}); }
+
+(async () => {
+  const db = await window.claude?.use?.('db');
+  if (!db) { $('conn').textContent = 'Espelho indisponível nesta visualização'; return; }
+  db.doc('mirror/status').onSnapshot((snap) => {
+    if (snap.exists) render(snap.data());
+    else $('conn').textContent = 'Ao vivo · aguardando o início';
+  }, () => { $('conn').textContent = 'A conexão caiu. Reabra a página para voltar ao vivo.'; });
+})();
+</script>

@@ -188,7 +188,7 @@ export const Ecg: React.FC<{t: number; beats: number[]; y?: number; color?: stri
 // =====================================================================================================
 const r5 = rng(51);
 const FIB = Array.from({length: 260}, () => ({a: r5() * 6.283, r0: 0.28 + r5() * 0.12, r1: 0.8 + r5() * 0.2, w: 0.6 + r5() * 1.6, c: r5()}));
-export const Eye: React.FC<{t: number; open: number; pupil: number; cx?: number; cy?: number; R?: number; opacity?: number; grid?: number; spiral?: number}> = ({t, open, pupil, cx = 540, cy = 900, R = 300, opacity = 1, grid = 0, spiral = 0}) => {
+export const Eye: React.FC<{t: number; open: number; pupil: number; cx?: number; cy?: number; R?: number; opacity?: number; grid?: number; spiral?: number; hourglass?: number}> = ({t, open, pupil, cx = 540, cy = 900, R = 300, opacity = 1, grid = 0, spiral = 0, hourglass = 0}) => {
   const ref = useCanvas((g) => {
     const o = clamp(open), lw = 2.5;
     g.globalAlpha = opacity; g.strokeStyle = C.bone; g.lineWidth = lw;
@@ -204,6 +204,8 @@ export const Eye: React.FC<{t: number; open: number; pupil: number; cx?: number;
     if (grid > 0) { g.save(); g.beginPath(); g.arc(cx, cy, R * 0.95, 0, Math.PI * 2); g.clip(); g.globalAlpha = opacity * grid; g.fillStyle = '#fff3e6'; const sq = R * 0.16, x0 = cx - R * 0.7, y0 = cy - R * 0.55; for (let r = 0; r < 8; r++) for (let c = 0; c < 8; c++) if ((r + c) % 2 === 0) { const sk = 1 - r * 0.045; g.fillRect(x0 + c * sq * sk + r * sq * 0.18, y0 + r * sq * 0.72, sq * sk * 0.96, sq * 0.7); } g.restore(); }
     // espiral áurea (Fibonacci) refletida na íris
     if (spiral > 0) { g.save(); g.beginPath(); g.arc(cx, cy, R * 0.95, 0, Math.PI * 2); g.clip(); g.globalAlpha = opacity * spiral; g.strokeStyle = '#fff3e6'; g.lineWidth = 2.2; const b = Math.log(1.618034) / (Math.PI / 2), rot = t * 0.12, ox = cx + R * 0.12, oy = cy + R * 0.06; g.beginPath(); for (let k = 0; k <= 240; k++) { const th = -14 + (k / 240) * 14, r = R * 0.86 * Math.exp(b * th); const x = ox + Math.cos(th + rot) * r, y = oy + Math.sin(th + rot) * r; if (k) g.lineTo(x, y); else g.moveTo(x, y); } g.stroke(); g.restore(); }
+    // ampulheta refletida na íris
+    if (hourglass > 0) { g.save(); g.beginPath(); g.arc(cx, cy, R * 0.95, 0, Math.PI * 2); g.clip(); g.globalAlpha = opacity * hourglass; g.strokeStyle = '#fff3e6'; g.lineWidth = 2.4; const hx = cx + R * 0.36, hy = cy - R * 0.08, hh = R * 0.42, hw = R * 0.22; g.beginPath(); g.moveTo(hx - hw, hy - hh); g.lineTo(hx + hw, hy - hh); g.quadraticCurveTo(hx + hw, hy - hh * 0.2, hx + 3, hy); g.quadraticCurveTo(hx + hw, hy + hh * 0.2, hx + hw, hy + hh); g.lineTo(hx - hw, hy + hh); g.quadraticCurveTo(hx - hw, hy + hh * 0.2, hx - 3, hy); g.quadraticCurveTo(hx - hw, hy - hh * 0.2, hx - hw, hy - hh); g.stroke(); g.restore(); }
     g.globalAlpha = opacity; g.fillStyle = '#050505'; g.beginPath(); g.arc(cx, cy, pr, 0, Math.PI * 2); g.fill();
     g.fillStyle = 'rgba(255,255,255,.85)'; g.beginPath(); g.ellipse(cx - R * 0.28, cy - R * 0.3, R * 0.09, R * 0.06, -0.5, 0, Math.PI * 2); g.fill();
     // sombra da pálpebra
@@ -213,6 +215,6 @@ export const Eye: React.FC<{t: number; open: number; pupil: number; cx?: number;
     g.strokeStyle = C.bone; g.globalAlpha = opacity * 0.28; g.lineWidth = 1.2;
     for (let k = 0; k < 46; k++) { const v = k / 45, x = cx - ew + v * ew * 2, top = cy - eh * 1.25 * Math.sin(v * Math.PI) * 0.75; g.beginPath(); g.moveTo(x, top - 30 - 40 * Math.sin(v * Math.PI)); g.lineTo(x + 18, top - 6); g.stroke(); }
     g.globalAlpha = 1;
-  }, [t, open, pupil, opacity, cx, cy, R, grid, spiral]);
+  }, [t, open, pupil, opacity, cx, cy, R, grid, spiral, hourglass]);
   return <Cv cref={ref} />;
 };
