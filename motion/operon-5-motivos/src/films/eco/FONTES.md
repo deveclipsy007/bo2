@@ -63,3 +63,16 @@ Logo: Yohann Escher (arquivo do autor), separado em duas camadas (preto e laranj
 Citação: A. N. Whitehead, *An Introduction to Mathematics* (1911).
 Trilha: coletânea clássica, trecho 23,44–57,04 s (a peça seguinte entra forte em "o comércio explodiu"); playlist de jazz, trecho 3071,3–3115,6 s
 (a faixa respira e volta com o grupo inteiro no primeiro "Agentes.") e o acorde final da mesma faixa (3254,95 s) com o logo.
+
+## O lugar errado (Goldratt e o gargalo)
+
+| Nome | Arquivo no Commons | Licença |
+|---|---|---|
+| ford | Ford assembly line - 1913 (restored).jpg | Domínio público |
+| mirage | Geography; a mirage in the straits of Messina. Coloured wood Wellcome V0025049.jpg (*The Fata Morgana*) | CC BY 4.0 (Wellcome Collection) |
+
+Citação: Eliyahu M. Goldratt, *A Meta* (*The Goal*, 1984): "Uma hora ganha fora do gargalo é uma miragem."
+Ampulheta, fábrica, filas e logo de areia: desenhados em código (sem imagem externa).
+Trilha: coletânea clássica, trecho 3603,0–3618,6 s (abertura); playlist de jazz, trecho 2130,0–2180,6 s (a faixa respira e volta em
+"destrava") e o acorde final em 1610,55 s com o logo.
+Legenda sugerida para o post: "Gravura: Wellcome Collection (CC BY 4.0). Foto: Ford Motor Company, 1913 (domínio público)."
