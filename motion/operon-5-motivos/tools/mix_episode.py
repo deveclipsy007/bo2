@@ -3,7 +3,7 @@ abaixo da voz, com antecipação, para não cobrir o começo das palavras) e vol
 entram por cima, levemente abaixados durante a fala. No fim, um relatório prova a separação voz × trilha.
 
 uso: python mix_episode.py <config.json>
-config: {"voice", "vo", "dur", "out", "music": [{"src", "a", "b", "at", "fin", "fout", "db"}], "sfx": [cues], "duck": {...}}
+config: {"voice", "vo", "dur", "out", "music": [{"src", "a", "b", "at", "fin", "fout", "db", "tapestop"?}], "sfx": [cues], "duck": {...}}
 """
 import json, os, subprocess, sys, tempfile
 import numpy as np, soundfile as sf
@@ -38,6 +38,14 @@ for k, m in enumerate(cfg['music']):
     af = f"aresample=48000,highpass=f=35,equalizer=f=2800:t=q:w=1.1:g=-3.5,afade=t=in:d={m.get('fin', 0.05)},afade=t=out:st={d - m.get('fout', 0.3):.3f}:d={m.get('fout', 0.3)},volume={m.get('db', 0)}dB"
     ff(['-ss', str(m['a']), '-t', f'{d:.3f}', '-i', m['src'], '-af', af, '-ac', '2', p])
     x, _ = sf.read(p, dtype='float32')
+    if m.get('tapestop'):                             # disco freando: o fim do trecho desacelera até parar (tom e tempo juntos)
+        ts = int(m['tapestop'] * SR)
+        s = max(0, len(x) - ts // 2)
+        pos = s + np.cumsum(np.linspace(1, 0, ts))
+        pos = pos[pos < len(x) - 1]
+        warped = np.stack([np.interp(pos, np.arange(len(x)), x[:, ch]) for ch in range(2)], 1)
+        warped *= np.linspace(1, 0, len(warped))[:, None] ** 0.5
+        x = np.concatenate([x[:s], warped.astype(np.float32)])
     j = int(m['at'] * SR)
     L = min(len(x), N - j)
     music[j:j + L] += x[:L]

@@ -19,6 +19,8 @@ import {DURATION as LDUR} from './films/eco/time6';
 import {AvatarDemo, AVATAR_DEMO_DUR} from './films/eco/AvatarDemo';
 import {MelhorFuncionario} from './films/eco/Film7';
 import {DURATION as MDUR7} from './films/eco/time7';
+import {ConhecimentoAcabou} from './films/eco/Film8';
+import {DURATION as CDUR8} from './films/eco/time8';
 
 export const RemotionRoot: React.FC = () => (
   <>
@@ -28,6 +30,7 @@ export const RemotionRoot: React.FC = () => (
     <Composition id="Mashup-Royalty-v3" component={MashupRoyaltyV3} durationInFrames={MDUR} fps={60} width={1080} height={1920} defaultProps={{audio: 'music' as const}} />
     <Composition id="Ecossistema" component={Ecossistema} durationInFrames={EDUR} fps={60} width={1080} height={1920} defaultProps={{audio: 'mix' as const}} />
     <Composition id="Turing" component={Turing} durationInFrames={TDUR} fps={60} width={1080} height={1920} defaultProps={{audio: 'mix' as const}} />
+    <Composition id="Conhecimento-Acabou" component={ConhecimentoAcabou} durationInFrames={CDUR8} fps={60} width={1080} height={1920} defaultProps={{audio: 'mix' as const}} />
     <Composition id="Melhor-Funcionario" component={MelhorFuncionario} durationInFrames={MDUR7} fps={60} width={1080} height={1920} defaultProps={{audio: 'mix' as const}} />
     <Composition id="Avatar-Teste" component={AvatarDemo} durationInFrames={AVATAR_DEMO_DUR} fps={60} width={1080} height={1920} defaultProps={{audio: 'mix' as const}} />
     <Composition id="Lugar-Errado" component={LugarErrado} durationInFrames={LDUR} fps={60} width={1080} height={1920} defaultProps={{audio: 'mix' as const}} />

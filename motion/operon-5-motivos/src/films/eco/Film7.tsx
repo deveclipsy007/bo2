@@ -22,7 +22,7 @@ const RX = 712, RW = 600;   // coluna de texto à direita enquanto o avatar est�
 // ---------- cena com entrada e saída próprias (as transições contínuas) ----------
 type In = {kind: 'iris' | 'flip' | 'rise' | 'zoom' | 'cut'; x?: number; y?: number; d: number; delay?: number};
 type Out = {kind: 'fade' | 'flip' | 'drop' | 'slide' | 'shrink' | 'push'; x?: number; y?: number; d: number};
-const Scene: React.FC<{t: number; a: number; b: number; enter?: In; exit?: Out; light?: boolean; children: React.ReactNode}> = ({t, a, b, enter = {kind: 'cut', d: 0}, exit = {kind: 'fade', d: 0.3}, light, children}) => {
+export const Scene: React.FC<{t: number; a: number; b: number; enter?: In; exit?: Out; light?: boolean; children: React.ReactNode}> = ({t, a, b, enter = {kind: 'cut', d: 0}, exit = {kind: 'fade', d: 0.3}, light, children}) => {
   const a0 = a + (enter.delay ?? 0);
   if (t < a0 - 0.001 || t > b + exit.d) return null;
   const u = enter.d > 0 ? P(t, a0, enter.d) : 1, q = P(t, b, exit.d);
@@ -51,26 +51,26 @@ const Scene: React.FC<{t: number; a: number; b: number; enter?: In; exit?: Out; 
     </div>
   );
 };
-const Cam: React.FC<{t: number; a: number; b: number; z0?: number; z1?: number; ox?: number; oy?: number; children: React.ReactNode}> = ({t, a, b, z0 = 1, z1 = 1.08, ox = 540, oy = 960, children}) => {
+export const Cam: React.FC<{t: number; a: number; b: number; z0?: number; z1?: number; ox?: number; oy?: number; children: React.ReactNode}> = ({t, a, b, z0 = 1, z1 = 1.08, ox = 540, oy = 960, children}) => {
   const u = P(t, a, b - a, E.smooth);
   return <div style={{position: 'absolute', inset: 0, transformOrigin: `${ox}px ${oy}px`, transform: `scale(${lerp(z0, z1, u).toFixed(4)})`}}>{children}</div>;
 };
 
 // ---------- pictograma, carimbo, odômetro ----------
-const Person: React.FC<{x: number; y: number; h: number; color: string; head?: string; glow?: number}> = ({x, y, h, color, head, glow = 0}) => (
+export const Person: React.FC<{x: number; y: number; h: number; color: string; head?: string; glow?: number}> = ({x, y, h, color, head, glow = 0}) => (
   <g transform={`translate(${x} ${y})`}>
     <circle cx={0} cy={-h * 0.78} r={h * 0.15} fill={head ?? color} style={glow > 0 ? {filter: `drop-shadow(0 0 ${(14 * glow).toFixed(0)}px ${C.or})`} : undefined} />
     <path d={`M${-h * 0.24} 0 v${-h * 0.3} a${h * 0.24} ${h * 0.24} 0 0 1 ${h * 0.48} 0 v${h * 0.3} z`} fill={color} />
   </g>
 );
-const Stamp: React.FC<{t: number; at: number; text: string; x: number; y: number; rot?: number; size?: number}> = ({t, at, text, x, y, rot = -12, size = 64}) => {
+export const Stamp: React.FC<{t: number; at: number; text: string; x: number; y: number; rot?: number; size?: number}> = ({t, at, text, x, y, rot = -12, size = 64}) => {
   if (t < at) return null;
   const u = P(t, at, 0.22, E.pop);
   return <div style={{position: 'absolute', left: x - 400, width: 800, top: y - size * 0.7, textAlign: 'center', transform: `rotate(${rot}deg) scale(${lerp(2.2, 1, u).toFixed(3)})`, opacity: clamp(u * 2) * 0.92}}>
     <span style={{display: 'inline-block', padding: '6px 22px', border: `6px solid ${C.or}`, borderRadius: 10, fontFamily: F.head, fontWeight: 900, fontSize: size, letterSpacing: '0.04em', color: C.or, mixBlendMode: 'multiply', boxShadow: `0 0 0 2px ${C.or}55 inset`}}>{text}</span>
   </div>;
 };
-const Odo: React.FC<{t: number; at: number; text: string; size: number; y: number; color: string; x?: number}> = ({t, at, text, size, y, color, x = 540}) => {
+export const Odo: React.FC<{t: number; at: number; text: string; size: number; y: number; color: string; x?: number}> = ({t, at, text, size, y, color, x = 540}) => {
   if (t < at - 0.05) return null;
   const digits = [...text], nd = digits.filter((c) => /\d/.test(c)).length, H = 1.2, fade = 'linear-gradient(180deg, transparent 0%, #000 22%, #000 78%, transparent 100%)'; let di = 0;
   return (
