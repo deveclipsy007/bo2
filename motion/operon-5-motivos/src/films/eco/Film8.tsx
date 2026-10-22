@@ -153,8 +153,8 @@ const S3: React.FC<{t: number}> = ({t}) => {
       {spot > 0 && <svg width={1080} height={1920} style={{position: 'absolute', inset: 0}}><circle cx={lerp(800, GAP.x + 130, spot)} cy={lerp(1000, GAP.y, spot)} r={70} fill="none" stroke={C.or} strokeWidth={4} /><line x1={lerp(800, GAP.x + 130, spot) + 50} y1={lerp(1000, GAP.y, spot) + 50} x2={lerp(800, GAP.x + 130, spot) + 110} y2={lerp(1000, GAP.y, spot) + 110} stroke={C.or} strokeWidth={8} strokeLinecap="round" /><text x={lerp(800, GAP.x + 130, spot)} y={lerp(1000, GAP.y, spot) + 14} textAnchor="middle" fontFamily={F.head} fontWeight={900} fontSize={44} fill={C.or} opacity={P(t, T.ninguem, 0.3)}>?</text></svg>}
       <Thin t={t} at={T.ou - 0.2} out={T.qualquer - 0.45} text="o conhecimento de quase toda profissão" size={46} y={1250} x={RX} />
       <Ink t={t} at={T.qualquer - 0.1} out={T.mas - 0.4} text="PRA QUALQUER PESSOA." size={100} y={1300} x={RX} maxW={RW} color={C.or} />
-      <Thin t={t} at={T.mas - 0.1} out={T.percebeu - 0.6} text="mas tem um detalhe…" size={66} y={1260} x={RX} />
-      <Ink t={t} at={T.ninguem - 0.15} out={33.1} text="QUE NINGUÉM PERCEBEU." size={100} y={1300} x={RX} maxW={RW} />
+      <Thin t={t} at={T.mas - 0.1} out={33.1} text="mas tem um detalhe…" size={66} y={1190} x={RX} />
+      <Ink t={t} at={T.ninguem - 0.15} out={33.1} text="QUE NINGUÉM PERCEBEU." size={100} y={1320} x={RX} maxW={RW} />
     </>
   );
 };
