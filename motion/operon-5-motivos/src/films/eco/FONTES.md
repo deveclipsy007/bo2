@@ -89,3 +89,17 @@ Legenda sugerida para o post: "Gravura: Wellcome Collection (CC BY 4.0). Foto: F
 Avatar: sprites do autor (Yohann Escher), boca guiada pelo envelope da voz.
 Trilha: coletânea clássica 1623,1–1639,85 s (golpe em "caiu") e 3136,0–3155,3 s; playlist de jazz 895,35–914,55 s
 (entra em "Sabe o que é um checklist hoje?") e o acorde final em 3435,05 s com o logo.
+
+## O conhecimento acabou
+
+| Nome | Arquivo no Commons | Licença |
+|---|---|---|
+| justitia | Rechtvaardigheid (Justitia), RP-P-1882-A-649… (Rijksmuseum) | CC0 |
+| rotplan | Palladio Rotonda planta Scamozzi 1778.jpg | Domínio público |
+| rotelev | Palladio Rotonda (23547400).jpg — Villa Almerico (The Met) | CC0 |
+| vesalius | Vesalius Fabrica p174.jpg | Domínio público |
+
+Avatar: sprites do autor (Yohann Escher), boca guiada pelo envelope da voz.
+Trilha: coletânea clássica 1358,0–1381,9 s (crescendo; afunda em "isso nem é…" e freia como disco em "não colou"),
+1701,0–1722,15 s (peça escura) e 1727,6–1734,0 s (tensão no envelope); playlist de jazz 3418,45 s (golpe em "conecta"),
+3615,55 s (golpe em "primeiro") e o acorde final em 3806,8 s com o logo. Mixagem: tools/mixes/ck_cues.py.
