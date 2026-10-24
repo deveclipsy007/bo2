@@ -211,6 +211,7 @@ footer { color: var(--dim); font-size: 11px; }
 
   <div class="view" id="v-ideias" role="tabpanel" aria-labelledby="t-ideias" hidden>
     <header style="display:grid;gap:10px"><h1>Banco de ideias</h1><div class="sub">Gancho, arco, prova em números e imagens de época de cada próximo vídeo.</div></header>
+    <div class="tags" id="fmtfilters"></div>
     <div class="sechead"><div class="tags" id="filters"></div><span class="note" id="ownernote" hidden>Mude o status de cada ideia aqui; fica salvo.</span></div>
     <div class="ideas" id="ideas"><div class="empty">Carregando as ideias.</div></div>
   </div>
@@ -378,7 +379,7 @@ $('dlg').addEventListener('click', (e) => { if (e.target === $('dlg')) $('dlg').
 // ---------- ideias
 const STATUS = [['ideia', 'Ideia'], ['escolhida', 'Escolhida'], ['producao', 'Em produção'], ['feita', 'Feita']];
 const SL = Object.fromEntries(STATUS);
-let ideas = [], filter = 'todas';
+let ideas = [], filter = 'todas', fmt = 'todos';
 try { filter = localStorage.getItem('estudio.filtro') || 'todas'; } catch (e) {}
 function renderIdeas() {
   $('nideas').textContent = ideas.length || '';
@@ -387,9 +388,13 @@ function renderIdeas() {
   if (!opts.some(([k]) => k === filter)) filter = 'todas';
   $('filters').innerHTML = opts.map(([k, l]) => `<button class="chip" type="button" data-f="${k}" aria-pressed="${k === filter}">${l}</button>`).join('');
   document.querySelectorAll('[data-f]').forEach((b) => b.addEventListener('click', () => { filter = b.dataset.f; try { localStorage.setItem('estudio.filtro', filter); } catch (e) {} renderIdeas(); }));
+  const fmts = [...new Set(ideas.map((i) => i.formato).filter(Boolean))];
+  if (fmt !== 'todos' && !fmts.includes(fmt)) fmt = 'todos';
+  $('fmtfilters').innerHTML = fmts.length ? [['todos', 'Todos os formatos'], ...fmts.map((f) => [f, `${f} · ${ideas.filter((i) => i.formato === f).length}`])].map(([k, l]) => `<button class="chip" type="button" data-fmt="${esc(k)}" aria-pressed="${k === fmt}">${esc(l)}</button>`).join('') : '';
+  document.querySelectorAll('[data-fmt]').forEach((b) => b.addEventListener('click', () => { fmt = b.dataset.fmt; renderIdeas(); }));
   if (!ideas.length) { $('ideas').innerHTML = '<div class="empty">Nenhuma ideia no banco ainda.</div>'; return; }
-  const F = [['Âncora histórica', 'ancora'], ['Arco da história', 'arco'], ['Números de prova', 'prova'], ['Parte técnica', 'tecnico'], ['Humor', 'humor'], ['Imagens de época', 'imagens'], ['Frase final', 'fecho'], ['Conferir antes de gravar', 'verificar']];
-  const list = ideas.filter((i) => filter === 'todas' || (i.status || 'ideia') === filter);
+  const F = [['Contexto', 'ancora'], ['Estrutura', 'arco'], ['Números de prova', 'prova'], ['Parte técnica', 'tecnico'], ['Humor', 'humor'], ['Imagens de época', 'imagens'], ['Frase final', 'fecho'], ['Conferir antes de gravar', 'verificar']];
+  const list = ideas.filter((i) => (filter === 'todas' || (i.status || 'ideia') === filter) && (fmt === 'todos' || i.formato === fmt));
   let wk = null;
   $('ideas').innerHTML = list.map((i) => {
     const head = i.semana && i.semana !== wk ? `<div class="wk eyebrow"><b>Semana ${i.semana}</b>${esc(i.periodo || '')} · ${list.filter((x) => x.semana === i.semana).length} vídeos</div>` : '';
@@ -397,7 +402,7 @@ function renderIdeas() {
     const st = i.status || 'ideia';
     const ctl = owner ? `<select class="status" id="st-${esc(i.id)}" data-id="${esc(i.id)}" aria-label="Status de ${esc(i.titulo)}">${STATUS.map(([k, l]) => `<option value="${k}"${k === st ? ' selected' : ''}>${l}</option>`).join('')}</select>` : `<span class="pill s-${st}">${SL[st]}</span>`;
     return `${head}<article class="idea${i.recomendada ? ' top' : ''}">
-      <div class="row"><span class="eyebrow">${esc(i.ano)}${i.area ? ` · <span class="area">${esc(i.area)}</span>` : ''}</span>${ctl}</div>
+      <div class="row"><span class="eyebrow">${i.formato ? `<span class="area">${esc(i.formato)}</span> · ` : ''}${esc(i.ano)}${i.area ? ` · ${esc(i.area)}` : ''}</span>${ctl}</div>
       <h4>${esc(i.titulo)}</h4>
       <p class="hook">${esc(i.gancho)}</p>
       ${i.porque ? `<p class="why">${esc(i.porque)}</p>` : ''}
