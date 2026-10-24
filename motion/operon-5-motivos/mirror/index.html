@@ -116,6 +116,10 @@ dd code { font-family: var(--mono); font-size: 12px; color: var(--dim); word-bre
 .ideas { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); gap: 16px; }
 .idea { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 20px 20px 16px; display: grid; gap: 12px; align-content: start; min-width: 0; }
 .idea.top { border-color: #6b3018; }
+.wk { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; border-top: 1px solid var(--line); padding-top: 16px; margin-top: 8px; }
+.wk:first-child { border-top: 0; padding-top: 0; margin-top: 0; }
+.wk b { font-family: var(--display); font-weight: 900; font-size: 26px; letter-spacing: 0; text-transform: none; color: var(--bone); }
+.area { font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--or); }
 .idea .row { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
 .idea h4 { font-family: var(--display); font-weight: 900; font-size: 24px; line-height: 1.08; margin: 0; text-wrap: balance; }
 .idea .why { margin: 0; font-family: var(--italic); font-size: 17.5px; color: var(--dim); }
@@ -386,15 +390,18 @@ function renderIdeas() {
   if (!ideas.length) { $('ideas').innerHTML = '<div class="empty">Nenhuma ideia no banco ainda.</div>'; return; }
   const F = [['Âncora histórica', 'ancora'], ['Arco da história', 'arco'], ['Números de prova', 'prova'], ['Parte técnica', 'tecnico'], ['Humor', 'humor'], ['Imagens de época', 'imagens'], ['Frase final', 'fecho'], ['Conferir antes de gravar', 'verificar']];
   const list = ideas.filter((i) => filter === 'todas' || (i.status || 'ideia') === filter);
+  let wk = null;
   $('ideas').innerHTML = list.map((i) => {
+    const head = i.semana && i.semana !== wk ? `<div class="wk eyebrow"><b>Semana ${i.semana}</b>${esc(i.periodo || '')} · ${list.filter((x) => x.semana === i.semana).length} vídeos</div>` : '';
+    wk = i.semana || wk;
     const st = i.status || 'ideia';
     const ctl = owner ? `<select class="status" id="st-${esc(i.id)}" data-id="${esc(i.id)}" aria-label="Status de ${esc(i.titulo)}">${STATUS.map(([k, l]) => `<option value="${k}"${k === st ? ' selected' : ''}>${l}</option>`).join('')}</select>` : `<span class="pill s-${st}">${SL[st]}</span>`;
-    return `<article class="idea${i.recomendada ? ' top' : ''}">
-      <div class="row"><span class="eyebrow">${esc(i.ano)}</span>${ctl}</div>
+    return `${head}<article class="idea${i.recomendada ? ' top' : ''}">
+      <div class="row"><span class="eyebrow">${esc(i.ano)}${i.area ? ` · <span class="area">${esc(i.area)}</span>` : ''}</span>${ctl}</div>
       <h4>${esc(i.titulo)}</h4>
       <p class="hook">${esc(i.gancho)}</p>
       ${i.porque ? `<p class="why">${esc(i.porque)}</p>` : ''}
-      ${i.recomendada ? '<span class="star">★ Recomendada para o próximo</span>' : ''}
+      ${i.recomendada ? '<span class="star">★ Destaque da semana</span>' : ''}
       <details><summary>Ficha completa</summary><dl>${F.filter(([, k]) => i[k]).map(([l, k]) => `<div><dt>${l}</dt><dd>${esc(i[k])}</dd></div>`).join('')}</dl></details>
     </article>`;
   }).join('') || '<div class="empty">Nenhuma ideia com esse status.</div>';
