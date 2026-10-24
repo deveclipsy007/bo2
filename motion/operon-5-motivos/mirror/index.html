@@ -214,25 +214,27 @@ footer { color: var(--dim); font-size: 11px; }
   <div class="view" id="v-voz" role="tabpanel" aria-labelledby="t-voz" hidden>
     <header style="display:grid;gap:10px"><h1>Voz</h1><div class="sub">A sua voz da ElevenLabs gerada direto daqui, com as expressões certas e nenhuma das vetadas.</div></header>
     <div class="cols">
+      <form class="box" id="keyform" autocomplete="off">
+        <div class="eyebrow">Chave da ElevenLabs</div>
+        <div class="state no" id="keystate"><span class="dot"></span><span>Nenhuma chave salva</span></div>
+        <div class="kv">
+          <label for="chave">Chave da API</label><input type="password" id="chave" placeholder="cole aqui a sua chave" autocomplete="off" spellcheck="false">
+        </div>
+        <div class="tags">
+          <button class="chip" type="submit" id="savekey">Salvar chave</button>
+          <button class="chip" type="button" id="delkey" hidden>Apagar chave</button>
+        </div>
+        <span class="note" id="keymsg">A chave fica só na sua área privada do estúdio: nem quem tiver o link consegue ler, e ela não aparece de volta na tela.</span>
+      </form>
       <div class="box">
-        <div class="eyebrow">Conexão</div>
-        <div class="state no" id="keystate"><span class="dot"></span><span>Chave ainda não conectada</span></div>
+        <div class="eyebrow">Voz e modelo</div>
         <div class="kv">
           <label for="vozid">ID da voz</label><input type="text" id="vozid" placeholder="ex.: 21m00Tcm4TlvDq8ikWAM" autocomplete="off" spellcheck="false">
           <label for="modelo">Modelo</label><select id="modelo"><option value="eleven_v3">Eleven v3 (com expressões)</option><option value="eleven_multilingual_v2">Multilingual v2 (estável)</option></select>
-          <span class="k">Último teste</span><span id="lasttest" class="note">—</span>
+          <span class="k">Conexão</span><span id="lasttest" class="note">ainda não testada</span>
         </div>
         <button class="chip" type="button" id="savevoz" style="justify-self:start">Salvar voz</button>
-        <span class="note" id="vozmsg"></span>
-      </div>
-      <div class="box">
-        <div class="eyebrow">Onde fica a chave</div>
-        <ol class="steps">
-          <li>Na sessão do Claude Code, abra o menu do ambiente no título e toque em <b>Edit</b>.</li>
-          <li>Em <b>Network secrets</b> (ou como variável de ambiente), crie <code>ELEVENLABS_API_KEY</code> com a sua chave.</li>
-          <li>Abra uma sessão nova: ela já nasce com a chave e eu gero a voz direto.</li>
-        </ol>
-        <p class="note">A chave nunca entra nesta página nem no chat. A página roda isolada e não fala com a ElevenLabs; quem gera é a sessão, com a chave guardada no cofre do ambiente.</p>
+        <span class="note" id="vozmsg">Depois de salvar, me avise no chat: eu testo a conexão e o status aparece aqui.</span>
       </div>
     </div>
     <section>
@@ -405,13 +407,31 @@ function renderIdeas() {
 
 // ---------- voz
 let voz = {}, expr = {aprovadas: [], vetadas: []};
+let keyDoc = null, keyRef = null;
+function renderKey() {
+  const has = !!(keyDoc && keyDoc.fim);
+  $('keystate').className = 'state ' + (has ? 'ok' : 'no');
+  $('keystate').innerHTML = `<span class="dot${has ? ' on' : ''}"></span><span>${has ? `Chave salva · termina em ${esc(keyDoc.fim)}` : 'Nenhuma chave salva'}</span>`;
+  $('delkey').hidden = !has;
+  $('chave').placeholder = has ? 'cole uma chave nova para trocar' : 'cole aqui a sua chave';
+  ['chave', 'savekey', 'delkey'].forEach((k) => { $(k).disabled = !keyRef; });
+}
+$('keyform').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const k = $('chave').value.trim();
+  if (!keyRef) { $('keymsg').textContent = 'Entre na sua conta do Claude para salvar a chave.'; return; }
+  if (k.length < 20) { $('keymsg').textContent = 'Essa chave parece curta demais. Copie a chave inteira no painel da ElevenLabs.'; return; }
+  try { await keyRef.set({chave: k, fim: k.slice(-4), salva_em: new Date().toISOString()}); $('chave').value = ''; $('keymsg').textContent = 'Chave salva. Me avise no chat que eu testo a conexão.'; }
+  catch (err) { $('keymsg').textContent = 'Não deu para salvar a chave agora. Tente de novo em instantes.'; }
+});
+$('delkey').addEventListener('click', async () => {
+  try { await keyRef.delete(); $('keymsg').textContent = 'Chave apagada.'; } catch (err) { $('keymsg').textContent = 'Não deu para apagar agora. Tente de novo em instantes.'; }
+});
 function renderVoz() {
-  const ok = !!voz.chave_conectada;
-  $('keystate').className = 'state ' + (ok ? 'ok' : 'no');
-  $('keystate').innerHTML = `<span class="dot${ok ? ' on' : ''}"></span><span>${ok ? 'Chave conectada no ambiente' : 'Chave ainda não conectada'}</span>`;
   if (document.activeElement !== $('vozid')) $('vozid').value = voz.voz_id || '';
   $('modelo').value = voz.modelo || 'eleven_v3';
-  $('lasttest').textContent = voz.ultimo_teste || '—';
+  $('lasttest').textContent = voz.chave_conectada ? `funcionando · testada ${voz.ultimo_teste || ''}` : (voz.ultimo_teste ? `falhou no teste de ${voz.ultimo_teste}` : 'ainda não testada');
+  $('lasttest').style.color = voz.chave_conectada ? 'var(--ok)' : '';
   ['vozid', 'modelo', 'savevoz'].forEach((k) => { $(k).disabled = !owner; });
   const tag = (t, kind) => owner
     ? `<button class="tag ${kind}" type="button" data-tag="${esc(t.tag)}" data-kind="${kind}" title="${kind === 'ok' ? 'Toque para vetar' : 'Toque para liberar'}">${esc(t.tag)}<small>${esc(t.uso)}</small></button>`
@@ -440,7 +460,16 @@ function renderTakes() {
 (async () => {
   db = await claude.use('db');
   if (!db) { $('conn').textContent = 'Entre na sua conta do Claude para abrir o estúdio'; ['films', 'ideas'].forEach((k) => { $(k).innerHTML = '<div class="empty">Entre na sua conta do Claude para abrir o estúdio.</div>'; }); return; }
-  claude.use('user').then(async (u) => { owner = (await u?.isOwner()) ?? false; $('ownernote').hidden = !owner; renderIdeas(); renderVoz(); });
+  renderKey();
+  claude.use('user').then(async (u) => {
+    owner = (await u?.isOwner()) ?? false; $('ownernote').hidden = !owner; renderIdeas(); renderVoz();
+    const uid = await u?.id();
+    if (!uid) return;
+    // área privada da conta: só quem salvou lê; nem o dono do estúdio vê a de outra pessoa
+    keyRef = db.collection('data/users/' + uid).doc('elevenlabs');
+    keyRef.onSnapshot((s) => { keyDoc = s.exists ? {fim: s.data().fim} : null; renderKey(); }, () => renderKey());
+    renderKey();
+  });
   const lost = (box) => () => { if (box) $(box).innerHTML = '<div class="empty">A conexão caiu. Recarregue a página para voltar.</div>'; };
   db.doc('mirror/status').onSnapshot((s) => { if (s.exists) renderMirror(s.data()); else $('conn').textContent = 'Ao vivo · aguardando o início'; }, () => { $('conn').textContent = 'A conexão caiu. Reabra a página para voltar ao vivo.'; });
   db.collection('videos').orderBy('ordem').onSnapshot((s) => { videos = s.docs.map((d) => ({id: d.id, ...d.data()})); renderFilms(); }, lost('films'));

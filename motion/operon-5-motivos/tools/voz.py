@@ -1,7 +1,7 @@
 """Gera a locução com a voz do Yohann na ElevenLabs, a partir de um roteiro com expressões entre colchetes.
 
-uso: python voz.py <roteiro.txt> <saida.mp3> [--voz ID] [--modelo eleven_v3]
-A chave vem do ambiente (ELEVENLABS_API_KEY), nunca de arquivo ou do chat. O ID da voz vem de --voz ou de ELEVENLABS_VOICE_ID.
+uso: python voz.py <roteiro.txt> <saida.mp3> [--voz ID] [--modelo eleven_v3] [--chave-arquivo elevenlabs.json]
+A chave vem da aba Voz do Estúdio (área privada, baixada com --chave-arquivo) ou do ambiente (ELEVENLABS_API_KEY); nunca do chat. O ID da voz vem de --voz ou de ELEVENLABS_VOICE_ID.
 Expressões vetadas (as afetadas/animadas demais) bloqueiam a geração antes de gastar crédito; a lista espelha a aba Voz do Estúdio.
 """
 import argparse, json, os, re, sys, urllib.request
@@ -12,10 +12,14 @@ ap = argparse.ArgumentParser()
 ap.add_argument('roteiro'); ap.add_argument('saida')
 ap.add_argument('--voz', default=os.environ.get('ELEVENLABS_VOICE_ID', ''))
 ap.add_argument('--modelo', default='eleven_v3')
+ap.add_argument('--chave-arquivo', default='')
 a = ap.parse_args()
 
 key = os.environ.get('ELEVENLABS_API_KEY')
-if not key: sys.exit('ELEVENLABS_API_KEY não está no ambiente: cadastre a chave nos segredos do ambiente e abra uma sessão nova.')
+if not key and a.chave_arquivo:                    # a chave salva na aba Voz do Estúdio, baixada para um arquivo privado (nunca impressa)
+    d = json.load(open(a.chave_arquivo, encoding='utf-8'))
+    key = (d.get('data') or d).get('chave')
+if not key: sys.exit('Sem chave: salve a chave na aba Voz do Estúdio (e passe --chave-arquivo) ou defina ELEVENLABS_API_KEY.')
 if not a.voz: sys.exit('Falta o ID da voz: passe --voz ou defina ELEVENLABS_VOICE_ID.')
 texto = open(a.roteiro, encoding='utf-8').read().strip()
 tags = {t.strip().lower() for t in re.findall(r'\[([^\]]+)\]', texto)}
