@@ -178,6 +178,7 @@ footer { color: var(--dim); font-size: 11px; }
   </header>
   <nav class="tabs" role="tablist" aria-label="Seções do estúdio">
     <button role="tab" id="t-producao" data-v="producao"><span class="live" id="tablive"></span>Produção</button>
+    <button role="tab" id="t-arsenal" data-v="arsenal">Arsenal <span class="badge" id="narsenal"></span></button>
     <button role="tab" id="t-filmes" data-v="filmes">Filmes <span class="badge" id="nfilms"></span></button>
     <button role="tab" id="t-ideias" data-v="ideias">Ideias <span class="badge" id="nideas"></span></button>
     <button role="tab" id="t-voz" data-v="voz">Voz</button>
@@ -201,6 +202,72 @@ footer { color: var(--dim); font-size: 11px; }
     <section><h2>Cenas</h2><div class="scenes" id="scenes"><div class="empty">As cenas aparecem aqui assim que o roteiro visual estiver montado.</div></div></section>
     <section><h2>Registro</h2><div class="log" id="log"><div class="empty">Nenhum evento ainda.</div></div></section>
     <footer>Papel e escuro na linha do tempo mostram o fundo de cada cena. A linha laranja marca até onde o render já chegou.</footer>
+  </div>
+
+  <div class="view" id="v-arsenal" role="tabpanel" aria-labelledby="t-arsenal" hidden>
+    <header style="display:grid;gap:10px"><div class="eyebrow">Pré-lançamento · <b>dezembro de 2026</b></div><h1>O arsenal</h1><div class="sub">O que precisa existir antes do lançamento, e a linha de raciocínio que amarra tudo.</div></header>
+
+    <section class="box">
+      <div class="eyebrow">A linha de raciocínio</div>
+      <p class="hook">Você não controla Brasília. Você controla a sua operação.</p>
+      <div class="bible">
+        <div><h5>1 · O medo é real</h5><ul><li>Eleição decidida por 3,6 pontos: o país inteiro dividido ao meio.</li><li>87,5% dos empresários dizem que a eleição já mexe nas decisões deles.</li><li>Juro alto, crédito caro: 62% das indústrias vão investir só com dinheiro próprio.</li></ul></div>
+        <div><h5>2 · Esperar não é estratégia</h5><ul><li>Quem segura o investimento esperando o cenário fica parado enquanto o concorrente se estrutura.</li><li>O cenário de 2027 não depende de você. A sua estrutura de custo e de operação depende.</li></ul></div>
+        <div><h5>3 · Sistema é a resposta</h5><ul><li>Agentes reduzem custo fixo sem cortar capacidade.</li><li>Ecossistema faz a empresa crescer sem crescer a folha.</li><li>Não é sobreviver a 2027. É lucrar enquanto o resto espera.</li></ul></div>
+      </div>
+      <p class="note">Regra de ouro: apartidário sempre. Metade do seu público votou em cada lado. A gente fala do cenário, nunca do candidato: "não importa quem ganhou".</p>
+    </section>
+
+    <div class="cols">
+      <div class="box">
+        <div class="eyebrow">Quem é quem</div>
+        <div class="kv">
+          <span class="k">Yohann Escher</span><span>O rosto. YouTube, Instagram, a série, a mentoria. Tom agressivo, tinta e laranja, histórias e números.</span>
+          <span class="k">Operon</span><span>A empresa. Onde as empresas contratam o Diagnóstico. Tom sóbrio, preto e branco, sem promessa de número.</span>
+        </div>
+        <p class="note">O conteúdo do Yohann puxa a atenção; a Operon recebe quem quer contratar. Quando o vídeo citar a Operon, valem as regras dela: nada de "garantido", "100% autônomo" ou "substitui equipe".</p>
+      </div>
+      <div class="box">
+        <div class="eyebrow">O vídeo "quem sou eu"</div>
+        <ol class="steps">
+          <li><b>O gancho:</b> "Essa voz não sou eu." A IA apresentando o próprio dono.</li>
+          <li><b>Quem eu sou:</b> a origem, em uma cena.</li>
+          <li><b>O que eu vi:</b> empresas inteiras presas na cabeça do dono.</li>
+          <li><b>O que eu construo:</b> ecossistemas vivos de agentes, departamento por departamento.</li>
+          <li><b>O diferencial:</b> arquiteto e produtor ao mesmo tempo. Estes vídeos são a prova, feitos por um ecossistema.</li>
+          <li><b>O objetivo:</b> fazer empresas operarem além do dono, e formar quem constrói isso.</li>
+          <li><b>O convite:</b> a série, o canal, a lista do lançamento. Fecha com o olho.</li>
+        </ol>
+        <p class="note">Duas versões: 2 a 3 min em 16:9 como trailer do YouTube, e 60 a 90 s em 9:16 para Reels e Shorts.</p>
+      </div>
+    </div>
+
+    <div class="cols">
+      <div class="box">
+        <div class="eyebrow">YouTube</div>
+        <div class="kv">
+          <span class="k">Trailer</span><span>O "quem sou eu" fixado no canal.</span>
+          <span class="k">Série 1</span><span><b>Empresa à prova de 2027</b>: 5 vídeos longos sobre o cenário pós-eleição, custo e agentes. Sai agora, enquanto o assunto está quente.</span>
+          <span class="k">Série 2</span><span><b>Ecossistemas vivos</b>: a série em motion (história, números, listas), em 16:9 e em Shorts.</span>
+          <span class="k">Série 3</span><span><b>Por dentro</b>: eu montando um agente de verdade, na tela.</span>
+          <span class="k">Ritmo</span><span>1 vídeo longo por semana e 3 a 5 Shorts por semana, aproveitando o banco de 50 ideias.</span>
+        </div>
+      </div>
+      <div class="box">
+        <div class="eyebrow">Site, apresentações e captura</div>
+        <div class="kv">
+          <span class="k">Site</span><span>Página do Yohann atualizada: quem é, a tese, os vídeos e a lista de espera do lançamento.</span>
+          <span class="k">Deck 1</span><span><b>Quem é Yohann Escher</b>: para podcasts, lives e parcerias.</span>
+          <span class="k">Deck 2</span><span><b>Empresa à prova de 2027</b>: a aula do lançamento.</span>
+          <span class="k">Isca</span><span><b>Raio-X 2027</b>: os 5 números e os 5 agentes da empresa. Em troca, o contato para a lista.</span>
+        </div>
+      </div>
+    </div>
+
+    <section>
+      <div class="sechead"><h2>Checklist do arsenal</h2><span class="note" id="arsnote">Por fase, até o lançamento.</span></div>
+      <div class="ideas" id="arsenal"><div class="empty">Carregando o checklist.</div></div>
+    </section>
   </div>
 
   <div class="view" id="v-filmes" role="tabpanel" aria-labelledby="t-filmes" hidden>
@@ -285,7 +352,7 @@ const $ = (id) => document.getElementById(id);
 const esc = (v) => String(v ?? '').replace(/[&<>"]/g, (c) => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c]));
 const fmtT = (s) => { s = Math.max(0, +s || 0); const m = Math.floor(s / 60), r = s - m * 60; return m + ':' + r.toFixed(1).padStart(4, '0'); };
 const mmss = (s) => `${Math.floor(s / 60)}:${String(Math.round(s % 60)).padStart(2, '0')}`;
-const VIEWS = ['producao', 'filmes', 'ideias', 'voz', 'padrao'];
+const VIEWS = ['producao', 'arsenal', 'filmes', 'ideias', 'voz', 'padrao'];
 let db = null, owner = false;
 
 // ---------- abas (cada aba tem link próprio: #filmes, #ideias, #voz…)
@@ -417,6 +484,29 @@ function renderIdeas() {
   }));
 }
 
+// ---------- arsenal (checklist por fase)
+const AST = [['fazer', 'A fazer'], ['fazendo', 'Fazendo'], ['pronto', 'Pronto']];
+let arsenal = [];
+function renderArsenal() {
+  const done = arsenal.filter((a) => a.status === 'pronto').length;
+  $('narsenal').textContent = arsenal.length ? `${done}/${arsenal.length}` : '';
+  if (!arsenal.length) { $('arsenal').innerHTML = '<div class="empty">Nenhum item no checklist ainda.</div>'; return; }
+  let fase = null;
+  $('arsenal').innerHTML = arsenal.map((a) => {
+    const st = a.status || 'fazer';
+    const head = a.fase !== fase ? `<div class="wk eyebrow"><b>${esc(a.fase)}</b>${esc(a.periodo || '')}</div>` : '';
+    fase = a.fase;
+    const ctl = owner ? `<select class="status" id="ar-${esc(a.id)}" data-id="${esc(a.id)}" aria-label="Status de ${esc(a.item)}">${AST.map(([k, l]) => `<option value="${k}"${k === st ? ' selected' : ''}>${l}</option>`).join('')}</select>`
+      : `<span class="pill s-${st === 'pronto' ? 'feita' : st === 'fazendo' ? 'producao' : 'ideia'}">${AST.find(([k]) => k === st)[1]}</span>`;
+    return `${head}<article class="idea"><div class="row"><span class="eyebrow"><span class="area">${esc(a.grupo)}</span>${a.quem ? ' · ' + esc(a.quem) : ''}</span>${ctl}</div><h4>${esc(a.item)}</h4>${a.detalhe ? `<p class="why">${esc(a.detalhe)}</p>` : ''}</article>`;
+  }).join('');
+  document.querySelectorAll('#arsenal select.status').forEach((s) => s.addEventListener('change', async () => {
+    const prev = (arsenal.find((x) => x.id === s.dataset.id) || {}).status || 'fazer';
+    try { await db.collection('arsenal').doc(s.dataset.id).update({status: s.value}); }
+    catch (e) { s.value = prev; $('arsnote').textContent = 'Não deu para salvar agora. Tente de novo em instantes.'; }
+  }));
+}
+
 // ---------- voz
 let voz = {}, expr = {aprovadas: [], vetadas: []};
 let keyDoc = null, keyRef = null;
@@ -474,7 +564,7 @@ function renderTakes() {
   if (!db) { $('conn').textContent = 'Entre na sua conta do Claude para abrir o estúdio'; ['films', 'ideas'].forEach((k) => { $(k).innerHTML = '<div class="empty">Entre na sua conta do Claude para abrir o estúdio.</div>'; }); return; }
   renderKey();
   claude.use('user').then(async (u) => {
-    owner = (await u?.isOwner()) ?? false; $('ownernote').hidden = !owner; renderIdeas(); renderVoz();
+    owner = (await u?.isOwner()) ?? false; $('ownernote').hidden = !owner; renderIdeas(); renderVoz(); renderArsenal();
     const uid = await u?.id();
     if (!uid) return;
     // área privada da conta: só quem salvou lê; nem o dono do estúdio vê a de outra pessoa
@@ -485,6 +575,7 @@ function renderTakes() {
   const lost = (box) => () => { if (box) $(box).innerHTML = '<div class="empty">A conexão caiu. Recarregue a página para voltar.</div>'; };
   db.doc('mirror/status').onSnapshot((s) => { if (s.exists) renderMirror(s.data()); else $('conn').textContent = 'Ao vivo · aguardando o início'; }, () => { $('conn').textContent = 'A conexão caiu. Reabra a página para voltar ao vivo.'; });
   db.collection('videos').orderBy('ordem').onSnapshot((s) => { videos = s.docs.map((d) => ({id: d.id, ...d.data()})); renderFilms(); }, lost('films'));
+  db.collection('arsenal').orderBy('ordem').onSnapshot((s) => { arsenal = s.docs.map((d) => ({id: d.id, ...d.data()})); renderArsenal(); }, lost('arsenal'));
   db.collection('ideias').orderBy('ordem').onSnapshot((s) => { ideas = s.docs.map((d) => ({id: d.id, ...d.data()})); renderIdeas(); }, lost('ideas'));
   db.doc('voz/config').onSnapshot((s) => { voz = s.exists ? s.data() : {}; renderVoz(); }, lost());
   db.doc('voz/expressoes').onSnapshot((s) => { expr = s.exists ? s.data() : {aprovadas: [], vetadas: []}; renderVoz(); }, lost());
