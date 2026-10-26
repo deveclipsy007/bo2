@@ -161,6 +161,34 @@ ol.steps code, .box code { font-family: var(--mono); font-size: 12.5px; color: v
 .take audio { width: 100%; }
 .note { font-size: 12px; color: var(--dim); }
 
+/* eu */
+.me-hero { display: grid; gap: 10px; }
+.me-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+.me-stat { background: var(--panel); padding: 18px 18px 16px; display: grid; gap: 6px; align-content: start; min-width: 0; }
+.me-stat b { font-family: var(--display); font-weight: 900; font-size: clamp(30px, 4.5vw, 44px); line-height: 1; color: var(--or); font-variant-numeric: tabular-nums; }
+.me-stat span { font-family: var(--italic); font-size: 17px; line-height: 1.3; }
+.me-stat small { font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--dim); }
+.me-stat small.ok { color: var(--ok); } .me-stat small.chk { color: var(--warn); }
+.me-tl { list-style: none; margin: 0; padding: 0 0 0 22px; border-left: 1px solid var(--line); display: grid; gap: 18px; }
+.me-tl li { position: relative; display: grid; gap: 4px; }
+.me-tl li::before { content: ""; position: absolute; left: -27px; top: 6px; width: 9px; height: 9px; border-radius: 50%; background: var(--line); }
+.me-tl li.now::before { background: var(--or); box-shadow: 0 0 10px var(--or); }
+.me-tl li.next::before { background: transparent; border: 1px dashed var(--or); }
+.me-tl .y { font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--or); }
+.me-tl .t { font-family: var(--display); font-weight: 900; font-size: 20px; line-height: 1.15; }
+.me-tl .x { font-family: var(--italic); font-size: 17px; color: var(--dim); line-height: 1.35; max-width: 62ch; }
+.me-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 14px; }
+.me-card { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 18px; display: grid; gap: 8px; align-content: start; min-width: 0; }
+.me-card h4 { font-family: var(--display); font-weight: 900; font-size: 20px; line-height: 1.12; margin: 0; text-wrap: balance; }
+.me-card p { margin: 0; font-family: var(--italic); font-size: 17px; line-height: 1.38; }
+.me-card .q { color: var(--bone); font-size: 19px; }
+.me-card .d { color: var(--dim); }
+.me-list { margin: 0; padding-left: 18px; display: grid; gap: 6px; font-family: var(--italic); font-size: 17.5px; line-height: 1.38; }
+.me-quotes { list-style: none; padding-left: 0; }
+.me-quotes li { padding-left: 14px; border-left: 2px solid var(--or); font-size: 19px; }
+.me-no li::marker { color: var(--or); }
+.me-copy { justify-self: start; }
+
 /* padrão */
 .bible { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 18px 32px; }
 .bible div { display: grid; gap: 6px; align-content: start; }
@@ -177,6 +205,7 @@ footer { color: var(--dim); font-size: 11px; }
     <div class="brand">Estúdio Escher<i>.</i></div>
   </header>
   <nav class="tabs" role="tablist" aria-label="Seções do estúdio">
+    <button role="tab" id="t-eu" data-v="eu">Eu</button>
     <button role="tab" id="t-producao" data-v="producao"><span class="live" id="tablive"></span>Produção</button>
     <button role="tab" id="t-arsenal" data-v="arsenal">Arsenal <span class="badge" id="narsenal"></span></button>
     <button role="tab" id="t-filmes" data-v="filmes">Filmes <span class="badge" id="nfilms"></span></button>
@@ -185,7 +214,35 @@ footer { color: var(--dim); font-size: 11px; }
     <button role="tab" id="t-padrao" data-v="padrao">Padrão</button>
   </nav>
 
-  <div class="view" id="v-producao" role="tabpanel" aria-labelledby="t-producao">
+  <div class="view" id="v-eu" role="tabpanel" aria-labelledby="t-eu" hidden>
+    <header class="me-hero">
+      <div class="eyebrow">Central · <b>Yohann Escher</b></div>
+      <h1 id="me-nome">Yohann Escher</h1>
+      <div class="sub" id="me-titulo">Carregando a sua central.</div>
+      <p class="hook" id="me-frase"></p>
+    </header>
+    <div class="me-stats" id="me-stats"></div>
+    <section><h2>A linha do tempo</h2><ol class="me-tl" id="me-tl"><li class="empty">A sua história aparece aqui.</li></ol></section>
+    <section><h2>Conceitos</h2><div class="me-grid" id="me-conceitos"></div></section>
+    <div class="cols">
+      <div class="box"><div class="eyebrow">O diferencial</div><ul class="me-list" id="me-dif"></ul></div>
+      <div class="box"><div class="eyebrow">Para quem eu construo</div><p class="why" id="me-publico"></p><div class="eyebrow">Em três anos</div><p class="why" id="me-objetivo"></p></div>
+    </div>
+    <section><h2>Projetos</h2><div class="me-grid" id="me-projetos"></div></section>
+    <div class="cols">
+      <div class="box"><div class="eyebrow">O que me irrita no mercado</div><ul class="me-list" id="me-irrita"></ul></div>
+      <div class="box"><div class="eyebrow">Frases</div><ul class="me-list me-quotes" id="me-frases"></ul></div>
+    </div>
+    <section><h2>Bios</h2><div class="me-grid" id="me-bios"></div></section>
+    <div class="cols">
+      <div class="box"><div class="eyebrow">Pode mostrar</div><ul class="me-list" id="me-pode"></ul></div>
+      <div class="box"><div class="eyebrow">Nunca dizer</div><ul class="me-list me-no" id="me-nunca"></ul></div>
+    </div>
+    <section><div class="sechead"><h2>Minha voz: quem sou eu</h2><a class="chip" href="#voz" id="me-tovoz">Todas as vozes</a></div><div class="takes" id="me-takes"></div></section>
+    <p class="note" id="me-upd"></p>
+  </div>
+
+  <div class="view" id="v-producao" role="tabpanel" aria-labelledby="t-producao" hidden>
     <header style="display:grid;gap:6px">
       <div class="eyebrow livep"><span class="dot" id="dot"></span><span id="conn">Conectando ao espelho…</span></div>
       <h1 id="ep">Espelho do Render</h1>
@@ -205,7 +262,7 @@ footer { color: var(--dim); font-size: 11px; }
   </div>
 
   <div class="view" id="v-arsenal" role="tabpanel" aria-labelledby="t-arsenal" hidden>
-    <header style="display:grid;gap:10px"><div class="eyebrow">Pré-lançamento · <b>dezembro de 2026</b></div><h1>O arsenal</h1><div class="sub">O que precisa existir antes do lançamento, e a linha de raciocínio que amarra tudo.</div></header>
+    <header style="display:grid;gap:10px"><div class="eyebrow">Pré-lançamento · <b>data a definir</b></div><h1>O arsenal</h1><div class="sub">O que precisa existir antes do lançamento, e a linha de raciocínio que amarra tudo.</div></header>
 
     <section class="box">
       <div class="eyebrow">A linha de raciocínio</div>
@@ -352,12 +409,12 @@ const $ = (id) => document.getElementById(id);
 const esc = (v) => String(v ?? '').replace(/[&<>"]/g, (c) => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c]));
 const fmtT = (s) => { s = Math.max(0, +s || 0); const m = Math.floor(s / 60), r = s - m * 60; return m + ':' + r.toFixed(1).padStart(4, '0'); };
 const mmss = (s) => `${Math.floor(s / 60)}:${String(Math.round(s % 60)).padStart(2, '0')}`;
-const VIEWS = ['producao', 'arsenal', 'filmes', 'ideias', 'voz', 'padrao'];
+const VIEWS = ['eu', 'producao', 'arsenal', 'filmes', 'ideias', 'voz', 'padrao'];
 let db = null, owner = false;
 
 // ---------- abas (cada aba tem link próprio: #filmes, #ideias, #voz…)
 function show(v) {
-  if (!VIEWS.includes(v)) v = 'producao';
+  if (!VIEWS.includes(v)) v = 'eu';
   VIEWS.forEach((k) => { $('v-' + k).hidden = k !== v; $('t-' + k).setAttribute('aria-selected', String(k === v)); });
   try { if (location.hash !== '#' + v) history.replaceState(null, '', '#' + v); } catch (e) {}
 }
@@ -484,6 +541,40 @@ function renderIdeas() {
   }));
 }
 
+// ---------- eu (a central do Yohann: história, provas, conceitos, projetos e limites)
+let me = null;
+const li = (arr) => (arr || []).map((x) => `<li>${esc(x)}</li>`).join('');
+function renderMe() {
+  if (!me) return;
+  $('me-nome').textContent = me.nome || 'Yohann Escher';
+  $('me-titulo').textContent = me.titulo || '';
+  $('me-frase').textContent = me.frase || '';
+  $('me-stats').innerHTML = (me.provas || []).map((p) => `<div class="me-stat"><b>${esc(p.numero)}</b><span>${esc(p.rotulo)}</span><small class="${p.confirmado ? 'ok' : 'chk'}">${p.confirmado ? 'confirmado' : 'confirmar antes de publicar'}</small></div>`).join('');
+  $('me-tl').innerHTML = (me.marcos || []).map((m) => `<li class="${m.fase || ''}"><span class="y">${esc(m.quando)}</span><span class="t">${esc(m.titulo)}</span>${m.texto ? `<span class="x">${esc(m.texto)}</span>` : ''}</li>`).join('');
+  $('me-conceitos').innerHTML = (me.conceitos || []).map((c) => `<div class="me-card"><span class="eyebrow">Conceito</span><h4>${esc(c.nome)}</h4>${c.frase ? `<p class="q">${esc(c.frase)}</p>` : ''}<p class="d">${esc(c.texto)}</p></div>`).join('');
+  $('me-dif').innerHTML = li(me.diferencial);
+  $('me-publico').textContent = me.publico || '';
+  $('me-objetivo').textContent = me.objetivo || '';
+  $('me-projetos').innerHTML = (me.projetos || []).map((p) => `<div class="me-card"><div class="row" style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap"><span class="eyebrow">${esc(p.tipo)}</span><span class="pill ${p.status === 'no ar' ? 's-feita' : p.status === 'protótipo' ? 's-producao' : 's-escolhida'}">${esc(p.status)}</span></div><h4>${esc(p.nome)}</h4><p class="d">${esc(p.texto)}</p></div>`).join('');
+  $('me-irrita').innerHTML = li(me.irrita);
+  $('me-frases').innerHTML = li(me.frases);
+  $('me-bios').innerHTML = (me.bios || []).map((b, i) => `<div class="me-card"><span class="eyebrow">${esc(b.onde)}</span><p class="q" id="bio-${i}">${esc(b.texto)}</p><button class="chip me-copy" type="button" data-bio="${i}">Copiar</button></div>`).join('');
+  document.querySelectorAll('[data-bio]').forEach((btn) => btn.addEventListener('click', async () => {
+    const el = $('bio-' + btn.dataset.bio);
+    try { await navigator.clipboard.writeText(el.textContent); btn.textContent = 'Copiada'; }
+    catch (e) { const r = document.createRange(); r.selectNodeContents(el); const s = getSelection(); s.removeAllRanges(); s.addRange(r); btn.textContent = 'Selecionada: copie'; }
+    setTimeout(() => { btn.textContent = 'Copiar'; }, 1800);
+  }));
+  $('me-pode').innerHTML = li(me.pode);
+  $('me-nunca').innerHTML = li(me.nunca);
+  $('me-upd').textContent = me.atualizado ? `Atualizado em ${me.atualizado}. Mande mais bastidores e histórias que a central cresce.` : '';
+}
+function renderMeTakes() {
+  const mine = takes.filter((t) => t.grupo === 'quem-sou-eu');
+  $('me-takes').innerHTML = mine.length ? mine.map((t) => `<div class="take"><span class="eyebrow">${esc(t.data || '')} · ${esc(t.duracao || '')}</span><span class="tt">${esc(t.titulo)}</span>${t.audio ? `<audio controls preload="none" src="${esc(t.audio)}"></audio>` : ''}</div>`).join('')
+    : '<div class="empty">As vozes do "quem sou eu" aparecem aqui.</div>';
+}
+
 // ---------- arsenal (checklist por fase)
 const AST = [['fazer', 'A fazer'], ['fazendo', 'Fazendo'], ['pronto', 'Pronto']];
 let arsenal = [];
@@ -579,6 +670,7 @@ function renderTakes() {
   db.collection('ideias').orderBy('ordem').onSnapshot((s) => { ideas = s.docs.map((d) => ({id: d.id, ...d.data()})); renderIdeas(); }, lost('ideas'));
   db.doc('voz/config').onSnapshot((s) => { voz = s.exists ? s.data() : {}; renderVoz(); }, lost());
   db.doc('voz/expressoes').onSnapshot((s) => { expr = s.exists ? s.data() : {aprovadas: [], vetadas: []}; renderVoz(); }, lost());
-  db.collection('takes').orderBy('ordem', 'desc').onSnapshot((s) => { takes = s.docs.map((d) => ({id: d.id, ...d.data()})); renderTakes(); }, lost('takes'));
+  db.collection('takes').orderBy('ordem', 'desc').onSnapshot((s) => { takes = s.docs.map((d) => ({id: d.id, ...d.data()})); renderTakes(); renderMeTakes(); }, lost('takes'));
+  db.doc('perfil/yohann').onSnapshot((s) => { me = s.exists ? s.data() : null; if (me) renderMe(); else $('me-titulo').textContent = 'A sua central ainda está vazia.'; }, () => { $('me-titulo').textContent = 'A conexão caiu. Recarregue a página.'; });
 })();
 </script>
