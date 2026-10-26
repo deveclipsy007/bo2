@@ -161,43 +161,54 @@ ol.steps code, .box code { font-family: var(--mono); font-size: 12.5px; color: v
 .take audio { width: 100%; }
 .note { font-size: 12px; color: var(--dim); }
 
-/* mapa: o hub no centro, os módulos em volta, ligados por linhas por onde o trabalho passa */
-.map { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(220px, 280px) minmax(0, 1fr); grid-template-areas: "eu hub producao" "arsenal hub filmes" "ideias hub voz" ". padrao ."; gap: 26px 72px; align-items: start; padding-block: 8px 4px; }
-.edges { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
-.edges path { fill: none; stroke: var(--line); stroke-width: 1.5; }
-.edges path.on { stroke: #5a2a1a; }
-.edges circle { fill: var(--or); }
-.hub { align-self: center; position: relative; z-index: 1; display: grid; gap: 10px; justify-items: center; text-align: center; padding: 26px 18px; border-radius: 50%; aspect-ratio: 1; max-width: 100%; background: radial-gradient(circle at 50% 40%, #1d1410, var(--panel) 70%); border: 1px solid #4a2416; box-shadow: 0 0 60px rgba(255, 90, 31, .08); align-content: center; }
-.hub .n { font-family: var(--display); font-weight: 900; font-size: clamp(22px, 2.4vw, 28px); line-height: 1.05; text-wrap: balance; }
-.hub .p { font-family: var(--display); font-weight: 900; font-size: clamp(40px, 5vw, 56px); line-height: .9; color: var(--or); font-variant-numeric: tabular-nums; }
-.hub .s { font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--dim); }
-.mod { all: unset; box-sizing: border-box; cursor: pointer; position: relative; z-index: 1; display: grid; gap: 10px; align-content: start; min-width: 0; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 16px 16px 14px; transition: border-color .2s, transform .2s; }
-.mod:hover { border-color: var(--or); transform: translateY(-2px); }
-.mod:focus-visible { outline: 2px solid var(--or); outline-offset: 3px; }
-.mod.live { border-color: var(--or); box-shadow: 0 0 0 1px rgba(255, 90, 31, .25), 0 0 28px rgba(255, 90, 31, .12); }
-.mod-base { justify-self: center; width: min(100%, 420px); }
-.mod .top { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
-.mod .nm { font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--bone); display: inline-flex; align-items: center; gap: 8px; }
-.mod .val { font-family: var(--display); font-weight: 900; font-size: 34px; line-height: .9; color: var(--or); font-variant-numeric: tabular-nums; }
-.mod .val small { font-size: .45em; color: var(--dim); }
-.mod .cap { font-family: var(--italic); font-size: 16px; color: var(--dim); line-height: 1.3; }
+/* mapa: um organismo. O anel de produção gira em volta do núcleo; partículas levam o trabalho de um módulo ao próximo */
+.eco { position: relative; height: 880px; margin-top: 4px; }
+.eco canvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.nucleus { position: absolute; z-index: 1; width: 210px; height: 210px; border-radius: 50%; display: grid; gap: 6px; justify-items: center; align-content: center; text-align: center; padding: 18px; background: radial-gradient(circle at 50% 42%, rgba(255, 90, 31, .16), rgba(13, 13, 14, .9) 68%); border: 1px solid rgba(255, 90, 31, .35); }
+.nucleus .n { font-family: var(--display); font-weight: 900; font-size: 20px; line-height: 1.05; }
+.nucleus .p { font-family: var(--display); font-weight: 900; font-size: 48px; line-height: .9; color: var(--or); font-variant-numeric: tabular-nums; }
+.nucleus .s { font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--dim); }
+.node, .sat { all: unset; box-sizing: border-box; cursor: pointer; position: absolute; z-index: 2; display: grid; gap: 8px; align-content: start; background: rgba(22, 22, 24, .92); border: 1px solid var(--line); border-radius: 10px; transition: border-color .2s, box-shadow .3s; backdrop-filter: blur(2px); }
+.node { width: 232px; padding: 14px 15px 12px; }
+.sat { width: 150px; padding: 10px 12px; border-radius: 999px; grid-template-columns: auto 1fr; align-items: center; gap: 2px 10px; }
+.node:hover, .sat:hover { border-color: var(--or); }
+.node:focus-visible, .sat:focus-visible { outline: 2px solid var(--or); outline-offset: 3px; }
+.node.live, .sat.live { border-color: var(--or); box-shadow: 0 0 0 1px rgba(255, 90, 31, .25), 0 0 34px rgba(255, 90, 31, .18); }
+.node.wait { border-style: dashed; }
+.node .top { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.node .nm { font-size: 10.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--bone); display: inline-flex; align-items: center; gap: 7px; }
+.node .step { font-size: 10px; color: var(--dim); font-variant-numeric: tabular-nums; }
+.node .val { font-family: var(--display); font-weight: 900; font-size: 30px; line-height: .9; color: var(--or); font-variant-numeric: tabular-nums; }
+.node .val small { font-size: .45em; color: var(--dim); }
+.node .cap { font-family: var(--italic); font-size: 15px; color: var(--dim); line-height: 1.25; }
+.node .state { font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--dim); }
+.node.live .state { color: var(--or); }
+.sat .val { grid-row: span 2; font-family: var(--display); font-weight: 900; font-size: 22px; color: var(--or); font-variant-numeric: tabular-nums; }
+.sat .nm { font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; }
+.sat .cap { font-size: 10px; color: var(--dim); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .mbar { height: 4px; background: var(--line); border-radius: 2px; overflow: hidden; }
 .mbar i { display: block; height: 100%; background: var(--or); transition: width .6s ease; }
-.subs { display: grid; gap: 7px; border-top: 1px solid var(--line); padding-top: 10px; }
-.sub2 { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 3px 10px; align-items: center; font-size: 11.5px; color: var(--dim); }
+.subs { display: grid; gap: 5px; border-top: 1px solid var(--line); padding-top: 8px; }
+.sub2 { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 3px 10px; align-items: center; font-size: 11px; color: var(--dim); }
 .sub2 b { color: var(--bone); font-weight: 500; font-variant-numeric: tabular-nums; }
 .sub2 .mbar { grid-column: 1 / -1; height: 3px; }
-.mod .go { font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--dim); }
-.mod:hover .go { color: var(--or); }
-@media (max-width: 860px) {
-  .map { grid-template-columns: minmax(0, 1fr); grid-template-areas: "hub" "eu" "producao" "arsenal" "filmes" "ideias" "voz" "padrao"; gap: 14px; padding-left: 18px; border-left: 1px solid var(--line); }
-  .edges { display: none; }
-  .hub { aspect-ratio: auto; border-radius: 8px; justify-items: start; text-align: left; }
-  .mod-base { justify-self: stretch; width: auto; }
-  .mod::before, .hub::before { content: ""; position: absolute; left: -19px; top: 24px; width: 18px; border-top: 1px solid var(--line); }
-  .mod.live::before { border-color: var(--or); }
-}
-@media (prefers-reduced-motion: reduce) { .mod { transition: none; } .edges circle { display: none; } }
+.feed { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; border: 1px solid var(--line); border-radius: 6px; background: var(--panel); }
+.feed li { display: grid; grid-template-columns: 92px 110px minmax(0, 1fr); gap: 12px; padding: 9px 14px; font-size: 12px; border-top: 1px solid var(--line); align-items: baseline; }
+.feed li:first-child { border-top: 0; }
+.feed time { color: var(--dim); font-variant-numeric: tabular-nums; }
+.feed .mod-tag { font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--or); }
+.feed li.empty { display: block; }
+.drop { border-style: dashed; }
+/* celular: o anel vira uma coluna, na ordem do ciclo */
+.eco.flow { height: auto; display: grid; gap: 12px; padding-left: 18px; border-left: 1px solid var(--line); }
+.eco.flow canvas { display: none; }
+.eco.flow .nucleus, .eco.flow .node, .eco.flow .sat { position: relative; left: auto !important; top: auto !important; width: auto; }
+.eco.flow .nucleus { width: auto; height: auto; border-radius: 10px; padding: 18px; justify-items: start; text-align: left; }
+.eco.flow .sat { border-radius: 10px; }
+.eco.flow > *:not(canvas)::before { content: ""; position: absolute; left: -19px; top: 22px; width: 18px; border-top: 1px solid var(--line); }
+.eco.flow .live::before { border-color: var(--or); }
+@media (max-width: 560px) { .feed li { grid-template-columns: 1fr; gap: 2px; } }
+@media (prefers-reduced-motion: reduce) { .node, .sat { transition: none; } }
 
 /* eu */
 .me-hero { display: grid; gap: 10px; }
@@ -245,27 +256,32 @@ footer { color: var(--dim); font-size: 11px; }
   <nav class="tabs" role="tablist" aria-label="Seções do estúdio">
     <button role="tab" id="t-mapa" data-v="mapa">Mapa</button>
     <button role="tab" id="t-eu" data-v="eu">Eu</button>
-    <button role="tab" id="t-producao" data-v="producao"><span class="live" id="tablive"></span>Produção</button>
     <button role="tab" id="t-arsenal" data-v="arsenal">Arsenal <span class="badge" id="narsenal"></span></button>
-    <button role="tab" id="t-filmes" data-v="filmes">Filmes <span class="badge" id="nfilms"></span></button>
+    <button role="tab" id="t-entrada" data-v="entrada">Entrada <span class="badge" id="nentrada"></span></button>
     <button role="tab" id="t-ideias" data-v="ideias">Ideias <span class="badge" id="nideas"></span></button>
     <button role="tab" id="t-voz" data-v="voz">Voz</button>
+    <button role="tab" id="t-producao" data-v="producao"><span class="live" id="tablive"></span>Produção</button>
+    <button role="tab" id="t-filmes" data-v="filmes">Filmes <span class="badge" id="nfilms"></span></button>
+    <button role="tab" id="t-publicacao" data-v="publicacao">Publicação <span class="badge" id="npub"></span></button>
     <button role="tab" id="t-padrao" data-v="padrao">Padrão</button>
   </nav>
 
   <div class="view" id="v-mapa" role="tabpanel" aria-labelledby="t-mapa" hidden>
-    <header style="display:grid;gap:8px"><div class="eyebrow livep"><span class="dot" id="mapdot"></span><span id="mapstate">O ecossistema inteiro, ao vivo</span></div><h1>O ecossistema</h1><div class="sub">Cada bloco é um módulo trabalhando. Toque num bloco para abrir.</div></header>
-    <div class="map" id="map">
-      <svg class="edges" id="edges" aria-hidden="true"></svg>
-      <div class="hub" id="hub" style="grid-area: hub"></div>
-      <button class="mod" type="button" data-go="eu" id="m-eu" style="grid-area: eu"></button>
-      <button class="mod" type="button" data-go="producao" id="m-producao" style="grid-area: producao"></button>
-      <button class="mod" type="button" data-go="arsenal" id="m-arsenal" style="grid-area: arsenal"></button>
-      <button class="mod" type="button" data-go="filmes" id="m-filmes" style="grid-area: filmes"></button>
-      <button class="mod" type="button" data-go="ideias" id="m-ideias" style="grid-area: ideias"></button>
-      <button class="mod" type="button" data-go="voz" id="m-voz" style="grid-area: voz"></button>
-      <button class="mod mod-base" type="button" data-go="padrao" id="m-padrao" style="grid-area: padrao"></button>
+    <header style="display:grid;gap:8px"><div class="eyebrow livep"><span class="dot" id="mapdot"></span><span id="mapstate">O ecossistema inteiro, ao vivo</span></div><h1>O organismo</h1><div class="sub">O trabalho gira no anel: entra, vira ideia, ganha voz, vira filme e sai publicado. No centro, o que sustenta tudo. Toque num módulo para abrir.</div></header>
+    <div class="eco" id="eco">
+      <canvas id="eco-cv" aria-hidden="true"></canvas>
+      <div class="nucleus" id="hub"></div>
+      <button class="node" type="button" data-go="entrada" id="m-entrada" data-ring="0"></button>
+      <button class="node" type="button" data-go="ideias" id="m-ideias" data-ring="1"></button>
+      <button class="node" type="button" data-go="voz" id="m-voz" data-ring="2"></button>
+      <button class="node" type="button" data-go="producao" id="m-producao" data-ring="3"></button>
+      <button class="node" type="button" data-go="filmes" id="m-filmes" data-ring="4"></button>
+      <button class="node" type="button" data-go="publicacao" id="m-publicacao" data-ring="5"></button>
+      <button class="sat" type="button" data-go="eu" id="m-eu" data-sat="0"></button>
+      <button class="sat" type="button" data-go="arsenal" id="m-arsenal" data-sat="1"></button>
+      <button class="sat" type="button" data-go="padrao" id="m-padrao" data-sat="2"></button>
     </div>
+    <section class="pulse"><div class="sechead"><h2>Pulso</h2><span class="note">O que o ecossistema fez por último.</span></div><ol class="feed" id="feed"><li class="empty">Os próximos movimentos aparecem aqui.</li></ol></section>
   </div>
 
   <div class="view" id="v-eu" role="tabpanel" aria-labelledby="t-eu" hidden>
@@ -381,6 +397,23 @@ footer { color: var(--dim); font-size: 11px; }
     </section>
   </div>
 
+  <div class="view" id="v-entrada" role="tabpanel" aria-labelledby="t-entrada" hidden>
+    <header style="display:grid;gap:10px"><h1>Entrada</h1><div class="sub">Tudo o que você me manda: vídeo bruto, áudio, ideia solta. Eu separo, processo e devolvo pronto.</div></header>
+    <div class="box drop" id="dropbox">
+      <div class="eyebrow">Mandar material</div>
+      <label class="chip" for="upfile" style="justify-self:start">Escolher vídeo ou áudio</label>
+      <input type="file" id="upfile" accept="video/*,audio/*,image/*" hidden>
+      <span class="note" id="upmsg">Até 20 MB por arquivo aqui. Maior que isso, me manda pelo chat que eu coloco na fila.</span>
+    </div>
+    <section><h2>Fila de entrada</h2><div class="ideas" id="entrada"><div class="empty">Nada na fila ainda. O próximo vídeo que você mandar aparece aqui.</div></div></section>
+  </div>
+
+  <div class="view" id="v-publicacao" role="tabpanel" aria-labelledby="t-publicacao" hidden>
+    <header style="display:grid;gap:10px"><h1>Publicação</h1><div class="sub">O que está pronto para sair, por canal. Quando as APIs forem conectadas, eu posto daqui.</div></header>
+    <div class="me-grid" id="canais"></div>
+    <section><h2>Fila de publicação</h2><div class="ideas" id="pubfila"><div class="empty">Nada na fila de publicação.</div></div></section>
+  </div>
+
   <div class="view" id="v-filmes" role="tabpanel" aria-labelledby="t-filmes" hidden>
     <header style="display:grid;gap:10px"><h1>Filmes</h1><div class="sub">Tudo o que já se desenhou. Toque numa capa para assistir.</div>
       <div class="stats" id="stats"><span><b>–</b>filmes</span><span><b>–</b>min de tela</span></div></header>
@@ -463,7 +496,7 @@ const $ = (id) => document.getElementById(id);
 const esc = (v) => String(v ?? '').replace(/[&<>"]/g, (c) => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c]));
 const fmtT = (s) => { s = Math.max(0, +s || 0); const m = Math.floor(s / 60), r = s - m * 60; return m + ':' + r.toFixed(1).padStart(4, '0'); };
 const mmss = (s) => `${Math.floor(s / 60)}:${String(Math.round(s % 60)).padStart(2, '0')}`;
-const VIEWS = ['mapa', 'eu', 'producao', 'arsenal', 'filmes', 'ideias', 'voz', 'padrao'];
+const VIEWS = ['mapa', 'eu', 'arsenal', 'entrada', 'ideias', 'voz', 'producao', 'filmes', 'publicacao', 'padrao'];
 let db = null, owner = false;
 
 // ---------- abas (cada aba tem link próprio: #filmes, #ideias, #voz…)
@@ -594,22 +627,34 @@ function renderIdeas() {
   }).join('') || '<div class="empty">Nenhuma ideia com esse status.</div>';
   document.querySelectorAll('select.status').forEach((s) => s.addEventListener('change', async () => {
     const prev = (ideas.find((x) => x.id === s.dataset.id) || {}).status || 'ideia';
-    try { await db.collection('ideias').doc(s.dataset.id).update({status: s.value}); }
+    try { await db.collection('ideias').doc(s.dataset.id).update({status: s.value}); logEvent('ideias', `${(ideas.find((x) => x.id === s.dataset.id) || {}).titulo || 'Ideia'}: ${SL[s.value].toLowerCase()}`); }
     catch (e) { s.value = prev; $('ownernote').hidden = false; $('ownernote').textContent = 'Não deu para salvar o status agora. Tente de novo em instantes.'; }
   }));
 }
 
-// ---------- mapa: o ecossistema inteiro, cada módulo com o seu progresso, ao vivo
+// ---------- mapa: o organismo. Anel de produção em volta do núcleo, partículas levando o trabalho adiante
 const pct = (a, b) => (b ? Math.round((a / b) * 100) : 0);
 const bar = (p) => `<div class="mbar"><i style="width:${Math.max(0, Math.min(100, p))}%"></i></div>`;
 const sub = (l, v, p) => `<div class="sub2"><span>${esc(l)}</span><b>${esc(v)}</b>${p == null ? '' : bar(p)}</div>`;
-function card(id, nome, val, cap, p, subs, live) {
+const RING = ['entrada', 'ideias', 'voz', 'producao', 'filmes', 'publicacao'];
+const SATS = ['eu', 'arsenal', 'padrao'];
+const act = {};                                   // quais módulos estão trabalhando agora (acende o bloco e acelera as partículas)
+function node(id, nome, step, val, cap, p, subs, state, live, wait) {
   const el = $('m-' + id);
+  act[id] = !!live;
+  el.classList.toggle('live', !!live); el.classList.toggle('wait', !!wait);
+  el.setAttribute('aria-label', `Abrir ${nome}`);
+  el.innerHTML = `<div class="top"><span class="nm">${live ? '<span class="dot on"></span>' : ''}${esc(nome)}</span><span class="step">${esc(step)}</span></div>
+    <div class="top"><span class="val">${val}</span><span class="state">${esc(state)}</span></div>
+    ${cap ? `<span class="cap">${esc(cap)}</span>` : ''}${p == null ? '' : bar(p)}
+    ${subs.length ? `<div class="subs">${subs.join('')}</div>` : ''}`;
+}
+function sat(id, nome, val, cap, live) {
+  const el = $('m-' + id);
+  act[id] = !!live;
   el.classList.toggle('live', !!live);
   el.setAttribute('aria-label', `Abrir ${nome}`);
-  el.innerHTML = `<div class="top"><span class="nm">${live ? '<span class="dot on"></span>' : ''}${esc(nome)}</span><span class="val">${val}</span></div>
-    ${cap ? `<span class="cap">${esc(cap)}</span>` : ''}${p == null ? '' : bar(p)}
-    ${subs.length ? `<div class="subs">${subs.join('')}</div>` : ''}<span class="go">Abrir →</span>`;
+  el.innerHTML = `<span class="val">${val}</span><span class="nm">${esc(nome)}</span><span class="cap">${esc(cap)}</span>`;
 }
 let mapQueued = false;
 function scheduleMap() { if (mapQueued) return; mapQueued = true; requestAnimationFrame(() => { mapQueued = false; renderMap(); }); }
@@ -617,62 +662,158 @@ function renderMap() {
   if ($('v-mapa').hidden) return;
   const running = last && (last.stages || []).some((s) => s.state === 'run');
   const prodP = Math.round(last?.overall ?? 0), f = last?.frames || {};
-  // eu
-  const provas = me?.provas || [], conf = provas.filter((p) => p.confirmado).length, qse = takes.filter((t) => t.grupo === 'quem-sou-eu').length;
-  card('eu', 'Eu', `${pct(conf, provas.length)}<small>%</small>`, me ? me.titulo : 'A central da sua história', pct(conf, provas.length),
-    [sub('Provas confirmadas', `${conf}/${provas.length}`), sub('Marcos da história', String((me?.marcos || []).length)), sub('Conceitos', String((me?.conceitos || []).length)), sub('Vozes do quem sou eu', String(qse))]);
-  // produção
-  card('producao', 'Produção', `${prodP}<small>%</small>`, last ? `${last.ep || ''} · ${last.stage || ''}` : 'Nenhum render ainda', prodP,
-    [...(last?.stages || []).filter((s) => s.state !== 'wait').slice(-3).map((s) => sub(s.label, s.state === 'done' ? 'pronto' : 'agora')), ...(f.total ? [sub('Quadros', `${(f.done || 0).toLocaleString('pt-BR')} / ${f.total.toLocaleString('pt-BR')}`, pct(f.done || 0, f.total))] : [])], running);
-  // arsenal
-  const aDone = arsenal.filter((a) => a.status === 'pronto').length, aDoing = arsenal.filter((a) => a.status === 'fazendo').length;
-  const fases = [...new Set(arsenal.map((a) => a.fase))];
-  card('arsenal', 'Arsenal', `${pct(aDone, arsenal.length)}<small>%</small>`, `${aDone} de ${arsenal.length} prontos${aDoing ? ` · ${aDoing} em andamento` : ''}`, pct(aDone, arsenal.length),
-    fases.map((fz) => { const it = arsenal.filter((a) => a.fase === fz), d = it.filter((a) => a.status === 'pronto').length; return sub(fz.replace(/^Fase \d · /, ''), `${d}/${it.length}`, pct(d, it.length)); }), aDoing > 0);
-  // filmes
-  const done = videos.filter((v) => v.serie !== 'Testes'), mins = done.reduce((m, v) => m + (v.duracao || 0), 0) / 60;
-  card('filmes', 'Filmes', String(done.length), `${mins.toFixed(0)} min de tela`, null,
-    [...new Set(videos.map((v) => v.serie))].map((s) => sub(s, String(videos.filter((v) => v.serie === s).length))));
-  // ideias
   const st = (k) => ideas.filter((i) => (i.status || 'ideia') === k).length, feitas = st('feita');
-  card('ideias', 'Ideias', `${pct(feitas, ideas.length)}<small>%</small>`, `${feitas} de ${ideas.length} viraram vídeo`, pct(feitas, ideas.length),
-    [sub('Escolhidas', String(st('escolhida'))), sub('Em produção', String(st('producao'))), sub('Feitas', String(feitas)), sub('Formatos', String(new Set(ideas.map((i) => i.formato).filter(Boolean)).size))], st('producao') > 0);
-  // voz
-  card('voz', 'Voz', voz.chave_conectada ? 'ON' : 'OFF', voz.chave_conectada ? 'ElevenLabs conectada' : 'Chave não conectada', null,
-    [sub('Vozes geradas', String(takes.length)), sub('Expressões liberadas', String((expr.aprovadas || []).length)), sub('Vetadas', String((expr.vetadas || []).length)), sub('Modelo', voz.modelo || '—')]);
-  // padrão
-  card('padrao', 'Padrão', '7', 'regras que todo filme cumpre: a base de tudo', null, []);
-  // hub
+  const novos = entrada.filter((e) => e.status !== 'pronto').length;
+  node('entrada', 'Entrada', '01', String(entrada.length), entrada.length ? `${novos} esperando processamento` : 'Me manda um vídeo ou áudio', null,
+    [sub('Novos', String(entrada.filter((e) => (e.status || 'novo') === 'novo').length)), sub('Processando', String(entrada.filter((e) => e.status === 'processando').length))], novos ? 'chegando' : 'aberta', novos > 0);
+  node('ideias', 'Ideias', '02', `${pct(feitas, ideas.length)}<small>%</small>`, `${feitas} de ${ideas.length} viraram vídeo`, pct(feitas, ideas.length),
+    [sub('Escolhidas', String(st('escolhida'))), sub('Em produção', String(st('producao')))], st('producao') ? 'roteirizando' : 'banco cheio', st('producao') > 0);
+  node('voz', 'Voz', '03', voz.chave_conectada ? 'ON' : 'OFF', voz.chave_conectada ? 'Sua voz na ElevenLabs' : 'Chave não conectada', null,
+    [sub('Vozes geradas', String(takes.length)), sub('Expressões liberadas', String((expr.aprovadas || []).length))], voz.chave_conectada ? 'pronta' : 'desligada', false, !voz.chave_conectada);
+  node('producao', 'Produção', '04', `${prodP}<small>%</small>`, last ? `${last.ep || ''}` : 'Nenhum render ainda', prodP,
+    f.total ? [sub('Quadros', `${(f.done || 0).toLocaleString('pt-BR')} / ${f.total.toLocaleString('pt-BR')}`, pct(f.done || 0, f.total))] : [sub('Etapa', last?.stage || '—')], running ? 'renderizando' : (prodP >= 100 ? 'entregue' : 'parada'), running);
+  const done = videos.filter((v) => v.serie !== 'Testes');
+  node('filmes', 'Filmes', '05', String(done.length), `${(done.reduce((m, v) => m + (v.duracao || 0), 0) / 60).toFixed(0)} min de tela`, null,
+    [sub('Série', String(videos.filter((v) => v.serie === 'Série ecossistemas vivos').length)), sub('Outros', String(done.length - videos.filter((v) => v.serie === 'Série ecossistemas vivos').length))], 'no acervo', false);
+  const prontos = pubs.filter((p) => p.status === 'pronto').length, agend = pubs.filter((p) => p.status === 'agendado').length, publ = pubs.filter((p) => p.status === 'publicado').length;
+  const conectados = canais.filter((c) => c.conectado).length;
+  node('publicacao', 'Publicação', '06', String(prontos + agend), conectados ? `${conectados} canais conectados` : 'APIs a conectar', null,
+    [sub('Prontos', String(prontos)), sub('Agendados', String(agend)), sub('Publicados', String(publ))], conectados ? 'no ar' : 'a conectar', agend > 0, !conectados);
+  const provas = me?.provas || [], conf = provas.filter((p) => p.confirmado).length;
+  const aDone = arsenal.filter((a) => a.status === 'pronto').length, aDoing = arsenal.filter((a) => a.status === 'fazendo').length;
+  sat('eu', 'Eu', `${pct(conf, provas.length)}%`, `${conf}/${provas.length} provas`, false);
+  sat('arsenal', 'Arsenal', `${pct(aDone, arsenal.length)}%`, aDoing ? `${aDoing} em andamento` : `${aDone}/${arsenal.length} prontos`, aDoing > 0);
+  sat('padrao', 'Padrão', '7', 'regras de qualidade', false);
   const parts = [pct(conf, provas.length), pct(aDone, arsenal.length), pct(feitas, ideas.length)];
   const geral = Math.round(parts.reduce((a, b) => a + b, 0) / parts.length);
-  const ativos = [running, aDoing > 0, st('producao') > 0].filter(Boolean).length;
-  $('hub').innerHTML = `<span class="s">Ecossistema</span><span class="n">Yohann Escher</span><span class="p">${geral}%</span><span class="s">do pré-lançamento</span><span class="s" style="color:var(--${ativos ? 'or' : 'dim'})">${ativos ? `${ativos} módulo${ativos > 1 ? 's' : ''} trabalhando agora` : 'tudo em espera'}</span>`;
+  const ativos = Object.values(act).filter(Boolean).length;
+  $('hub').innerHTML = `<span class="s">Ecossistema</span><span class="n">Yohann Escher</span><span class="p">${geral}%</span><span class="s">do pré-lançamento</span><span class="s" style="color:var(--${ativos ? 'or' : 'dim'})">${ativos ? `${ativos} ${ativos > 1 ? 'módulos trabalhando' : 'módulo trabalhando'}` : 'em repouso'}</span>`;
   $('mapdot').className = 'dot' + (ativos ? ' on' : '');
   $('mapstate').textContent = running ? `Ao vivo · renderizando ${last.ep || ''}` : 'O ecossistema inteiro, ao vivo';
-  drawEdges();
+  layoutEco();
 }
-function drawEdges() {
-  const svg = $('edges'), map = $('map');
-  if (getComputedStyle(svg).display === 'none') { svg.innerHTML = ''; return; }
-  const R = map.getBoundingClientRect(), H = $('hub').getBoundingClientRect();
-  const hx = H.left + H.width / 2 - R.left, hy = H.top + H.height / 2 - R.top, hr = H.width / 2;
-  const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  svg.setAttribute('viewBox', `0 0 ${R.width} ${R.height}`);
-  svg.innerHTML = [...map.querySelectorAll('.mod')].map((m, i) => {
-    const B = m.getBoundingClientRect();
-    const cx = B.left + B.width / 2 - R.left, cy = B.top + B.height / 2 - R.top;
-    let x2, y2;
-    if (B.top - R.top > hy + hr - 4) { x2 = cx; y2 = B.top - R.top; } else { x2 = cx < hx ? B.right - R.left : B.left - R.left; y2 = Math.min(Math.max(hy, B.top - R.top + 24), B.bottom - R.top - 24); }
-    const ang = Math.atan2(y2 - hy, x2 - hx), x1 = hx + Math.cos(ang) * hr, y1 = hy + Math.sin(ang) * hr;
-    const mx = (x1 + x2) / 2;
-    const d = Math.abs(y2 - hy) > hr && Math.abs(x2 - hx) < 40 ? `M${x1} ${y1} L${x2} ${y2}` : `M${x1} ${y1} C${mx} ${y1}, ${mx} ${y2}, ${x2} ${y2}`;
-    const live = m.classList.contains('live'), dur = live ? 1.6 : 5 + (i % 3);
-    const dots = calm ? '' : [0, 0.5].map((o) => `<circle r="${live ? 3 : 2}" opacity="${live ? 1 : 0.55}"><animateMotion dur="${dur}s" begin="${(-o * dur).toFixed(2)}s" repeatCount="indefinite" path="${d}"/></circle>`).join('');
-    return `<path d="${d}" class="${live ? 'on' : ''}"/>${dots}`;
-  }).join('');
+
+// posições: anel em elipse em volta do núcleo (computador) ou coluna na ordem do ciclo (celular)
+let geo = null;
+function layoutEco() {
+  const eco = $('eco'), W = eco.clientWidth, flow = W < 900;
+  eco.classList.toggle('flow', flow);
+  if (flow) { geo = null; return; }
+  const H = eco.clientHeight, cx = W / 2, cy = H / 2;
+  const nodes = RING.map((id) => $('m-' + id)), nw = 232, nh = Math.max(...nodes.map((n) => n.offsetHeight));
+  const rx = W / 2 - nw / 2 - 6, ry = H / 2 - nh / 2 - 6;
+  const angs = [-150, -90, -30, 30, 90, 150].map((a) => (a * Math.PI) / 180);
+  const pts = nodes.map((n, i) => { const x = cx + rx * Math.cos(angs[i]), y = cy + ry * Math.sin(angs[i]); n.style.left = `${x - nw / 2}px`; n.style.top = `${y - n.offsetHeight / 2}px`; return {x, y, w: nw, h: n.offsetHeight}; });
+  const hub = $('hub'), hr = hub.offsetWidth / 2;
+  hub.style.left = `${cx - hr}px`; hub.style.top = `${cy - hr}px`;
+  // apoio: Eu e Arsenal acima do núcleo (o raio de Ideias passa entre eles), Padrão embaixo, como base
+  const spos = [[-88, -(hr + 50)], [88, -(hr + 50)], [0, hr + 54]];
+  const sp = SATS.map((id, i) => { const s = $('m-' + id), x = cx + spos[i][0], y = cy + spos[i][1]; s.style.left = `${x - s.offsetWidth / 2}px`; s.style.top = `${y - s.offsetHeight / 2}px`; return {x, y}; });
+  geo = {W, H, cx, cy, hr, pts, sp};
 }
-document.querySelectorAll('.mod').forEach((m) => m.addEventListener('click', () => show(m.dataset.go)));
-try { new ResizeObserver(() => scheduleMap()).observe($('map')); } catch (e) { addEventListener('resize', scheduleMap); }
+
+// o organismo desenhado em canvas: poeira, filamentos, núcleo em órbita e pulsos de trabalho
+const cv = $('eco-cv'), cx2 = cv.getContext('2d');
+const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const dust = Array.from({length: 70}, () => ({x: Math.random(), y: Math.random(), r: Math.random() * 1.3 + 0.3, vx: (Math.random() - 0.5) * 0.00012, vy: (Math.random() - 0.5) * 0.00012, a: Math.random() * 0.35 + 0.08}));
+const orbit = Array.from({length: 90}, (_, i) => ({a: (i / 90) * Math.PI * 2, r: 0.86 + Math.random() * 0.22, s: 0.0016 + Math.random() * 0.0022, z: Math.random()}));
+const pulses = RING.map(() => Array.from({length: 4}, (_, k) => k / 4));
+const spokes = [...RING, ...SATS].map(() => Math.random());
+function curve(a, b, c, bend) {                 // ponto de controle puxado para o centro: filamento orgânico
+  return {x: (a.x + b.x) / 2 + (c.x - (a.x + b.x) / 2) * bend, y: (a.y + b.y) / 2 + (c.y - (a.y + b.y) / 2) * bend};
+}
+const qpt = (a, k, b, t) => ({x: (1 - t) * (1 - t) * a.x + 2 * (1 - t) * t * k.x + t * t * b.x, y: (1 - t) * (1 - t) * a.y + 2 * (1 - t) * t * k.y + t * t * b.y});
+let lastT = 0;
+function frame(t) {
+  const dt = Math.min(64, t - lastT || 16); lastT = t;
+  if (!$('v-mapa').hidden && geo) {
+    const dpr = Math.min(2, devicePixelRatio || 1), {W, H, cx, cy, hr, pts, sp} = geo;
+    if (cv.width !== Math.round(W * dpr) || cv.height !== Math.round(H * dpr)) { cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); }
+    const g = cx2; g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, W, H);
+    const C = {x: cx, y: cy};
+    for (const d of dust) { if (!calm) { d.x = (d.x + d.vx * dt + 1) % 1; d.y = (d.y + d.vy * dt + 1) % 1; } g.fillStyle = `rgba(242,239,232,${d.a})`; g.beginPath(); g.arc(d.x * W, d.y * H, d.r, 0, 6.283); g.fill(); }
+    // raios do núcleo para cada módulo
+    [...pts, ...sp].forEach((p, i) => {
+      const id = i < RING.length ? RING[i] : SATS[i - RING.length], on = act[id];
+      const ang = Math.atan2(p.y - cy, p.x - cx), a = {x: cx + Math.cos(ang) * hr, y: cy + Math.sin(ang) * hr};
+      g.strokeStyle = on ? 'rgba(255,90,31,.35)' : 'rgba(242,239,232,.07)'; g.setLineDash([2, 6]); g.lineWidth = 1;
+      g.beginPath(); g.moveTo(a.x, a.y); g.lineTo(p.x, p.y); g.stroke(); g.setLineDash([]);
+      if (!calm) { spokes[i] = (spokes[i] + dt * (on ? 0.0007 : 0.00018)) % 1; const q = {x: a.x + (p.x - a.x) * spokes[i], y: a.y + (p.y - a.y) * spokes[i]}; g.fillStyle = on ? 'rgba(255,90,31,.9)' : 'rgba(242,239,232,.35)'; g.beginPath(); g.arc(q.x, q.y, on ? 2.4 : 1.4, 0, 6.283); g.fill(); }
+    });
+    // o anel: filamentos entre etapas consecutivas, com pulsos de trabalho
+    pts.forEach((a, i) => {
+      const b = pts[(i + 1) % pts.length], k = curve(a, b, C, 0.32), src = act[RING[i]], dst = act[RING[(i + 1) % RING.length]];
+      const hot = src || dst;
+      g.lineWidth = hot ? 2 : 1.4; g.strokeStyle = hot ? 'rgba(255,90,31,.55)' : 'rgba(242,239,232,.14)';
+      g.beginPath(); g.moveTo(a.x, a.y); g.quadraticCurveTo(k.x, k.y, b.x, b.y); g.stroke();
+      pulses[i] = pulses[i].map((p) => (calm ? p : (p + dt * (hot ? 0.00042 : 0.00011)) % 1));
+      for (const p of pulses[i]) {
+        const q = qpt(a, k, b, p), r = hot ? 4 : 2.6;
+        const grd = g.createRadialGradient(q.x, q.y, 0, q.x, q.y, r * 4); grd.addColorStop(0, hot ? 'rgba(255,120,60,.9)' : 'rgba(255,90,31,.45)'); grd.addColorStop(1, 'rgba(255,90,31,0)');
+        g.fillStyle = grd; g.beginPath(); g.arc(q.x, q.y, r * 4, 0, 6.283); g.fill();
+        g.fillStyle = hot ? '#ffb08a' : 'rgba(255,140,90,.8)'; g.beginPath(); g.arc(q.x, q.y, r * 0.55, 0, 6.283); g.fill();
+      }
+    });
+    // núcleo: partículas em órbita
+    for (const o of orbit) {
+      if (!calm) o.a += o.s * dt * (Object.values(act).some(Boolean) ? 1.6 : 1);
+      const rr = hr * o.r, x = cx + Math.cos(o.a) * rr, y = cy + Math.sin(o.a) * rr * 0.96;
+      g.fillStyle = o.z > 0.8 ? 'rgba(255,90,31,.85)' : `rgba(242,239,232,${0.18 + o.z * 0.4})`; g.beginPath(); g.arc(x, y, o.z > 0.8 ? 1.8 : 1.1, 0, 6.283); g.fill();
+    }
+  }
+  if (!calm) requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+if (calm) addEventListener('resize', () => requestAnimationFrame(frame));
+document.querySelectorAll('.node, .sat').forEach((m) => m.addEventListener('click', () => show(m.dataset.go)));
+try { new ResizeObserver(() => scheduleMap()).observe($('eco')); } catch (e) { addEventListener('resize', scheduleMap); }
+
+// ---------- pulso: os últimos movimentos do ecossistema
+let eventos = [];
+const MODN = {entrada: 'Entrada', ideias: 'Ideias', voz: 'Voz', producao: 'Produção', filmes: 'Filmes', publicacao: 'Publicação', eu: 'Eu', arsenal: 'Arsenal', padrao: 'Padrão'};
+function renderFeed() {
+  $('feed').innerHTML = eventos.length ? eventos.slice(0, 10).map((e) => `<li><time>${esc(new Date(e.quando).toLocaleString('pt-BR', {day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit'}))}</time><span class="mod-tag">${esc(MODN[e.modulo] || e.modulo)}</span><span>${esc(e.texto)}</span></li>`).join('')
+    : '<li class="empty">Os próximos movimentos aparecem aqui.</li>';
+}
+async function logEvent(modulo, texto) { try { await db.collection('eventos').add({quando: new Date().toISOString(), modulo, texto}); } catch (e) {} }
+
+// ---------- entrada: o que o Yohann manda (vídeo, áudio, ideia)
+let entrada = [];
+const ENT = {novo: 'Novo', processando: 'Processando', pronto: 'Pronto'};
+function renderEntrada() {
+  scheduleMap();
+  $('nentrada').textContent = entrada.filter((e) => e.status !== 'pronto').length || '';
+  $('entrada').innerHTML = entrada.length ? entrada.map((e) => `<article class="idea"><div class="row"><span class="eyebrow">${esc(e.tipo || 'arquivo')} · ${esc(new Date(e.criado || Date.now()).toLocaleDateString('pt-BR'))}</span><span class="pill s-${e.status === 'pronto' ? 'feita' : e.status === 'processando' ? 'producao' : 'escolhida'}">${ENT[e.status || 'novo']}</span></div><h4>${esc(e.titulo)}</h4>${e.nota ? `<p class="why">${esc(e.nota)}</p>` : ''}${e.url && (e.tipo || '').startsWith('vídeo') ? `<video controls preload="none" src="${esc(e.url)}" style="width:100%;max-height:360px;border-radius:4px;background:#000"></video>` : ''}${e.destino ? `<span class="note">Virou: ${esc(e.destino)}</span>` : ''}</article>`).join('')
+    : '<div class="empty">Nada na fila ainda. O próximo vídeo que você mandar aparece aqui.</div>';
+}
+$('upfile').addEventListener('change', async () => {
+  const file = $('upfile').files[0]; if (!file) return;
+  if (file.size > 20 * 1024 * 1024) { $('upmsg').textContent = `"${file.name}" tem ${(file.size / 1048576).toFixed(0)} MB. Acima de 20 MB, me manda pelo chat que eu coloco na fila.`; return; }
+  const assets = await claude.use('assets');
+  if (!assets) { $('upmsg').textContent = 'Só quem edita o estúdio pode mandar arquivos por aqui.'; return; }
+  $('upmsg').textContent = `Enviando "${file.name}"…`;
+  try {
+    const r = await assets.upload(file);
+    const tipo = file.type.startsWith('video') ? 'vídeo' : file.type.startsWith('audio') ? 'áudio' : 'imagem';
+    await db.collection('entrada').add({titulo: file.name, tipo, asset: r.id, url: '/_blob/' + r.id, status: 'novo', criado: new Date().toISOString(), ordem: Date.now()});
+    logEvent('entrada', `Chegou ${tipo}: ${file.name}`);
+    $('upmsg').textContent = `"${file.name}" está na fila. Me avise no chat que eu começo.`;
+  } catch (e) {
+    $('upmsg').textContent = e?.code === 'unsupported_type' ? 'Esse tipo de arquivo não entra por aqui (áudio, por exemplo). Me manda pelo chat.' : 'Não deu para enviar agora. Tente de novo em instantes.';
+  }
+  $('upfile').value = '';
+});
+
+// ---------- publicação: canais e fila
+let pubs = [], canais = [];
+const PUB = {pronto: 'Pronto para postar', agendado: 'Agendado', publicado: 'Publicado', producao: 'Em produção'};
+function renderPub() {
+  scheduleMap();
+  $('npub').textContent = pubs.filter((p) => p.status === 'pronto').length || '';
+  $('canais').innerHTML = canais.map((c) => `<div class="me-card"><div class="row" style="display:flex;justify-content:space-between;gap:8px"><span class="eyebrow">${esc(c.formato || '')}</span><span class="pill ${c.conectado ? 's-feita' : 's-escolhida'}">${c.conectado ? 'conectado' : 'a conectar'}</span></div><h4>${esc(c.nome)}</h4><p class="d">${esc(c.nota || '')}</p></div>`).join('');
+  $('pubfila').innerHTML = pubs.length ? pubs.map((p) => `<article class="idea"><div class="row"><span class="eyebrow">${esc((p.canais || []).join(' · '))}</span><span class="pill s-${p.status === 'publicado' ? 'feita' : p.status === 'agendado' ? 'producao' : 'escolhida'}">${PUB[p.status] || p.status}</span></div><h4>${esc(p.titulo)}</h4>${p.legenda ? `<p class="why">${esc(p.legenda)}</p>` : ''}${p.quando ? `<span class="note">${esc(p.quando)}</span>` : ''}</article>`).join('')
+    : '<div class="empty">Nada na fila de publicação.</div>';
+}
 
 // ---------- eu (a central do Yohann: história, provas, conceitos, projetos e limites)
 let me = null;
@@ -728,7 +869,7 @@ function renderArsenal() {
   }).join('');
   document.querySelectorAll('#arsenal select.status').forEach((s) => s.addEventListener('change', async () => {
     const prev = (arsenal.find((x) => x.id === s.dataset.id) || {}).status || 'fazer';
-    try { await db.collection('arsenal').doc(s.dataset.id).update({status: s.value}); }
+    try { await db.collection('arsenal').doc(s.dataset.id).update({status: s.value}); logEvent('arsenal', `${(arsenal.find((x) => x.id === s.dataset.id) || {}).item || 'Item'}: ${AST.find(([k]) => k === s.value)[1].toLowerCase()}`); }
     catch (e) { s.value = prev; $('arsnote').textContent = 'Não deu para salvar agora. Tente de novo em instantes.'; }
   }));
 }
@@ -808,6 +949,10 @@ function renderTakes() {
   db.doc('voz/config').onSnapshot((s) => { voz = s.exists ? s.data() : {}; renderVoz(); }, lost());
   db.doc('voz/expressoes').onSnapshot((s) => { expr = s.exists ? s.data() : {aprovadas: [], vetadas: []}; renderVoz(); }, lost());
   db.collection('takes').orderBy('ordem', 'desc').onSnapshot((s) => { takes = s.docs.map((d) => ({id: d.id, ...d.data()})); renderTakes(); renderMeTakes(); }, lost('takes'));
+  db.collection('entrada').orderBy('ordem', 'desc').onSnapshot((s) => { entrada = s.docs.map((d) => ({id: d.id, ...d.data()})); renderEntrada(); }, lost('entrada'));
+  db.collection('publicacao').orderBy('ordem').onSnapshot((s) => { pubs = s.docs.map((d) => ({id: d.id, ...d.data()})); renderPub(); }, lost('pubfila'));
+  db.doc('canais/lista').onSnapshot((s) => { canais = s.exists ? (s.data().canais || []) : []; renderPub(); }, () => {});
+  db.collection('eventos').orderBy('quando', 'desc').limit(30).onSnapshot((s) => { eventos = s.docs.map((d) => ({id: d.id, ...d.data()})); renderFeed(); }, () => {});
   db.doc('perfil/yohann').onSnapshot((s) => { me = s.exists ? s.data() : null; if (me) renderMe(); else $('me-titulo').textContent = 'A sua central ainda está vazia.'; }, () => { $('me-titulo').textContent = 'A conexão caiu. Recarregue a página.'; });
 })();
 </script>
