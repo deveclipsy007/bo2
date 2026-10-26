@@ -175,6 +175,35 @@ ol.steps code, .box code { font-family: var(--mono); font-size: 12.5px; color: v
 .node:focus-visible, .sat:focus-visible { outline: 2px solid var(--or); outline-offset: 3px; }
 .node.live, .sat.live { border-color: var(--or); box-shadow: 0 0 0 1px rgba(255, 90, 31, .25), 0 0 34px rgba(255, 90, 31, .18); }
 .node.wait { border-style: dashed; }
+/* produção aberta: o card cresce e espelha o render ao vivo */
+.eco.big { height: 980px; }
+.node.open { width: 400px; gap: 10px; padding: 16px 16px 14px; }
+.pstages { display: flex; gap: 4px; }
+.pstages i { flex: 1; height: 6px; border-radius: 3px; background: var(--line); }
+.pstages i.done { background: #7a3b22; }
+.pstages i.run { background: var(--or); box-shadow: 0 0 8px var(--or); animation: pulse 1.2s ease-in-out infinite; }
+.pnow { display: flex; justify-content: space-between; gap: 10px; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--dim); }
+.pnow b { color: var(--or); font-weight: 500; }
+.pscenes { display: flex; gap: 5px; justify-content: center; height: 84px; padding-block: 4px; }
+.pscene { position: relative; height: 100%; aspect-ratio: 9 / 16; flex: none; border: 1px solid var(--line); border-radius: 2px; overflow: hidden; background: #26262a; opacity: .5; }
+.pscene.paper { background: var(--paper); }
+.pscene img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.pscene.done { opacity: .9; }
+.pscene.now { opacity: 1; border-color: var(--or); box-shadow: 0 0 18px rgba(255, 90, 31, .35); transform: scale(1.1); }
+.node.open.gen { width: 340px; }
+.gtext { font-family: var(--italic); font-size: 16px; line-height: 1.35; color: var(--bone); max-height: 7.2em; overflow: hidden; -webkit-mask-image: linear-gradient(#000 70%, transparent); mask-image: linear-gradient(#000 70%, transparent); }
+.gtext::after { content: "▍"; color: var(--or); animation: pulse 1s steps(2) infinite; }
+.glines { display: grid; gap: 4px; font-size: 11.5px; color: var(--dim); }
+.glines b { color: var(--bone); font-weight: 500; }
+.node audio { width: 100%; height: 34px; }
+.pscene.now::after { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 2px; background: var(--or); box-shadow: 0 0 10px var(--or); animation: scan 1.6s linear infinite; }
+@keyframes scan { from { top: 0; } to { top: 100%; } }
+.pscap { font-family: var(--italic); font-size: 15.5px; line-height: 1.25; }
+.pscap b { font-family: var(--mono); font-weight: 500; font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--or); margin-right: 6px; }
+.plog { display: grid; gap: 3px; border-top: 1px solid var(--line); padding-top: 8px; font-size: 11px; color: var(--dim); }
+.plog span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.node .go { font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--or); }
+@media (prefers-reduced-motion: reduce) { .pscene.now::after, .pstages i.run { animation: none; } }
 .node .top { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
 .node .nm { font-size: 10.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--bone); display: inline-flex; align-items: center; gap: 7px; }
 .node .step { font-size: 10px; color: var(--dim); font-variant-numeric: tabular-nums; }
@@ -664,21 +693,23 @@ function renderMap() {
   const prodP = Math.round(last?.overall ?? 0), f = last?.frames || {};
   const st = (k) => ideas.filter((i) => (i.status || 'ideia') === k).length, feitas = st('feita');
   const novos = entrada.filter((e) => e.status !== 'pronto').length;
-  node('entrada', 'Entrada', '01', String(entrada.length), entrada.length ? `${novos} esperando processamento` : 'Me manda um vídeo ou áudio', null,
-    [sub('Novos', String(entrada.filter((e) => (e.status || 'novo') === 'novo').length)), sub('Processando', String(entrada.filter((e) => e.status === 'processando').length))], novos ? 'chegando' : 'aberta', novos > 0);
-  node('ideias', 'Ideias', '02', `${pct(feitas, ideas.length)}<small>%</small>`, `${feitas} de ${ideas.length} viraram vídeo`, pct(feitas, ideas.length),
-    [sub('Escolhidas', String(st('escolhida'))), sub('Em produção', String(st('producao')))], st('producao') ? 'roteirizando' : 'banco cheio', st('producao') > 0);
-  node('voz', 'Voz', '03', voz.chave_conectada ? 'ON' : 'OFF', voz.chave_conectada ? 'Sua voz na ElevenLabs' : 'Chave não conectada', null,
-    [sub('Vozes geradas', String(takes.length)), sub('Expressões liberadas', String((expr.aprovadas || []).length))], voz.chave_conectada ? 'pronta' : 'desligada', false, !voz.chave_conectada);
-  node('producao', 'Produção', '04', `${prodP}<small>%</small>`, last ? `${last.ep || ''}` : 'Nenhum render ainda', prodP,
-    f.total ? [sub('Quadros', `${(f.done || 0).toLocaleString('pt-BR')} / ${f.total.toLocaleString('pt-BR')}`, pct(f.done || 0, f.total))] : [sub('Etapa', last?.stage || '—')], running ? 'renderizando' : (prodP >= 100 ? 'entregue' : 'parada'), running);
+  if (ativo('entrada')) openGen('entrada', 'Entrada', '01'); else { $('m-entrada').classList.remove('open', 'gen'); node('entrada', 'Entrada', '01', String(entrada.length), entrada.length ? `${novos} esperando processamento` : 'Me manda um vídeo ou áudio', null,
+    [sub('Novos', String(entrada.filter((e) => (e.status || 'novo') === 'novo').length)), sub('Processando', String(entrada.filter((e) => e.status === 'processando').length))], novos ? 'chegando' : 'aberta', novos > 0); }
+  if (ativo('ideias')) openGen('ideias', 'Ideias', '02'); else { $('m-ideias').classList.remove('open', 'gen'); node('ideias', 'Ideias', '02', `${pct(feitas, ideas.length)}<small>%</small>`, `${feitas} de ${ideas.length} viraram vídeo`, pct(feitas, ideas.length),
+    [sub('Escolhidas', String(st('escolhida'))), sub('Em produção', String(st('producao')))], st('producao') ? 'roteirizando' : 'banco cheio', st('producao') > 0); }
+  if (ativo('voz')) openGen('voz', 'Voz', '03'); else { $('m-voz').classList.remove('open', 'gen'); node('voz', 'Voz', '03', voz.chave_conectada ? 'ON' : 'OFF', voz.chave_conectada ? 'Sua voz na ElevenLabs' : 'Chave não conectada', null,
+    [sub('Vozes geradas', String(takes.length)), sub('Expressões liberadas', String((expr.aprovadas || []).length))], voz.chave_conectada ? 'pronta' : 'desligada', false, !voz.chave_conectada); }
+  if (running) prodOpen(prodP, f);
+  else if (ativo('producao')) openGen('producao', 'Produção', '04');
+  else { $('m-producao').classList.remove('open', 'gen'); node('producao', 'Produção', '04', `${prodP}<small>%</small>`, last ? `${last.ep || ''}` : 'Nenhum render ainda', prodP,
+    f.total ? [sub('Quadros', `${(f.done || 0).toLocaleString('pt-BR')} / ${f.total.toLocaleString('pt-BR')}`, pct(f.done || 0, f.total))] : [sub('Etapa', last?.stage || '—')], prodP >= 100 ? 'entregue' : 'parada', false); }
   const done = videos.filter((v) => v.serie !== 'Testes');
-  node('filmes', 'Filmes', '05', String(done.length), `${(done.reduce((m, v) => m + (v.duracao || 0), 0) / 60).toFixed(0)} min de tela`, null,
-    [sub('Série', String(videos.filter((v) => v.serie === 'Série ecossistemas vivos').length)), sub('Outros', String(done.length - videos.filter((v) => v.serie === 'Série ecossistemas vivos').length))], 'no acervo', false);
+  if (ativo('filmes')) openGen('filmes', 'Filmes', '05'); else { $('m-filmes').classList.remove('open', 'gen'); node('filmes', 'Filmes', '05', String(done.length), `${(done.reduce((m, v) => m + (v.duracao || 0), 0) / 60).toFixed(0)} min de tela`, null,
+    [sub('Série', String(videos.filter((v) => v.serie === 'Série ecossistemas vivos').length)), sub('Outros', String(done.length - videos.filter((v) => v.serie === 'Série ecossistemas vivos').length))], 'no acervo', false); }
   const prontos = pubs.filter((p) => p.status === 'pronto').length, agend = pubs.filter((p) => p.status === 'agendado').length, publ = pubs.filter((p) => p.status === 'publicado').length;
   const conectados = canais.filter((c) => c.conectado).length;
-  node('publicacao', 'Publicação', '06', String(prontos + agend), conectados ? `${conectados} canais conectados` : 'APIs a conectar', null,
-    [sub('Prontos', String(prontos)), sub('Agendados', String(agend)), sub('Publicados', String(publ))], conectados ? 'no ar' : 'a conectar', agend > 0, !conectados);
+  if (ativo('publicacao')) openGen('publicacao', 'Publicação', '06'); else { $('m-publicacao').classList.remove('open', 'gen'); node('publicacao', 'Publicação', '06', String(prontos + agend), conectados ? `${conectados} canais conectados` : 'APIs a conectar', null,
+    [sub('Prontos', String(prontos)), sub('Agendados', String(agend)), sub('Publicados', String(publ))], conectados ? 'no ar' : 'a conectar', agend > 0, !conectados); }
   const provas = me?.provas || [], conf = provas.filter((p) => p.confirmado).length;
   const aDone = arsenal.filter((a) => a.status === 'pronto').length, aDoing = arsenal.filter((a) => a.status === 'fazendo').length;
   sat('eu', 'Eu', `${pct(conf, provas.length)}%`, `${conf}/${provas.length} provas`, false);
@@ -689,8 +720,53 @@ function renderMap() {
   const ativos = Object.values(act).filter(Boolean).length;
   $('hub').innerHTML = `<span class="s">Ecossistema</span><span class="n">Yohann Escher</span><span class="p">${geral}%</span><span class="s">do pré-lançamento</span><span class="s" style="color:var(--${ativos ? 'or' : 'dim'})">${ativos ? `${ativos} ${ativos > 1 ? 'módulos trabalhando' : 'módulo trabalhando'}` : 'em repouso'}</span>`;
   $('mapdot').className = 'dot' + (ativos ? ' on' : '');
-  $('mapstate').textContent = running ? `Ao vivo · renderizando ${last.ep || ''}` : 'O ecossistema inteiro, ao vivo';
+  const nomes = RING.filter((id) => act[id]).map((id) => MODN[id]);
+  $('mapstate').textContent = running ? `Ao vivo · renderizando ${last.ep || ''}` : nomes.length ? `Ao vivo · trabalhando em ${nomes.join(', ')}` : 'O ecossistema inteiro, ao vivo';
   layoutEco();
+}
+
+// qualquer módulo abre quando está trabalhando: atividade/<módulo> diz o que está sendo feito agora
+let ativ = {};
+const ATIVO_MAX = 3 * 3600 * 1000;                      // atividade sem notícia há 3 h não fica aberta para sempre
+const ativo = (id) => { const a = ativ[id]; return !!(a && a.ativo && (!a.atualizado || Date.now() - Date.parse(a.atualizado) < ATIVO_MAX)); };
+function openGen(id, nome, step) {
+  const el = $('m-' + id), a = ativ[id], et = a.etapas || [], cur = et.find((e) => e.state === 'run');
+  act[id] = true; el.classList.add('live', 'open', 'gen'); el.classList.remove('wait');
+  el.setAttribute('aria-label', `Abrir ${nome}`);
+  const lg = (a.log || []).slice(-2).reverse();
+  el.innerHTML = `<div class="top"><span class="nm"><span class="dot on"></span>${esc(nome)}</span><span class="step">${esc(step)}</span></div>
+    <div class="top"><span class="val">${a.progresso != null ? `${Math.round(a.progresso)}<small>%</small>` : '…'}</span><span class="state">${esc(cur ? cur.label : a.etapa || 'trabalhando')}</span></div>
+    <span class="cap">${esc(a.titulo || '')}</span>
+    ${et.length ? `<div class="pstages" title="${esc(et.map((e) => e.label).join(' → '))}">${et.map((e) => `<i class="${e.state === 'done' ? 'done' : e.state === 'run' ? 'run' : ''}"></i>`).join('')}</div>` : (a.progresso != null ? bar(a.progresso) : '')}
+    ${a.texto ? `<div class="gtext">${esc(a.texto)}</div>` : ''}
+    ${(a.linhas || []).length ? `<div class="glines">${a.linhas.map((l) => `<span>${esc(l)}</span>`).join('')}</div>` : ''}
+    ${a.audio ? `<audio controls preload="none" src="${esc(a.audio)}"></audio>` : ''}
+    ${lg.length ? `<div class="plog">${lg.map((x) => `<span>${esc(x)}</span>`).join('')}</div>` : ''}
+    <span class="go">Abrir ${esc(nome)} →</span>`;
+}
+
+// produção aberta: etapas, tira de cenas com a cena da vez sendo varrida, quadros e registro
+function prodOpen(prodP, f) {
+  const el = $('m-producao'), d = last, stages = d.stages || [], sc = d.scenes || [];
+  act.producao = true; el.classList.add('live', 'open'); el.classList.remove('wait', 'gen');
+  el.setAttribute('aria-label', 'Abrir a produção completa');
+  const cur = stages.find((s) => s.state === 'run');
+  const D = d.duration || (sc.length ? sc[sc.length - 1].b : 0) || 1;
+  let k = -1;
+  if (f.total) { const tt = ((f.done || 0) / f.total) * D; k = sc.findIndex((s) => tt >= s.a && tt < s.b); if (k < 0 && tt >= D - 0.01) k = sc.length - 1; }
+  else { const doneIdx = sc.map((s, i) => (s.state === 'done' ? i : -1)).filter((i) => i >= 0); k = Math.min(sc.length - 1, doneIdx.length ? doneIdx[doneIdx.length - 1] + 1 : 0); }
+  const scene = sc[k];
+  const lg = (d.log || []).slice(-2).reverse();
+  el.innerHTML = `<div class="top"><span class="nm"><span class="dot on"></span>Produção</span><span class="step">04</span></div>
+    <div class="top"><span class="val">${prodP}<small>%</small></span><span class="state">${esc(cur ? cur.label : 'produzindo')}</span></div>
+    <span class="cap">${esc(d.ep || '')}${d.sub ? ' · ' + esc(d.sub) : ''}</span>
+    <div class="pstages" title="${esc(stages.map((s) => s.label).join(' → '))}">${stages.map((s) => `<i class="${s.state === 'done' ? 'done' : s.state === 'run' ? 'run' : ''}"></i>`).join('')}</div>
+    <div class="pnow"><span>Etapa ${stages.indexOf(cur) + 1} de ${stages.length}</span><b>${esc(cur ? cur.label : '')}</b></div>
+    ${sc.length ? `<div class="pscenes">${sc.map((s, i) => [s, i]).slice(Math.max(0, Math.min(k - 3, sc.length - 7)), Math.max(0, Math.min(k - 3, sc.length - 7)) + 7).map(([s, i]) => `<div class="pscene ${s.bg === 'paper' ? 'paper' : ''} ${i === k ? 'now' : i < k ? 'done' : ''}">${s.thumb ? `<img src="${esc(s.thumb)}" alt="">` : ''}</div>`).join('')}</div>
+    ${scene ? `<span class="pscap"><b>Cena ${k + 1}</b>${esc(scene.title)}</span>` : ''}` : ''}
+    ${f.total ? `${bar(pct(f.done || 0, f.total))}<div class="pnow"><span>${(f.done || 0).toLocaleString('pt-BR')} / ${f.total.toLocaleString('pt-BR')} quadros</span><b>${esc(d.eta ? 'falta ' + d.eta : '')}</b></div>` : bar(prodP)}
+    ${lg.length ? `<div class="plog">${lg.map((x) => `<span>${esc(x.t)} · ${esc(x.msg)}</span>`).join('')}</div>` : ''}
+    <span class="go">Abrir a produção completa →</span>`;
 }
 
 // posições: anel em elipse em volta do núcleo (computador) ou coluna na ordem do ciclo (celular)
@@ -698,12 +774,17 @@ let geo = null;
 function layoutEco() {
   const eco = $('eco'), W = eco.clientWidth, flow = W < 900;
   eco.classList.toggle('flow', flow);
+  eco.classList.toggle('big', !!eco.querySelector('.node.open'));
   if (flow) { geo = null; return; }
   const H = eco.clientHeight, cx = W / 2, cy = H / 2;
-  const nodes = RING.map((id) => $('m-' + id)), nw = 232, nh = Math.max(...nodes.map((n) => n.offsetHeight));
+  const nodes = RING.map((id) => $('m-' + id)), nw = 232, nh = Math.max(150, ...nodes.filter((n) => !n.classList.contains('open')).map((n) => n.offsetHeight));
   const rx = W / 2 - nw / 2 - 6, ry = H / 2 - nh / 2 - 6;
   const angs = [-150, -90, -30, 30, 90, 150].map((a) => (a * Math.PI) / 180);
-  const pts = nodes.map((n, i) => { const x = cx + rx * Math.cos(angs[i]), y = cy + ry * Math.sin(angs[i]); n.style.left = `${x - nw / 2}px`; n.style.top = `${y - n.offsetHeight / 2}px`; return {x, y, w: nw, h: n.offsetHeight}; });
+  const pts = nodes.map((n, i) => {
+    const w = n.offsetWidth, h = n.offsetHeight;
+    const x = Math.min(Math.max(cx + rx * Math.cos(angs[i]), w / 2 + 2), W - w / 2 - 2), y = Math.min(Math.max(cy + ry * Math.sin(angs[i]), h / 2 + 2), H - h / 2 - 2);
+    n.style.left = `${x - w / 2}px`; n.style.top = `${y - h / 2}px`; return {x, y, w, h};
+  });
   const hub = $('hub'), hr = hub.offsetWidth / 2;
   hub.style.left = `${cx - hr}px`; hub.style.top = `${cy - hr}px`;
   // apoio: Eu e Arsenal acima do núcleo (o raio de Ideias passa entre eles), Padrão embaixo, como base
@@ -952,6 +1033,7 @@ function renderTakes() {
   db.collection('entrada').orderBy('ordem', 'desc').onSnapshot((s) => { entrada = s.docs.map((d) => ({id: d.id, ...d.data()})); renderEntrada(); }, lost('entrada'));
   db.collection('publicacao').orderBy('ordem').onSnapshot((s) => { pubs = s.docs.map((d) => ({id: d.id, ...d.data()})); renderPub(); }, lost('pubfila'));
   db.doc('canais/lista').onSnapshot((s) => { canais = s.exists ? (s.data().canais || []) : []; renderPub(); }, () => {});
+  db.collection('atividade').onSnapshot((s) => { ativ = Object.fromEntries(s.docs.map((d) => [d.id, d.data()])); scheduleMap(); }, () => {});
   db.collection('eventos').orderBy('quando', 'desc').limit(30).onSnapshot((s) => { eventos = s.docs.map((d) => ({id: d.id, ...d.data()})); renderFeed(); }, () => {});
   db.doc('perfil/yohann').onSnapshot((s) => { me = s.exists ? s.data() : null; if (me) renderMe(); else $('me-titulo').textContent = 'A sua central ainda está vazia.'; }, () => { $('me-titulo').textContent = 'A conexão caiu. Recarregue a página.'; });
 })();
