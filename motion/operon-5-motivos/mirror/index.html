@@ -161,6 +161,44 @@ ol.steps code, .box code { font-family: var(--mono); font-size: 12.5px; color: v
 .take audio { width: 100%; }
 .note { font-size: 12px; color: var(--dim); }
 
+/* mapa: o hub no centro, os módulos em volta, ligados por linhas por onde o trabalho passa */
+.map { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(220px, 280px) minmax(0, 1fr); grid-template-areas: "eu hub producao" "arsenal hub filmes" "ideias hub voz" ". padrao ."; gap: 26px 72px; align-items: start; padding-block: 8px 4px; }
+.edges { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
+.edges path { fill: none; stroke: var(--line); stroke-width: 1.5; }
+.edges path.on { stroke: #5a2a1a; }
+.edges circle { fill: var(--or); }
+.hub { align-self: center; position: relative; z-index: 1; display: grid; gap: 10px; justify-items: center; text-align: center; padding: 26px 18px; border-radius: 50%; aspect-ratio: 1; max-width: 100%; background: radial-gradient(circle at 50% 40%, #1d1410, var(--panel) 70%); border: 1px solid #4a2416; box-shadow: 0 0 60px rgba(255, 90, 31, .08); align-content: center; }
+.hub .n { font-family: var(--display); font-weight: 900; font-size: clamp(22px, 2.4vw, 28px); line-height: 1.05; text-wrap: balance; }
+.hub .p { font-family: var(--display); font-weight: 900; font-size: clamp(40px, 5vw, 56px); line-height: .9; color: var(--or); font-variant-numeric: tabular-nums; }
+.hub .s { font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--dim); }
+.mod { all: unset; box-sizing: border-box; cursor: pointer; position: relative; z-index: 1; display: grid; gap: 10px; align-content: start; min-width: 0; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 16px 16px 14px; transition: border-color .2s, transform .2s; }
+.mod:hover { border-color: var(--or); transform: translateY(-2px); }
+.mod:focus-visible { outline: 2px solid var(--or); outline-offset: 3px; }
+.mod.live { border-color: var(--or); box-shadow: 0 0 0 1px rgba(255, 90, 31, .25), 0 0 28px rgba(255, 90, 31, .12); }
+.mod-base { justify-self: center; width: min(100%, 420px); }
+.mod .top { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+.mod .nm { font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--bone); display: inline-flex; align-items: center; gap: 8px; }
+.mod .val { font-family: var(--display); font-weight: 900; font-size: 34px; line-height: .9; color: var(--or); font-variant-numeric: tabular-nums; }
+.mod .val small { font-size: .45em; color: var(--dim); }
+.mod .cap { font-family: var(--italic); font-size: 16px; color: var(--dim); line-height: 1.3; }
+.mbar { height: 4px; background: var(--line); border-radius: 2px; overflow: hidden; }
+.mbar i { display: block; height: 100%; background: var(--or); transition: width .6s ease; }
+.subs { display: grid; gap: 7px; border-top: 1px solid var(--line); padding-top: 10px; }
+.sub2 { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 3px 10px; align-items: center; font-size: 11.5px; color: var(--dim); }
+.sub2 b { color: var(--bone); font-weight: 500; font-variant-numeric: tabular-nums; }
+.sub2 .mbar { grid-column: 1 / -1; height: 3px; }
+.mod .go { font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--dim); }
+.mod:hover .go { color: var(--or); }
+@media (max-width: 860px) {
+  .map { grid-template-columns: minmax(0, 1fr); grid-template-areas: "hub" "eu" "producao" "arsenal" "filmes" "ideias" "voz" "padrao"; gap: 14px; padding-left: 18px; border-left: 1px solid var(--line); }
+  .edges { display: none; }
+  .hub { aspect-ratio: auto; border-radius: 8px; justify-items: start; text-align: left; }
+  .mod-base { justify-self: stretch; width: auto; }
+  .mod::before, .hub::before { content: ""; position: absolute; left: -19px; top: 24px; width: 18px; border-top: 1px solid var(--line); }
+  .mod.live::before { border-color: var(--or); }
+}
+@media (prefers-reduced-motion: reduce) { .mod { transition: none; } .edges circle { display: none; } }
+
 /* eu */
 .me-hero { display: grid; gap: 10px; }
 .me-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
@@ -205,6 +243,7 @@ footer { color: var(--dim); font-size: 11px; }
     <div class="brand">Estúdio Escher<i>.</i></div>
   </header>
   <nav class="tabs" role="tablist" aria-label="Seções do estúdio">
+    <button role="tab" id="t-mapa" data-v="mapa">Mapa</button>
     <button role="tab" id="t-eu" data-v="eu">Eu</button>
     <button role="tab" id="t-producao" data-v="producao"><span class="live" id="tablive"></span>Produção</button>
     <button role="tab" id="t-arsenal" data-v="arsenal">Arsenal <span class="badge" id="narsenal"></span></button>
@@ -213,6 +252,21 @@ footer { color: var(--dim); font-size: 11px; }
     <button role="tab" id="t-voz" data-v="voz">Voz</button>
     <button role="tab" id="t-padrao" data-v="padrao">Padrão</button>
   </nav>
+
+  <div class="view" id="v-mapa" role="tabpanel" aria-labelledby="t-mapa" hidden>
+    <header style="display:grid;gap:8px"><div class="eyebrow livep"><span class="dot" id="mapdot"></span><span id="mapstate">O ecossistema inteiro, ao vivo</span></div><h1>O ecossistema</h1><div class="sub">Cada bloco é um módulo trabalhando. Toque num bloco para abrir.</div></header>
+    <div class="map" id="map">
+      <svg class="edges" id="edges" aria-hidden="true"></svg>
+      <div class="hub" id="hub" style="grid-area: hub"></div>
+      <button class="mod" type="button" data-go="eu" id="m-eu" style="grid-area: eu"></button>
+      <button class="mod" type="button" data-go="producao" id="m-producao" style="grid-area: producao"></button>
+      <button class="mod" type="button" data-go="arsenal" id="m-arsenal" style="grid-area: arsenal"></button>
+      <button class="mod" type="button" data-go="filmes" id="m-filmes" style="grid-area: filmes"></button>
+      <button class="mod" type="button" data-go="ideias" id="m-ideias" style="grid-area: ideias"></button>
+      <button class="mod" type="button" data-go="voz" id="m-voz" style="grid-area: voz"></button>
+      <button class="mod mod-base" type="button" data-go="padrao" id="m-padrao" style="grid-area: padrao"></button>
+    </div>
+  </div>
 
   <div class="view" id="v-eu" role="tabpanel" aria-labelledby="t-eu" hidden>
     <header class="me-hero">
@@ -409,13 +463,14 @@ const $ = (id) => document.getElementById(id);
 const esc = (v) => String(v ?? '').replace(/[&<>"]/g, (c) => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c]));
 const fmtT = (s) => { s = Math.max(0, +s || 0); const m = Math.floor(s / 60), r = s - m * 60; return m + ':' + r.toFixed(1).padStart(4, '0'); };
 const mmss = (s) => `${Math.floor(s / 60)}:${String(Math.round(s % 60)).padStart(2, '0')}`;
-const VIEWS = ['eu', 'producao', 'arsenal', 'filmes', 'ideias', 'voz', 'padrao'];
+const VIEWS = ['mapa', 'eu', 'producao', 'arsenal', 'filmes', 'ideias', 'voz', 'padrao'];
 let db = null, owner = false;
 
 // ---------- abas (cada aba tem link próprio: #filmes, #ideias, #voz…)
 function show(v) {
-  if (!VIEWS.includes(v)) v = 'eu';
+  if (!VIEWS.includes(v)) v = 'mapa';
   VIEWS.forEach((k) => { $('v-' + k).hidden = k !== v; $('t-' + k).setAttribute('aria-selected', String(k === v)); });
+  if (v === 'mapa') requestAnimationFrame(() => scheduleMap());
   try { if (location.hash !== '#' + v) history.replaceState(null, '', '#' + v); } catch (e) {}
 }
 document.querySelectorAll('.tabs button').forEach((b) => b.addEventListener('click', () => show(b.dataset.v)));
@@ -424,6 +479,7 @@ show((location.hash || '').slice(1));
 // ---------- produção (espelho do render)
 let sel = null, last = null;
 function renderMirror(d) {
+  scheduleMap();
   last = d;
   $('ep').textContent = d.ep || 'Espelho do Render';
   $('epsub').textContent = d.sub || '';
@@ -474,6 +530,7 @@ function pick(i) { sel = sel === i ? null : i; if (last) renderMirror(last); con
 // ---------- filmes
 let videos = [];
 function renderFilms() {
+  scheduleMap();
   const done = videos.filter((v) => v.serie !== 'Testes');
   $('nfilms').textContent = done.length || '';
   $('stats').innerHTML = `<span><b>${done.length}</b>filmes</span><span><b>${(done.reduce((m, v) => m + (v.duracao || 0), 0) / 60).toFixed(0)}</b>min de tela</span>`;
@@ -506,6 +563,7 @@ const SL = Object.fromEntries(STATUS);
 let ideas = [], filter = 'todas', fmt = 'todos';
 try { filter = localStorage.getItem('estudio.filtro') || 'todas'; } catch (e) {}
 function renderIdeas() {
+  scheduleMap();
   $('nideas').textContent = ideas.length || '';
   const counts = Object.fromEntries(STATUS.map(([k]) => [k, ideas.filter((i) => (i.status || 'ideia') === k).length]));
   const opts = [['todas', `Todas · ${ideas.length}`], ...STATUS.filter(([k]) => counts[k]).map(([k, l]) => [k, `${l} · ${counts[k]}`])];
@@ -541,10 +599,86 @@ function renderIdeas() {
   }));
 }
 
+// ---------- mapa: o ecossistema inteiro, cada módulo com o seu progresso, ao vivo
+const pct = (a, b) => (b ? Math.round((a / b) * 100) : 0);
+const bar = (p) => `<div class="mbar"><i style="width:${Math.max(0, Math.min(100, p))}%"></i></div>`;
+const sub = (l, v, p) => `<div class="sub2"><span>${esc(l)}</span><b>${esc(v)}</b>${p == null ? '' : bar(p)}</div>`;
+function card(id, nome, val, cap, p, subs, live) {
+  const el = $('m-' + id);
+  el.classList.toggle('live', !!live);
+  el.setAttribute('aria-label', `Abrir ${nome}`);
+  el.innerHTML = `<div class="top"><span class="nm">${live ? '<span class="dot on"></span>' : ''}${esc(nome)}</span><span class="val">${val}</span></div>
+    ${cap ? `<span class="cap">${esc(cap)}</span>` : ''}${p == null ? '' : bar(p)}
+    ${subs.length ? `<div class="subs">${subs.join('')}</div>` : ''}<span class="go">Abrir →</span>`;
+}
+let mapQueued = false;
+function scheduleMap() { if (mapQueued) return; mapQueued = true; requestAnimationFrame(() => { mapQueued = false; renderMap(); }); }
+function renderMap() {
+  if ($('v-mapa').hidden) return;
+  const running = last && (last.stages || []).some((s) => s.state === 'run');
+  const prodP = Math.round(last?.overall ?? 0), f = last?.frames || {};
+  // eu
+  const provas = me?.provas || [], conf = provas.filter((p) => p.confirmado).length, qse = takes.filter((t) => t.grupo === 'quem-sou-eu').length;
+  card('eu', 'Eu', `${pct(conf, provas.length)}<small>%</small>`, me ? me.titulo : 'A central da sua história', pct(conf, provas.length),
+    [sub('Provas confirmadas', `${conf}/${provas.length}`), sub('Marcos da história', String((me?.marcos || []).length)), sub('Conceitos', String((me?.conceitos || []).length)), sub('Vozes do quem sou eu', String(qse))]);
+  // produção
+  card('producao', 'Produção', `${prodP}<small>%</small>`, last ? `${last.ep || ''} · ${last.stage || ''}` : 'Nenhum render ainda', prodP,
+    [...(last?.stages || []).filter((s) => s.state !== 'wait').slice(-3).map((s) => sub(s.label, s.state === 'done' ? 'pronto' : 'agora')), ...(f.total ? [sub('Quadros', `${(f.done || 0).toLocaleString('pt-BR')} / ${f.total.toLocaleString('pt-BR')}`, pct(f.done || 0, f.total))] : [])], running);
+  // arsenal
+  const aDone = arsenal.filter((a) => a.status === 'pronto').length, aDoing = arsenal.filter((a) => a.status === 'fazendo').length;
+  const fases = [...new Set(arsenal.map((a) => a.fase))];
+  card('arsenal', 'Arsenal', `${pct(aDone, arsenal.length)}<small>%</small>`, `${aDone} de ${arsenal.length} prontos${aDoing ? ` · ${aDoing} em andamento` : ''}`, pct(aDone, arsenal.length),
+    fases.map((fz) => { const it = arsenal.filter((a) => a.fase === fz), d = it.filter((a) => a.status === 'pronto').length; return sub(fz.replace(/^Fase \d · /, ''), `${d}/${it.length}`, pct(d, it.length)); }), aDoing > 0);
+  // filmes
+  const done = videos.filter((v) => v.serie !== 'Testes'), mins = done.reduce((m, v) => m + (v.duracao || 0), 0) / 60;
+  card('filmes', 'Filmes', String(done.length), `${mins.toFixed(0)} min de tela`, null,
+    [...new Set(videos.map((v) => v.serie))].map((s) => sub(s, String(videos.filter((v) => v.serie === s).length))));
+  // ideias
+  const st = (k) => ideas.filter((i) => (i.status || 'ideia') === k).length, feitas = st('feita');
+  card('ideias', 'Ideias', `${pct(feitas, ideas.length)}<small>%</small>`, `${feitas} de ${ideas.length} viraram vídeo`, pct(feitas, ideas.length),
+    [sub('Escolhidas', String(st('escolhida'))), sub('Em produção', String(st('producao'))), sub('Feitas', String(feitas)), sub('Formatos', String(new Set(ideas.map((i) => i.formato).filter(Boolean)).size))], st('producao') > 0);
+  // voz
+  card('voz', 'Voz', voz.chave_conectada ? 'ON' : 'OFF', voz.chave_conectada ? 'ElevenLabs conectada' : 'Chave não conectada', null,
+    [sub('Vozes geradas', String(takes.length)), sub('Expressões liberadas', String((expr.aprovadas || []).length)), sub('Vetadas', String((expr.vetadas || []).length)), sub('Modelo', voz.modelo || '—')]);
+  // padrão
+  card('padrao', 'Padrão', '7', 'regras que todo filme cumpre: a base de tudo', null, []);
+  // hub
+  const parts = [pct(conf, provas.length), pct(aDone, arsenal.length), pct(feitas, ideas.length)];
+  const geral = Math.round(parts.reduce((a, b) => a + b, 0) / parts.length);
+  const ativos = [running, aDoing > 0, st('producao') > 0].filter(Boolean).length;
+  $('hub').innerHTML = `<span class="s">Ecossistema</span><span class="n">Yohann Escher</span><span class="p">${geral}%</span><span class="s">do pré-lançamento</span><span class="s" style="color:var(--${ativos ? 'or' : 'dim'})">${ativos ? `${ativos} módulo${ativos > 1 ? 's' : ''} trabalhando agora` : 'tudo em espera'}</span>`;
+  $('mapdot').className = 'dot' + (ativos ? ' on' : '');
+  $('mapstate').textContent = running ? `Ao vivo · renderizando ${last.ep || ''}` : 'O ecossistema inteiro, ao vivo';
+  drawEdges();
+}
+function drawEdges() {
+  const svg = $('edges'), map = $('map');
+  if (getComputedStyle(svg).display === 'none') { svg.innerHTML = ''; return; }
+  const R = map.getBoundingClientRect(), H = $('hub').getBoundingClientRect();
+  const hx = H.left + H.width / 2 - R.left, hy = H.top + H.height / 2 - R.top, hr = H.width / 2;
+  const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  svg.setAttribute('viewBox', `0 0 ${R.width} ${R.height}`);
+  svg.innerHTML = [...map.querySelectorAll('.mod')].map((m, i) => {
+    const B = m.getBoundingClientRect();
+    const cx = B.left + B.width / 2 - R.left, cy = B.top + B.height / 2 - R.top;
+    let x2, y2;
+    if (B.top - R.top > hy + hr - 4) { x2 = cx; y2 = B.top - R.top; } else { x2 = cx < hx ? B.right - R.left : B.left - R.left; y2 = Math.min(Math.max(hy, B.top - R.top + 24), B.bottom - R.top - 24); }
+    const ang = Math.atan2(y2 - hy, x2 - hx), x1 = hx + Math.cos(ang) * hr, y1 = hy + Math.sin(ang) * hr;
+    const mx = (x1 + x2) / 2;
+    const d = Math.abs(y2 - hy) > hr && Math.abs(x2 - hx) < 40 ? `M${x1} ${y1} L${x2} ${y2}` : `M${x1} ${y1} C${mx} ${y1}, ${mx} ${y2}, ${x2} ${y2}`;
+    const live = m.classList.contains('live'), dur = live ? 1.6 : 5 + (i % 3);
+    const dots = calm ? '' : [0, 0.5].map((o) => `<circle r="${live ? 3 : 2}" opacity="${live ? 1 : 0.55}"><animateMotion dur="${dur}s" begin="${(-o * dur).toFixed(2)}s" repeatCount="indefinite" path="${d}"/></circle>`).join('');
+    return `<path d="${d}" class="${live ? 'on' : ''}"/>${dots}`;
+  }).join('');
+}
+document.querySelectorAll('.mod').forEach((m) => m.addEventListener('click', () => show(m.dataset.go)));
+try { new ResizeObserver(() => scheduleMap()).observe($('map')); } catch (e) { addEventListener('resize', scheduleMap); }
+
 // ---------- eu (a central do Yohann: história, provas, conceitos, projetos e limites)
 let me = null;
 const li = (arr) => (arr || []).map((x) => `<li>${esc(x)}</li>`).join('');
 function renderMe() {
+  scheduleMap();
   if (!me) return;
   $('me-nome').textContent = me.nome || 'Yohann Escher';
   $('me-titulo').textContent = me.titulo || '';
@@ -579,6 +713,7 @@ function renderMeTakes() {
 const AST = [['fazer', 'A fazer'], ['fazendo', 'Fazendo'], ['pronto', 'Pronto']];
 let arsenal = [];
 function renderArsenal() {
+  scheduleMap();
   const done = arsenal.filter((a) => a.status === 'pronto').length;
   $('narsenal').textContent = arsenal.length ? `${done}/${arsenal.length}` : '';
   if (!arsenal.length) { $('arsenal').innerHTML = '<div class="empty">Nenhum item no checklist ainda.</div>'; return; }
@@ -621,6 +756,7 @@ $('delkey').addEventListener('click', async () => {
   try { await keyRef.delete(); $('keymsg').textContent = 'Chave apagada.'; } catch (err) { $('keymsg').textContent = 'Não deu para apagar agora. Tente de novo em instantes.'; }
 });
 function renderVoz() {
+  scheduleMap();
   if (document.activeElement !== $('vozid')) $('vozid').value = voz.voz_id || '';
   $('modelo').value = voz.modelo || 'eleven_v3';
   $('lasttest').textContent = voz.chave_conectada ? `funcionando · testada ${voz.ultimo_teste || ''}` : (voz.ultimo_teste ? `falhou no teste de ${voz.ultimo_teste}` : 'ainda não testada');
@@ -645,6 +781,7 @@ $('savevoz').addEventListener('click', async () => {
 });
 let takes = [];
 function renderTakes() {
+  scheduleMap();
   $('takes').innerHTML = takes.length ? takes.map((t) => `<div class="take"><span class="eyebrow">${esc(t.data || '')}${t.modelo ? ' · ' + esc(t.modelo) : ''}</span><span class="tt">${esc(t.titulo)}</span>${t.audio ? `<audio controls preload="none" src="${esc(t.audio)}"></audio>` : ''}${t.texto ? `<details><summary>Roteiro com expressões</summary><p class="tx">${esc(t.texto)}</p></details>` : ''}</div>`).join('')
     : '<div class="empty">Cada voz gerada aparece aqui para você ouvir e aprovar antes de virar vídeo.</div>';
 }
