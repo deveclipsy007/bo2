@@ -5,3 +5,6 @@ out/
 node_modules/
 public/eco/
 __pycache__/
+
+# cenas de filmes/séries (direitos de terceiros): ficam fora do repositório
+public/cine/

@@ -21,6 +21,7 @@ import {MelhorFuncionario} from './films/eco/Film7';
 import {DURATION as MDUR7} from './films/eco/time7';
 import {ConhecimentoAcabou} from './films/eco/Film8';
 import {DURATION as CDUR8} from './films/eco/time8';
+import {CinemaTeste, CINE_TESTE_DUR} from './films/cine/CinemaTeste';
 
 export const RemotionRoot: React.FC = () => (
   <>
@@ -36,5 +37,7 @@ export const RemotionRoot: React.FC = () => (
     <Composition id="Lugar-Errado" component={LugarErrado} durationInFrames={LDUR} fps={60} width={1080} height={1920} defaultProps={{audio: 'mix' as const}} />
     <Composition id="Sem-Pensar" component={SemPensar} durationInFrames={SDUR} fps={60} width={1080} height={1920} defaultProps={{audio: 'mix' as const}} />
     <Composition id="Centauros" component={Centauros} durationInFrames={CDUR} fps={60} width={1080} height={1920} defaultProps={{audio: 'mix' as const}} />
+    <Composition id="Cinema-Teste" component={CinemaTeste} durationInFrames={CINE_TESTE_DUR} fps={60} width={1920} height={1080} defaultProps={{audio: 'mix' as const}} />
+    <Composition id="Cinema-Teste-V" component={CinemaTeste} durationInFrames={CINE_TESTE_DUR} fps={60} width={1080} height={1920} defaultProps={{audio: 'mix' as const}} />
   </>
 );
