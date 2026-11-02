@@ -4,6 +4,14 @@ O segundo estilo de vídeo do Yohann Escher, ao lado do Estilo Gravura. A narra�
 
 > Regra do diretor: a narração dita o ritmo, o significado escolhe a imagem e a emoção escolhe o movimento.
 
+## A pegada aprovada para seguir (v2, 02/11/2026)
+Depois do primeiro teste, o Yohann pediu menos zoom, cenas que representem exatamente a frase e a estrutura de motion do Estilo Gravura junto. O formato v2:
+- **Em cima:** a cena do filme quase parada (zoom de 1,00 a 1,04), com barras de cinema, crédito do título e uma régua laranja do tempo do plano.
+- **No meio:** a frase escrita à caneta, palavra por palavra no tempo da fala (Instrument Serif itálico), com a palavra-chave em Fraunces 900 laranja.
+- **Embaixo:** um diagrama FIG. que se desenha e explica a ideia (onda de volume riscada, prédio que sobe e atrai olhares, relógio que nunca chega, a rede construída por um ponto só). O diagrama de uma frase continua na seguinte quando a ideia continua.
+- **A ligação:** uma linha pontilhada com um ponto laranja leva da cena ao diagrama.
+- No 16:9 o filme fica à esquerda e o diagrama à direita; no 9:16, filme em cima e diagrama embaixo.
+
 ## Variações
 - **Motivação / filosofia**: contraste dramático, frases monumentais, pausas, trilha emocional.
 - **Tech / inteligência**: cards e interfaces em 3D, fluxos, sistemas.

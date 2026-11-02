@@ -22,6 +22,7 @@ import {DURATION as MDUR7} from './films/eco/time7';
 import {ConhecimentoAcabou} from './films/eco/Film8';
 import {DURATION as CDUR8} from './films/eco/time8';
 import {CinemaTeste, CINE_TESTE_DUR} from './films/cine/CinemaTeste';
+import {CinemaTeste2, CINE_TESTE2_DUR} from './films/cine/CinemaTeste2';
 
 export const RemotionRoot: React.FC = () => (
   <>
@@ -39,5 +40,7 @@ export const RemotionRoot: React.FC = () => (
     <Composition id="Centauros" component={Centauros} durationInFrames={CDUR} fps={60} width={1080} height={1920} defaultProps={{audio: 'mix' as const}} />
     <Composition id="Cinema-Teste" component={CinemaTeste} durationInFrames={CINE_TESTE_DUR} fps={60} width={1920} height={1080} defaultProps={{audio: 'mix' as const}} />
     <Composition id="Cinema-Teste-V" component={CinemaTeste} durationInFrames={CINE_TESTE_DUR} fps={60} width={1080} height={1920} defaultProps={{audio: 'mix' as const}} />
+    <Composition id="Cinema-Teste2" component={CinemaTeste2} durationInFrames={CINE_TESTE2_DUR} fps={60} width={1920} height={1080} defaultProps={{audio: 'mix' as const}} />
+    <Composition id="Cinema-Teste2-V" component={CinemaTeste2} durationInFrames={CINE_TESTE2_DUR} fps={60} width={1080} height={1920} defaultProps={{audio: 'mix' as const}} />
   </>
 );

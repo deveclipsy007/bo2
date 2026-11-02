@@ -6,7 +6,7 @@
 Sempre perguntar ao Yohann qual dos dois estilos o vídeo vai usar, antes de escrever roteiro visual ou cena:
 
 1. **Estilo Gravura** (o do Estúdio Escher, já aprovado): tinta, grafite, osso e um único laranja; gravuras de domínio público que se desenham sozinhas; Fraunces 900, Instrument Serif itálico, rótulos "FIG." em mono; cenas alternando papel e escuro; ponto laranja; final com o olho fechando ("Por enquanto… só observa.") e o logo.
-2. **Estilo Cinema** (novo, em construção): cenas de filmes e séries marcantes escolhidas pelo significado do que está sendo dito (poder, ambição, estratégia, tecnologia), com colagem cinematográfica, tipografia espacial em 3D (palavra atrás do personagem), cards 3D com perspectiva, legendas cinéticas e montagem rápida. Variações: motivação/filosofia, tech, negócios. A origem das imagens segue o caminho que o Yohann escolher (ver `motion/operon-5-motivos/ESTILO-CINEMA.md`).
+2. **Estilo Cinema** (novo, em construção; a união com o Gravura): em cima, a cena real de um filme ou série, quase parada e com zoom mínimo, escolhida pelo que a frase diz (nunca imagem genérica); no meio, a frase escrita à caneta no ritmo exato da voz, com a palavra-chave em Fraunces laranja; embaixo, um diagrama que se desenha (FIG.) e explica a ideia; uma linha liga a cena ao diagrama. Recursos de impacto usados com parcimônia: palavra atrás do personagem, punch com eco, montagem curta. Referência: `src/films/cine/CinemaTeste2.tsx`. A origem das imagens segue o caminho que o Yohann escolher (ver `motion/operon-5-motivos/ESTILO-CINEMA.md`).
 
 ### Regras de produção que valem para os dois estilos
 - Conferir espaço em disco antes de renderizar; limpar só caches temporários.
