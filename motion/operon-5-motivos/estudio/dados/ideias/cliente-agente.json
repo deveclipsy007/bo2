@@ -1,0 +1,21 @@
+{
+  "ancora": "Agentes de compra já pesquisam, comparam e começam a comprar em nome das pessoas. Morgan Stanley projeta de 10% a 20% do e-commerce americano feito por agentes até 2030.",
+  "ano": "2026",
+  "arco": "A pessoa pede \"acha o melhor fornecedor\" → o agente varre 200 empresas em segundos → compara preço, prazo, avaliação → escolhe → a sua empresa nem foi vista → por quê? Dados bagunçados, sem catálogo legível → como vender para agentes.",
+  "area": "Vendas",
+  "fecho": "Se a máquina não entende a sua empresa, o cliente dela nunca vai te conhecer.",
+  "formato": "Atualidade",
+  "gancho": "O seu próximo cliente não vai ser uma pessoa. Vai ser o agente de inteligência artificial dela. E ele não liga para o seu Instagram.",
+  "humor": "O vendedor caprichando no \"bom dia, tudo bem?\" para um robô que só quer o preço.",
+  "imagens": "Vitrines antigas em gravura sendo \"lidas\" por linhas de varredura.",
+  "ordem": 21,
+  "periodo": "16 – 22 nov",
+  "porque": "Futuro que já começou, com números e notícia de outubro: bancos detectando agentes nas contas dos clientes.",
+  "prova": "De 10% a 20% do e-commerce dos EUA até 2030 (Morgan Stanley). Pedidos indicados por IA na Shopify cresceram cerca de 13 vezes em um ano.",
+  "recomendada": true,
+  "semana": 4,
+  "status": "ideia",
+  "tecnico": "Ficar legível para agentes: catálogo estruturado, preço claro, prazos e respostas em formato que máquina lê.",
+  "titulo": "Seu próximo cliente não vai ser uma pessoa",
+  "verificar": "https://morganstanley.com/insights/articles/agentic-commerce-market-impact-outlook e https://www.cbsnews.com/news/ai-agents-customer-bank-accounts-security/"
+}

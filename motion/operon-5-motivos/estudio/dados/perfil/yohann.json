@@ -1,0 +1,184 @@
+{
+  "atualizado": "26/10/2026",
+  "bios": [
+    {
+      "onde": "Instagram e YouTube",
+      "texto": "Arquiteto de ecossistemas de IA. Construo empresas que funcionam sem depender do dono. Menos improviso, mais sistema."
+    },
+    {
+      "onde": "Site e apresentações",
+      "texto": "Yohann Escher constrói ecossistemas de agentes de inteligência artificial: sistemas em que cada departamento de uma empresa tem inteligência própria e todos trabalham conectados. Programador desde os 11 anos, passou pela biologia, pela análise de sistemas e pelo dropshipping antes de desenvolver mais de 30 softwares. Fundador da Operon."
+    },
+    {
+      "onde": "Uma linha (podcast, palco)",
+      "texto": "Yohann Escher, o cara que transforma empresas em ecossistemas vivos de inteligência artificial."
+    }
+  ],
+  "conceitos": [
+    {
+      "frase": "Uma empresa funciona como um organismo, não como peças soltas.",
+      "nome": "Ecossistema vivo",
+      "texto": "Agentes de IA em cada departamento, conectados, com memória e critério. A empresa lembra, decide e executa sem depender do dono para cada passo."
+    },
+    {
+      "frase": "Tudo que passa pelo computador é dado.",
+      "nome": "A virada",
+      "texto": "O que é dado, a gente automatiza. O que é automatizado, a gente sistematiza. Com IA, o sistema ganha vida."
+    },
+    {
+      "frase": "A IA é um motor de Fórmula 1. O ecossistema é o carro inteiro.",
+      "nome": "O motor e o carro",
+      "texto": "Potência sem estrutura não vira desempenho. O valor está em processos, contexto, ferramentas, critérios, pessoas e acompanhamento."
+    },
+    {
+      "frase": "Uma operação inteira presa na cabeça de uma pessoa.",
+      "nome": "A empresa presa no dono",
+      "texto": "Ferramentas para todo lado, nenhuma conversando. O dono como memória, gargalo e aprovador de tudo."
+    },
+    {
+      "frase": "Escala, tem várias formas de lucrar e não prende o dono.",
+      "nome": "Ecossistema dá mais lucro",
+      "texto": "Por isso a meta é uma holding de fontes de renda que se retroalimentam, não um negócio único."
+    },
+    {
+      "frase": "Demo bonita chama atenção. Eu quero ver funcionar numa terça-feira.",
+      "nome": "Funcionar numa terça-feira",
+      "texto": "Contra a superficialidade: quem usa, que problema resolve, quanto custa manter, o que acontece quando erra."
+    }
+  ],
+  "diferencial": [
+    "Veio antes da IA: automação e ecossistemas digitais que já vendiam sozinhos.",
+    "Junta negócio, criação e construção técnica na mesma cabeça: o que vender, como apresentar, como funciona por dentro e quanto custa entregar.",
+    "Mostra a construção por dentro: mapa, interface, fluxo e o problema que resolve.",
+    "Os próprios vídeos são a prova: feitos por um ecossistema de agentes."
+  ],
+  "frase": "Menos improviso. Mais sistematização.",
+  "frases": [
+    "Menos improviso. Mais sistematização.",
+    "A IA é um motor de Fórmula 1. O ecossistema é o carro inteiro.",
+    "Demo bonita chama atenção. Eu quero ver funcionar numa terça-feira.",
+    "Você não controla Brasília. Você controla a sua operação.",
+    "Tudo que passa pelo computador é dado. E todo dado pode ganhar vida."
+  ],
+  "irrita": [
+    "A banalização da informação: o povo sabe de tudo e não aplica nada.",
+    "Superficialidade vendida como domínio: aprende uma ferramenta e já promete o mundo.",
+    "A promessa de dinheiro fácil. Construir exige critério, venda, entrega e consistência."
+  ],
+  "marcos": [
+    {
+      "quando": "Aos 11 anos",
+      "texto": "Nasceu na frente de um computador. Sempre quis saber o que existia por baixo da tela: o código, a estrutura, a parte do iceberg que ninguém vê.",
+      "titulo": "Informática e curiosidade por código"
+    },
+    {
+      "quando": "Faculdade",
+      "texto": "Entrou sem saber o que queria e ficou com o que importa: um organismo não funciona por peças soltas, funciona como um ecossistema. Daí nascem os ecossistemas vivos.",
+      "titulo": "Nutrição: a biologia dos sistemas vivos"
+    },
+    {
+      "quando": "Depois",
+      "texto": "A volta para a estrutura: pesquisa, implementação e automação.",
+      "titulo": "Análise e Desenvolvimento de Sistemas"
+    },
+    {
+      "quando": "2020 – 2021",
+      "texto": "Loja, tráfego pago, copy, site e automação. Entendeu como o dinheiro anda na internet, faturou milhões e saiu pela margem e pela dor de cabeça. Ainda é uma fonte de renda possível.",
+      "titulo": "Dropshipping: a escola de verdade"
+    },
+    {
+      "quando": "O boom da IA",
+      "texto": "Já construía ecossistemas digitais que vendiam sozinhos. Com a IA, o sistema ganhou inteligência: softwares personalizados e agênticos, multiagentes, ecossistemas.",
+      "titulo": "Da automação aos multiagentes"
+    },
+    {
+      "quando": "Até hoje",
+      "texto": "Mais de meio milhão de reais vendidos em software, além dos sistemas próprios.",
+      "titulo": "Mais de 30 softwares para empresas"
+    },
+    {
+      "fase": "now",
+      "quando": "Hoje",
+      "texto": "Fundador da Operon. Ecossistemas vivos de agentes em cada departamento. A série em motion, o canal no YouTube e a mentoria (data a definir).",
+      "titulo": "Operon, a série e o canal"
+    },
+    {
+      "fase": "next",
+      "quando": "Em 3 anos",
+      "texto": "Mais de 10 fontes de renda que se retroalimentam e crescem em valor, com produtos próprios e receita recorrente.",
+      "titulo": "Uma holding de tecnologia"
+    }
+  ],
+  "nome": "Yohann Escher",
+  "nunca": [
+    "Guru de IA ou fórmula mágica para ganhar dinheiro.",
+    "Resultado garantido ou número inflado.",
+    "Protótipo contado como coisa pronta.",
+    "Reduzir o trabalho a ferramentas ou prompts.",
+    "Jargão técnico só para parecer importante.",
+    "A LBA junto com a Operon; cliente sem autorização."
+  ],
+  "objetivo": "Uma holding de tecnologia com mais de 10 fontes de renda que se retroalimentam, produtos próprios e receita recorrente. Liberdade para escolher projetos e uma estrutura que não depende de cada hora da agenda.",
+  "pode": [
+    "Ambição e vontade de fazer coisa grande.",
+    "Confiança e senso crítico.",
+    "O processo real: construir, testar, mudar de ideia, ajustar.",
+    "Números próprios, depois de confirmados."
+  ],
+  "projetos": [
+    {
+      "nome": "Operon",
+      "status": "no ar",
+      "texto": "Estrutura a operação das empresas conectando processos, pessoas, conhecimento, software e IA. Porta de entrada: o Diagnóstico Operacional.",
+      "tipo": "Empresa"
+    },
+    {
+      "nome": "Mais de 30 softwares",
+      "status": "no ar",
+      "texto": "Sistemas sob medida para empresas, mais de meio milhão de reais vendidos.",
+      "tipo": "Clientes"
+    },
+    {
+      "nome": "Marta",
+      "status": "protótipo",
+      "texto": "Assistente comercial com voz e presença visual, aplicada em briefing e proposta.",
+      "tipo": "Personagem e assistente"
+    },
+    {
+      "nome": "Cidade 3D da Operon",
+      "status": "protótipo",
+      "texto": "A empresa como uma cidade navegável: departamentos como prédios, agentes nos ambientes. Próximo passo: ligar aos dados reais.",
+      "tipo": "Experiência"
+    },
+    {
+      "nome": "Série Ecossistemas vivos",
+      "status": "no ar",
+      "texto": "Vídeos em motion produzidos por um ecossistema de agentes, com a voz clonada do Yohann.",
+      "tipo": "Conteúdo"
+    }
+  ],
+  "provas": [
+    {
+      "confirmado": true,
+      "numero": "11 anos",
+      "rotulo": "a idade em que começou na informática"
+    },
+    {
+      "confirmado": false,
+      "numero": "30+",
+      "rotulo": "softwares desenvolvidos para clientes, sem contar os próprios"
+    },
+    {
+      "confirmado": false,
+      "numero": "R$ 500 mil+",
+      "rotulo": "vendidos em software (entre 500 e 600 mil)"
+    },
+    {
+      "confirmado": false,
+      "numero": "Milhões",
+      "rotulo": "faturados no dropshipping, entre 2020 e 2021"
+    }
+  ],
+  "publico": "Empresários e donos de negócios de serviço que querem usar IA para mudar como trabalham, entregam e crescem. Gente que já tem potencial, mas sente que tudo depende do próprio esforço.",
+  "titulo": "Arquiteto de ecossistemas de inteligência artificial. Fundador da Operon."
+}

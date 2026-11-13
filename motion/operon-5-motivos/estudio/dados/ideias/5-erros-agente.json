@@ -1,0 +1,21 @@
+{
+  "ancora": "A pesquisa da Sinch mostra adoção alta e muita reversão. O motivo é quase sempre de desenho, não de tecnologia.",
+  "ano": "agora",
+  "arco": "1. Sem contexto: o agente não sabe nada da empresa. 2. Sem memória: esquece o cliente de ontem. 3. Sem limite: decide coisa que não devia. 4. Sem revisão: ninguém confere a saída. 5. Sem número: ninguém sabe se ele dá resultado.",
+  "area": "Tecnologia",
+  "fecho": "O agente não falhou. Faltou desenhar o trabalho dele.",
+  "formato": "Lista de 5",
+  "gancho": "Oitenta por cento das empresas brasileiras já tiveram que desligar um agente. Quase sempre por um desses cinco erros.",
+  "humor": "\"Erro 3: o agente deu 70% de desconto para o cliente que pediu com educação.\"",
+  "imagens": "Cinco pranchas de \"acidentes\" no estilo de manual antigo de segurança.",
+  "ordem": 9,
+  "periodo": "2 – 8 nov",
+  "porque": "Educativo e agressivo: o empresário aprende a não queimar dinheiro e reconhece o próprio erro.",
+  "prova": "80% já interromperam ou reverteram alguma implementação (Sinch, 2026).",
+  "recomendada": false,
+  "semana": 2,
+  "status": "ideia",
+  "tecnico": "Para cada erro, a correção técnica: base de conhecimento, memória, permissões, revisor automático e painel.",
+  "titulo": "5 erros que fazem o seu agente passar vergonha",
+  "verificar": "https://canalexecutivoblog.wordpress.com/2026/09/04/no-brasil-76-das-empresas-ja-operam-agentes-de-ia/"
+}

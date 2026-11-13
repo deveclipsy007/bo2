@@ -1,0 +1,21 @@
+{
+  "ancora": "C. Northcote Parkinson (1955): \"O trabalho se expande até ocupar todo o tempo disponível.\"",
+  "ano": "1914–1928 · Londres",
+  "arco": "O porto cheio de navios → os navios somem → o prédio do almirantado ganha andares → a lei de Parkinson → a sua empresa: reunião sobre reunião → agentes não inventam trabalho para parecer ocupados.",
+  "area": "Escala",
+  "fecho": "Gente faz trabalho para gente. Agente faz trabalho para cliente.",
+  "formato": "História",
+  "gancho": "Entre 1914 e 1928, a Marinha britânica perdeu dois terços dos navios. E ganhou 78% mais funcionários de escritório.",
+  "humor": "Um almirante sem navio carimbando o ofício sobre o próximo ofício.",
+  "imagens": "Gravuras de navios de guerra britânicos e de escritórios do almirantado.",
+  "ordem": 11,
+  "periodo": "2 – 8 nov",
+  "porque": "Escancara a burocracia que cresce sozinha em qualquer empresa, com números oficiais e humor britânico.",
+  "prova": "Navios de guerra: de 62 para 20. Funcionários do almirantado: de cerca de 2.000 para 3.569.",
+  "recomendada": false,
+  "semana": 2,
+  "status": "ideia",
+  "tecnico": "Medir trabalho por entrega: cada agente tem uma saída mensurável; o que não gera saída é desligado.",
+  "titulo": "A Marinha sem navios",
+  "verificar": "Números do ensaio de Parkinson (The Economist, 1955)."
+}

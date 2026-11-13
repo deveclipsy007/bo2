@@ -1,0 +1,22 @@
+{
+  "ativo": false,
+  "atualizado": "2026-11-02T11:51:32.335601+00:00",
+  "etapas": [
+    {
+      "label": "Roteiro",
+      "state": "done"
+    },
+    {
+      "label": "Storyboard",
+      "state": "done"
+    },
+    {
+      "label": "Cenas escolhidas",
+      "state": "done"
+    }
+  ],
+  "linhas": [],
+  "log": [],
+  "progresso": 100,
+  "titulo": "Roteiro e storyboard: teste do Estilo Cinema"
+}

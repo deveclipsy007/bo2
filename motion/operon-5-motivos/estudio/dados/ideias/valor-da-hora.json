@@ -1,0 +1,21 @@
+{
+  "ancora": "Faturamento dividido pelas horas do dono dá o valor real da hora dele. A maioria das tarefas do dia vale uma fração disso.",
+  "ano": "agora",
+  "arco": "R$ 100.000 ÷ 220 horas = R$ 454 por hora → a agenda real do dono → e-mail, cobrança, planilha, revisão → cada tarefa com o valor de mercado → o prejuízo invisível → o que um agente tira da sua agenda.",
+  "area": "Gestão",
+  "fecho": "Você não é caro demais para a sua empresa. Está sendo usado errado por ela.",
+  "formato": "A conta",
+  "gancho": "Se a sua empresa fatura cem mil por mês, a sua hora vale mais de quatrocentos reais. E você gasta metade dela em tarefa de trinta.",
+  "humor": "O dono de R$ 454 a hora passando 40 minutos procurando um boleto.",
+  "imagens": "Relógio de bolso em gravura, moedas, livro-caixa.",
+  "ordem": 23,
+  "periodo": "16 – 22 nov",
+  "porque": "A conta mais pessoal de todas: o dono percebe que é o funcionário mais caro fazendo trabalho barato.",
+  "prova": "R$ 454/h contra tarefas que valem R$ 30/h no mercado.",
+  "recomendada": false,
+  "semana": 4,
+  "status": "ideia",
+  "tecnico": "Auditoria de agenda: classificar a semana em \"só eu\", \"agente faz\" e \"agente faz e eu reviso\".",
+  "titulo": "Quanto vale a sua hora",
+  "verificar": "Valores ilustrativos: convidar a pessoa a fazer a própria conta."
+}

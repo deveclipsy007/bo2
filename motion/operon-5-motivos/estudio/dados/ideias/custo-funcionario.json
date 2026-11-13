@@ -1,0 +1,21 @@
+{
+  "ancora": "Encargos da CLT: INSS patronal, FGTS, férias com um terço, 13º, provisões e benefícios. O custo total costuma chegar perto do dobro do salário.",
+  "ano": "CLT 2026",
+  "arco": "O holerite de R$ 5.000 → cada encargo somando na tela → o número final → as horas reais do ano (férias, feriados, faltas) → o custo por hora real → o mesmo trabalho operacional em agentes → a diferença no fim do ano.",
+  "area": "Finanças",
+  "fecho": "Não é sobre demitir. É saber quanto custa cada coisa que a sua empresa faz.",
+  "formato": "A conta",
+  "gancho": "Um funcionário de cinco mil reais custa quase dez mil para você. E trabalha menos de 1.800 horas por ano.",
+  "humor": "O holerite crescendo na tela como massa de pão.",
+  "imagens": "Holerite e calculadora desenhados em código; gravuras de livros-caixa antigos.",
+  "ordem": 3,
+  "periodo": "26 out – 1 nov",
+  "porque": "O empresário conhece o salário, mas raramente faz a conta inteira na frente de alguém. O choque é o número.",
+  "prova": "Salário de R$ 5.000, custo total perto de R$ 9.000 a R$ 10.000 por mês. Cerca de 1.760 horas trabalhadas por ano.",
+  "recomendada": false,
+  "semana": 1,
+  "status": "ideia",
+  "tecnico": "Custo por tarefa: dividir a folha pelas entregas do mês e comparar com o custo do agente por entrega.",
+  "titulo": "Um funcionário de 5 mil custa quase 10",
+  "verificar": "Percentuais atuais de encargos (Simples × Lucro Presumido mudam a conta): mostrar como faixa."
+}

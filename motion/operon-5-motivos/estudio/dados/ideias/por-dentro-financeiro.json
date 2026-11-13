@@ -1,0 +1,21 @@
+{
+  "ancora": "Conciliação, contas a pagar e receber e alerta de risco feitos de madrugada.",
+  "ano": "agora",
+  "arco": "O relógio marcando 5h → o agente lê o extrato → cruza com notas e contratos → aponta o que não bate → calcula o caixa de 30 dias → manda 3 linhas e um alerta → às 6h, o dono já sabe tudo.",
+  "area": "Finanças",
+  "fecho": "Quem fecha o caixa todo dia nunca é pego de surpresa.",
+  "formato": "Por dentro",
+  "gancho": "Todo dia, às seis da manhã, um agente fecha o caixa da empresa e me manda uma mensagem. Eu vou te mostrar como ele funciona.",
+  "humor": "\"Alerta das 6h: o seu sócio pagou um almoço de R$ 900 no cartão da empresa.\"",
+  "imagens": "Livro-caixa antigo e relógio de parede em gravura.",
+  "ordem": 43,
+  "periodo": "7 – 13 dez",
+  "porque": "Bastidor técnico na área que mais dói: financeiro. Mostra ecossistema fora do atendimento.",
+  "prova": "De dias de fechamento mensal para minutos por dia.",
+  "recomendada": false,
+  "semana": 7,
+  "status": "ideia",
+  "tecnico": "As peças: leitura do banco, regras de conciliação, base de contratos, cálculo de projeção e mensagem.",
+  "titulo": "Por dentro: o agente que fecha o caixa às 6h",
+  "verificar": "Mostrar só dados fictícios na tela."
+}

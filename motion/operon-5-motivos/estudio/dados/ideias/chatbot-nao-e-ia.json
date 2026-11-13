@@ -1,0 +1,21 @@
+{
+  "ancora": "A maioria das \"empresas com IA\" só pôs uma camada de resposta na frente. O trabalho de verdade continua igual lá dentro.",
+  "ano": "agora",
+  "arco": "O chatbot respondendo \"olá, como posso ajudar?\" → zoom para dentro da empresa: tudo igual, gente copiando planilha → a diferença: agente que faz, não que responde → os departamentos acendendo um a um → \"atendimento é a porta; o dinheiro está dentro de casa\".",
+  "area": "Estratégia",
+  "fecho": "Responder cliente é o mínimo. Trabalhar no lugar da sua operação é o jogo.",
+  "formato": "Contra a corrente",
+  "gancho": "Colocar um chatbot no WhatsApp e dizer que a sua empresa usa inteligência artificial é igual a comprar uma calculadora e dizer que tem um departamento financeiro.",
+  "humor": "O chatbot dizendo \"vou transferir para um atendente\" pela quinta vez.",
+  "imagens": "Interface de chat desenhada em código se desmontando, revelando a empresa por dentro.",
+  "ordem": 5,
+  "periodo": "26 out – 1 nov",
+  "porque": "Bate de frente no que todo mundo está vendendo e reposiciona: IA de verdade trabalha dentro da empresa, em todos os departamentos.",
+  "prova": "Segundo a pesquisa da AWS, só 6% das empresas brasileiras que usam IA implementaram agentes.",
+  "recomendada": false,
+  "semana": 1,
+  "status": "ideia",
+  "tecnico": "Chatbot responde. Agente executa: usa ferramentas, toma decisões dentro de limites e passa o trabalho adiante.",
+  "titulo": "Chatbot no WhatsApp não é IA na sua empresa",
+  "verificar": "Dado da AWS: https://convergenciadigital.com.br/mercado/doze-milhoes-de-empresas-usam-ia-no-brasil-mas-somente-6-ja-usam-agentes-ia/"
+}

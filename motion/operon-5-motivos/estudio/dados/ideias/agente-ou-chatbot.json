@@ -1,0 +1,21 @@
+{
+  "ancora": "O mercado chama tudo de agente. Existem critérios simples para separar.",
+  "ano": "agora",
+  "arco": "1. Ele faz alguma coisa sozinho ou só responde? 2. Ele usa as suas ferramentas (planilha, sistema, e-mail)? 3. Ele lembra o que aconteceu ontem? 4. Ele passa trabalho para outro agente? 5. Ele mostra quanto entregou, em número?",
+  "area": "Estratégia",
+  "fecho": "Agente faz. Chatbot conversa. Não pague por conversa.",
+  "formato": "Lista de 5",
+  "gancho": "Te venderam um \"agente de IA\"? Faz essas cinco perguntas. Se falhar em duas, te venderam um chatbot caro.",
+  "humor": "\"Pergunta 3: ele lembra de ontem? O meu ex não lembrava também.\"",
+  "imagens": "Uma ficha de inspeção antiga, carimbos de aprovado e reprovado.",
+  "ordem": 6,
+  "periodo": "26 out – 1 nov",
+  "porque": "Utilidade imediata e protege o empresário de golpe. Gera comentário e salvamento.",
+  "prova": "Pesquisa da Sinch: 80% das empresas brasileiras já interromperam ou reverteram alguma implementação de agentes.",
+  "recomendada": false,
+  "semana": 1,
+  "status": "ideia",
+  "tecnico": "Os cinco testes viram um checklist que o próprio agente precisa passar antes de ir para produção.",
+  "titulo": "5 perguntas para saber se te venderam um agente ou um chatbot",
+  "verificar": "Dado da Sinch: https://canalexecutivoblog.wordpress.com/2026/09/04/no-brasil-76-das-empresas-ja-operam-agentes-de-ia/"
+}

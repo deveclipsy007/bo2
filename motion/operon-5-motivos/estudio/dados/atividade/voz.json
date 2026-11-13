@@ -1,0 +1,26 @@
+{
+  "ativo": false,
+  "atualizado": "2026-11-02T11:51:32.380531+00:00",
+  "etapas": [
+    {
+      "label": "Roteiro",
+      "state": "done"
+    },
+    {
+      "label": "Expressões",
+      "state": "done"
+    },
+    {
+      "label": "Gerando na ElevenLabs",
+      "state": "done"
+    },
+    {
+      "label": "Conferência",
+      "state": "done"
+    }
+  ],
+  "linhas": [],
+  "log": [],
+  "progresso": 100,
+  "titulo": "Teste do Estilo Cinema · voz"
+}

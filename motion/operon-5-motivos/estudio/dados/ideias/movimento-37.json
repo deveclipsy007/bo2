@@ -1,0 +1,21 @@
+{
+  "ancora": "No jogo 2 contra Lee Sedol, o AlphaGo fez o movimento 37, chamado de erro pelos comentaristas. Era genial.",
+  "ano": "2016 · Seul",
+  "arco": "O tabuleiro → a sala lotada → o movimento 37 → \"erro\" → Lee Sedol sai da sala → a máquina vence → qual é o movimento 37 do seu mercado?",
+  "area": "Estratégia",
+  "fecho": "O seu concorrente não vai jogar melhor do que você. Vai jogar diferente.",
+  "formato": "História",
+  "gancho": "Em 2016, uma máquina fez uma jogada que nenhum humano faria em 2.500 anos de Go. Os mestres riram. Depois perderam.",
+  "humor": "O comentarista dizendo \"erro\" e apagando o tweet dez minutos depois.",
+  "imagens": "Xilogravuras japonesas de jogadores de Go (domínio público).",
+  "ordem": 46,
+  "periodo": "14 – 20 dez",
+  "porque": "O seu concorrente com agentes vai fazer jogadas que você nem considera.",
+  "prova": "Estimativa de 1 chance em 10 mil de um humano jogar aquilo.",
+  "recomendada": false,
+  "semana": 8,
+  "status": "ideia",
+  "tecnico": "Agentes de estratégia: simulam cenários e propõem jogadas fora do hábito do time.",
+  "titulo": "A jogada que nenhum humano faria",
+  "verificar": "A probabilidade estimada pelo próprio AlphaGo."
+}

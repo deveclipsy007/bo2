@@ -1,0 +1,21 @@
+{
+  "ancora": "O Turco Mecânico (1770) venceu Napoleão e Benjamin Franklin no xadrez. Por 84 anos ninguém provou a fraude: dentro do armário, um mestre movia os braços.",
+  "ano": "1770 · Viena",
+  "arco": "Napoleão derruba as peças → a plateia jura que é máquina → a gravura abre e mostra o homem escondido → \"a sua empresa é o Turco\" → as decisões que só você toma → o que precisa existir para você sair da caixa.",
+  "area": "Gestão",
+  "fecho": "A pergunta não é se a sua empresa é automática. É quem está dentro da caixa.",
+  "formato": "História",
+  "gancho": "A sua empresa \"automática\" tem um homem escondido dentro da caixa. E esse homem é você.",
+  "humor": "O operador segurando o espirro enquanto Napoleão encara o tabuleiro.",
+  "imagens": "Gravuras de Racknitz (1789) com o corte interno do operador.",
+  "ordem": 4,
+  "periodo": "26 out – 1 nov",
+  "porque": "Todo dono se reconhece: tudo passa por ele, e ele chama isso de empresa.",
+  "prova": "84 anos de turnê sem ninguém provar a fraude.",
+  "recomendada": false,
+  "semana": 1,
+  "status": "ideia",
+  "tecnico": "Regra de decisão escrita, memória compartilhada, limite de autonomia (\"até R$ X decide sozinho\") e escalonamento só para exceção.",
+  "titulo": "O homem dentro da máquina",
+  "verificar": "Usar o corte interno de Racknitz, que não apareceu em Os centauros."
+}

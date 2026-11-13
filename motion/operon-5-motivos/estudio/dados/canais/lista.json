@@ -1,0 +1,28 @@
+{
+  "canais": [
+    {
+      "conectado": false,
+      "formato": "Reels 9:16",
+      "nome": "Instagram",
+      "nota": "A série e os cortes curtos. Precisa da API do Instagram (conta profissional ligada a uma página do Facebook)."
+    },
+    {
+      "conectado": false,
+      "formato": "Longos 16:9 e Shorts",
+      "nome": "YouTube",
+      "nota": "Trailer, série 2027 e os Shorts do banco de ideias. Precisa da API do YouTube Data."
+    },
+    {
+      "conectado": false,
+      "formato": "9:16",
+      "nome": "TikTok",
+      "nota": "Mesmo corte dos Reels. Opcional."
+    },
+    {
+      "conectado": false,
+      "formato": "Vídeo e texto",
+      "nome": "LinkedIn",
+      "nota": "Para o público empresário. Opcional."
+    }
+  ]
+}

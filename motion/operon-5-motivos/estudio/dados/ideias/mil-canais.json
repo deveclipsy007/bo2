@@ -1,0 +1,21 @@
+{
+  "ancora": "Fred Brooks (1975): cada pessoa nova adiciona canais de comunicação. n(n−1)/2.",
+  "ano": "1975 → hoje",
+  "arco": "2 pessoas: 1 canal → 5: 10 → 10: 45 → 50: 1.225 → a rede se desenhando e ficando preta de tanta linha → reunião, alinhamento, retrabalho → agentes conversam por um contexto só → a rede vira uma linha.",
+  "area": "Escala",
+  "fecho": "Contratar é o jeito mais caro de ficar mais lento.",
+  "formato": "A conta",
+  "gancho": "Uma empresa de cinquenta pessoas tem mil duzentos e vinte e cinco canais de conversa. É por isso que tudo demora.",
+  "humor": "\"Nove mulheres não fazem um bebê em um mês.\" (o próprio Brooks)",
+  "imagens": "Redes desenhadas em código, ficando densas como teia.",
+  "ordem": 41,
+  "periodo": "7 – 13 dez",
+  "porque": "A matemática mais simples que explica a lentidão de qualquer empresa.",
+  "prova": "10 pessoas = 45 canais; 50 = 1.225.",
+  "recomendada": false,
+  "semana": 7,
+  "status": "ideia",
+  "tecnico": "Memória compartilhada: um lugar só onde agentes leem e escrevem o estado do trabalho.",
+  "titulo": "1.225 conversas",
+  "verificar": ""
+}

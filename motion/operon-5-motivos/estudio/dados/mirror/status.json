@@ -1,0 +1,247 @@
+{
+  "duration": 90.3,
+  "ep": "O conhecimento acabou",
+  "eta": "",
+  "frames": {
+    "done": 5418,
+    "total": 5418
+  },
+  "log": [
+    {
+      "msg": "Voz recebida: 83,6 s, 215 palavras com o tempo de cada uma. Disco: 15 GB livres.",
+      "t": "08:20"
+    },
+    {
+      "msg": "Trilha: barroca crescendo no gancho e nas provas, para seca em 'E não colou' (efeito de disco freando), peça escura no 'detalhe', jazz 161 bpm com golpe exato em 'conecta', tensão no envelope e golpe em 'primeiro'. Acorde final no logo.",
+      "t": "08:20"
+    },
+    {
+      "msg": "Imagens: a Justiça de Goltzius (1597, CC0), a Villa Rotonda de Palladio (Quattro Libri, 1570: planta e fachada, CC0/domínio público) e o homem muscular de Vesalius (1543, domínio público).",
+      "t": "08:30"
+    },
+    {
+      "msg": "Cenas escritas: painéis dos diplomas, envelope lacrado que fica pregado no canto até o fim, provas com carimbo APROVADA e a cola riscada, 32 profissões destravando, a empresa normal com post-its, a construtora conectada em 5 agentes, antes × agora, o prédio de especialistas, a carta do envelope e a corrida final.",
+      "t": "08:35"
+    },
+    {
+      "msg": "Mixagem pronta: 231 efeitos sincronizados, voz 23,8 dB acima da trilha (mediana), -14,2 LUFS",
+      "t": "08:43"
+    },
+    {
+      "msg": "Trilha: barroca crescendo, disco freia em 'não colou', jazz com golpe em 'conecta'",
+      "t": "08:43"
+    },
+    {
+      "msg": "Prévia aprovada nas 11 cenas; preparando render 60 fps (5418 quadros)",
+      "t": "08:44"
+    },
+    {
+      "msg": "Render iniciado: 5418 quadros, 60 fps, cadeia única render → master → Instagram",
+      "t": "08:45"
+    },
+    {
+      "msg": "Render 10%: 556 de 5418 quadros",
+      "t": "08:47"
+    },
+    {
+      "msg": "Render 20%: 1099 de 5418 quadros",
+      "t": "08:49"
+    },
+    {
+      "msg": "Render 30%: 1647 de 5418 quadros",
+      "t": "08:51"
+    },
+    {
+      "msg": "Render 40%: 2189 de 5418 quadros",
+      "t": "08:54"
+    },
+    {
+      "msg": "Render 50%: 2731 de 5418 quadros",
+      "t": "08:56"
+    },
+    {
+      "msg": "Render 60%: 3261 de 5418 quadros",
+      "t": "08:58"
+    },
+    {
+      "msg": "Render 70%: 3794 de 5418 quadros",
+      "t": "09:00"
+    },
+    {
+      "msg": "Render 80%: 4340 de 5418 quadros",
+      "t": "09:02"
+    },
+    {
+      "msg": "Render 90%: 4882 de 5418 quadros",
+      "t": "09:04"
+    },
+    {
+      "msg": "Render 100%: 5418 quadros prontos; gerando master BT.709",
+      "t": "09:15"
+    },
+    {
+      "msg": "QA de 48 transições de frase: 1 sobreposição em 32,45 s (\"mas tem um detalhe\" × \"QUE NINGUÉM PERCEBEU\") corrigida",
+      "t": "09:17"
+    },
+    {
+      "msg": "Re-render só do trecho 30,5–33,6 s e emenda no master (sem refazer o filme todo)",
+      "t": "09:17"
+    },
+    {
+      "msg": "Entregue: 1:30, 60 fps, 28,3 MB, -14,2 LUFS, decodificação completa sem erros",
+      "t": "09:36"
+    }
+  ],
+  "overall": 100,
+  "scenes": [
+    {
+      "a": 0,
+      "b": 9.8,
+      "bg": "ink",
+      "line": "arquitetura, direito, marketing",
+      "state": "done",
+      "thumb": "/_blob/6639d664cdd5c80c666b8732e568acac",
+      "title": "Gancho: diplomas que não fazem mais falta (avatar)"
+    },
+    {
+      "a": 9.8,
+      "b": 13.8,
+      "bg": "ink",
+      "line": "a parte mais assustadora: já já",
+      "state": "done",
+      "thumb": "/_blob/f8dea52f06d15089412fb2d08588a23d",
+      "title": "O envelope lacrado"
+    },
+    {
+      "a": 13.8,
+      "b": 24.2,
+      "bg": "paper",
+      "line": "ordem dos advogados e medicina, sem colar",
+      "state": "done",
+      "thumb": "/_blob/087ed58e5b0f9ad4eab2e15406cc270a",
+      "title": "As provas"
+    },
+    {
+      "a": 24.2,
+      "b": 33.2,
+      "bg": "ink",
+      "line": "o detalhe que ninguém percebeu",
+      "state": "done",
+      "thumb": "/_blob/068c73b1a8804608b0047a9d1c1155c9",
+      "title": "Todas as profissões destravadas (avatar)"
+    },
+    {
+      "a": 33.2,
+      "b": 43.4,
+      "bg": "paper",
+      "line": "especialistas que não se falam",
+      "state": "done",
+      "thumb": "/_blob/c21099f1edaa08427cf34367c517e229",
+      "title": "A empresa normal"
+    },
+    {
+      "a": 43.4,
+      "b": 60.3,
+      "bg": "ink",
+      "line": "planta, orçamento, proposta, contrato, vídeo",
+      "state": "done",
+      "thumb": "/_blob/3557791c7a5e0c136a37400e52bcb45c",
+      "title": "A construtora conectada"
+    },
+    {
+      "a": 60.3,
+      "b": 64.1,
+      "bg": "paper",
+      "line": "cinco profissionais e semanas × uma tarde",
+      "state": "done",
+      "thumb": "/_blob/d75097abb71bdf33c34a82955fdf53de",
+      "title": "Antes × agora"
+    },
+    {
+      "a": 64.1,
+      "b": 74.6,
+      "bg": "paper",
+      "line": "quem sabe conectar",
+      "state": "done",
+      "thumb": "/_blob/8f7f7a429e7b4f5023c6bc31d25cbd4d",
+      "title": "O escritório inteiro (avatar)"
+    },
+    {
+      "a": 74.6,
+      "b": 81.9,
+      "bg": "ink",
+      "line": "conectar primeiro",
+      "state": "done",
+      "thumb": "/_blob/0d658afc8e4adb8c7e779b2bde02ad4e",
+      "title": "O envelope aberto"
+    },
+    {
+      "a": 81.9,
+      "b": 85.3,
+      "bg": "ink",
+      "line": "por enquanto, só observa",
+      "state": "done",
+      "thumb": "/_blob/9ca64ca36ec74b268f1368fb7d0b62d7",
+      "title": "O olho"
+    },
+    {
+      "a": 84.9,
+      "b": 90.3,
+      "bg": "paper",
+      "line": "assinatura",
+      "state": "done",
+      "thumb": "/_blob/305c1503c28257ccafcfd880cb11e215",
+      "title": "Logo Yohann Escher"
+    }
+  ],
+  "stage": "Entregue",
+  "stages": [
+    {
+      "k": "voz",
+      "label": "Voz transcrita",
+      "state": "done"
+    },
+    {
+      "k": "trilha",
+      "label": "Trilha e cortes",
+      "state": "done"
+    },
+    {
+      "k": "imagens",
+      "label": "Imagens de época",
+      "state": "done"
+    },
+    {
+      "k": "cenas",
+      "label": "Cenas animadas",
+      "state": "done"
+    },
+    {
+      "k": "previa",
+      "label": "Prévia das cenas",
+      "state": "done"
+    },
+    {
+      "k": "render",
+      "label": "Render 60 fps",
+      "state": "done"
+    },
+    {
+      "k": "master",
+      "label": "Master",
+      "state": "done"
+    },
+    {
+      "k": "web",
+      "label": "Versão Instagram",
+      "state": "done"
+    },
+    {
+      "k": "entrega",
+      "label": "Entrega",
+      "state": "done"
+    }
+  ],
+  "sub": "O raro agora é quem sabe conectar",
+  "updated": "2026-10-22T12:36:17.562367+00:00"
+}

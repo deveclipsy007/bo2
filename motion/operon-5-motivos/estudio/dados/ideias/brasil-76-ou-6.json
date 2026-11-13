@@ -1,0 +1,21 @@
+{
+  "ancora": "Sinch: 76% dizem operar agentes em produção. AWS: só 6% implementaram agentes. A diferença está no que cada um chama de agente.",
+  "ano": "2026 · Brasil",
+  "arco": "Os dois números lado a lado → a confusão → o que cada pesquisa chama de agente → 70% de empresas com \"chatbot com nome bonito\" → a janela: quem montar ecossistema agora pega o mercado desses 70%.",
+  "area": "Estratégia",
+  "fecho": "Quase todo mundo diz que tem. Quase ninguém tem. É aí que está a sua vantagem.",
+  "formato": "Atualidade",
+  "gancho": "Uma pesquisa diz que 76% das empresas brasileiras já usam agentes de IA. Outra diz que são 6%. As duas estão certas. E isso devia te assustar.",
+  "humor": "\"76% das empresas têm agente. 70% delas também acham que Excel é banco de dados.\"",
+  "imagens": "Dois gráficos desenhados como balança antiga.",
+  "ordem": 14,
+  "periodo": "2 – 8 nov",
+  "porque": "Usa dado brasileiro, recente e contraditório para mostrar que quase ninguém tem agente de verdade.",
+  "prova": "76% (Sinch) contra 6% (AWS). 80% já reverteram alguma implementação.",
+  "recomendada": false,
+  "semana": 2,
+  "status": "ideia",
+  "tecnico": "A definição prática de agente: executa tarefas, usa ferramentas e tem memória.",
+  "titulo": "76% ou 6%?",
+  "verificar": "Fontes: https://canalexecutivoblog.wordpress.com/2026/09/04/no-brasil-76-das-empresas-ja-operam-agentes-de-ia/ e https://convergenciadigital.com.br/mercado/doze-milhoes-de-empresas-usam-ia-no-brasil-mas-somente-6-ja-usam-agentes-ia/"
+}

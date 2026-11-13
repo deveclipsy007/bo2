@@ -1,0 +1,21 @@
+{
+  "ancora": "A maioria das pequenas empresas só olha faturamento. Os números que matam são outros.",
+  "ano": "agora",
+  "arco": "1. Caixa disponível hoje e em 30 dias. 2. Margem por cliente (quem dá prejuízo). 3. Quanto custa conquistar um cliente. 4. Prazo médio de entrega contra o prometido. 5. Inadimplência da semana.",
+  "area": "Finanças",
+  "fecho": "Quem vê o número primeiro decide primeiro.",
+  "formato": "Lista de 5",
+  "gancho": "Se você não sabe esses cinco números antes do café, você está dirigindo a empresa de olho fechado.",
+  "humor": "\"Número 2: aquele cliente que você adora te dá prejuízo desde março.\"",
+  "imagens": "Painel desenhado como o instrumento de um navio antigo.",
+  "ordem": 22,
+  "periodo": "16 – 22 nov",
+  "porque": "Utilidade imediata, área de finanças (fora do atendimento) e mostra agente de dados.",
+  "prova": "Empresas quebram com faturamento crescendo: falta de caixa é a causa mais comum.",
+  "recomendada": false,
+  "semana": 4,
+  "status": "ideia",
+  "tecnico": "O agente de dados: lê banco, sistema e planilha às 5h e manda os 5 números com uma frase de alerta.",
+  "titulo": "5 números que um agente devia te mandar toda manhã",
+  "verificar": "A afirmação sobre causa de falência: buscar fonte (Sebrae) antes de gravar."
+}

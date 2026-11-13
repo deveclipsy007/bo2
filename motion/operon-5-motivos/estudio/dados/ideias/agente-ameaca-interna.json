@@ -1,0 +1,21 @@
+{
+  "ancora": "Em 19/10/2026 a Microsoft comparou agentes a ameaças internas e lançou agentes guardiões para vigiar os outros agentes. Bancos americanos detectaram agentes de terceiros agindo dentro das contas de clientes.",
+  "ano": "out 2026",
+  "arco": "A manchete → \"agentes são como ameaças internas\" → bancos encontrando agentes nas contas → o perigo: agente com acesso demais → a solução: agente vigiando agente, permissão mínima, limite de valor → o ecossistema seguro.",
+  "area": "Tecnologia",
+  "fecho": "Confiar em agente não é ter fé. É ter trava.",
+  "formato": "Atualidade",
+  "gancho": "A Microsoft acabou de dizer em público que agente de inteligência artificial deve ser tratado como um funcionário que pode te trair.",
+  "humor": "O agente pedindo acesso ao cofre \"só para conferir uma coisinha\".",
+  "imagens": "Fechaduras, cofres e guardas em gravura antiga.",
+  "ordem": 27,
+  "periodo": "23 – 29 nov",
+  "porque": "Notícia de outubro de 2026, medo real e a saída técnica. Mostra maturidade, não deslumbramento.",
+  "prova": "Anúncio de 19/10/2026; relatos de bancos em 23/10/2026.",
+  "recomendada": true,
+  "semana": 5,
+  "status": "ideia",
+  "tecnico": "Agente guardião: um agente que só observa os outros e bloqueia o que sair do padrão.",
+  "titulo": "A Microsoft admitiu: agente pode te trair",
+  "verificar": "https://techcrunch.com/2026/10/19/microsoft-says-ai-agents-are-like-insider-threats-as-frontier-models-cant-be-trusted/"
+}

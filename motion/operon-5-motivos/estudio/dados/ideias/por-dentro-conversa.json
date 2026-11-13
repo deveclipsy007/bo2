@@ -1,0 +1,21 @@
+{
+  "ancora": "Orquestrador, memória compartilhada e protocolos comuns (como o MCP) fazem agentes de áreas diferentes trabalharem juntos.",
+  "ano": "agora",
+  "arco": "Uma venda fechada → o agente comercial avisa → o financeiro emite a cobrança → o de produção abre o projeto → o de marketing pede o depoimento → tudo pela mesma memória → o orquestrador cobra os prazos → o dono só vê o painel.",
+  "area": "Tecnologia",
+  "fecho": "Ferramenta você compra. Conexão você constrói.",
+  "formato": "Por dentro",
+  "gancho": "Agente sozinho é ferramenta. Agentes conversando são uma empresa. Eu vou te mostrar como essa conversa acontece por dentro.",
+  "humor": "\"O agente comercial avisou o financeiro antes do vendedor terminar o café.\"",
+  "imagens": "Uma central telefônica antiga em gravura, cabos se conectando sozinhos.",
+  "ordem": 50,
+  "periodo": "14 – 20 dez",
+  "porque": "O ponto técnico mais pedido: conexão. Fecha o ciclo \"o raro é quem sabe conectar\".",
+  "prova": "Protocolos abertos de conexão entre agentes e empresas ganharam apoio de Meta, Walmart e Stripe em 2026.",
+  "recomendada": false,
+  "semana": 8,
+  "status": "ideia",
+  "tecnico": "O diagrama real: eventos, memória compartilhada, orquestrador e permissões.",
+  "titulo": "Por dentro: como os agentes conversam entre si",
+  "verificar": "Notícia do protocolo: https://aiagentsdirectory.com/news/ai-agents-news-brief-october-17-2026"
+}

@@ -1,0 +1,21 @@
+{
+  "ancora": "Marc Benioff disse que o suporte da Salesforce caiu de 9 mil para 5 mil pessoas com agentes. A empresa depois contratou para vendas.",
+  "ano": "2025–2026",
+  "arco": "9.000 → 5.000 no suporte → a manchete de demissão → o que ninguém contou: contratação em vendas → a operação vai para os agentes, as pessoas vão para onde gera receita → na sua empresa: quem sai da operação e vai para o cliente?",
+  "area": "Gestão",
+  "fecho": "Agente não tira o seu time do jogo. Tira do lugar errado.",
+  "formato": "Atualidade",
+  "gancho": "A maior empresa de software de vendas do mundo cortou quatro mil pessoas do suporte. E logo depois contratou vendedores.",
+  "humor": "O ex-analista de suporte descobrindo que é ótimo vendedor porque conhece todas as reclamações.",
+  "imagens": "Organograma em gravura com setas de pessoas mudando de andar.",
+  "ordem": 32,
+  "periodo": "23 – 29 nov",
+  "porque": "Mostra a lógica certa: agentes pegam a operação, gente vai para o crescimento.",
+  "prova": "Suporte de 9.000 para 5.000 pessoas.",
+  "recomendada": false,
+  "semana": 5,
+  "status": "ideia",
+  "tecnico": "Realocação: o mapa de quem faz operação hoje e para onde vai quando o agente assumir.",
+  "titulo": "Cortou 4 mil no suporte e contratou vendedores",
+  "verificar": "https://tech.co/news/companies-replace-workers-with-ai e https://programs.com/resources/ai-job-cut-reversals/"
+}

@@ -1,0 +1,21 @@
+{
+  "ancora": "Agentes com acesso a pagamentos, banco e contratos precisam de regras como qualquer funcionário de confiança.",
+  "ano": "agora",
+  "arco": "1. Permissão mínima: só acessa o que precisa. 2. Teto de valor: acima de R$ X, para e pede aprovação. 3. Registro de tudo: cada ação gravada. 4. Dupla checagem: um segundo agente confere antes de executar. 5. Botão de desligar: qualquer pessoa autorizada para tudo em um clique.",
+  "area": "Tecnologia",
+  "fecho": "Agente sem trava é estagiário com cartão corporativo.",
+  "formato": "Lista de 5",
+  "gancho": "Antes de deixar um agente mexer no seu dinheiro, coloque essas cinco travas. Senão, é questão de tempo.",
+  "humor": "\"Trava 2: o agente não compra o jatinho, por mais que o fornecedor tenha sido simpático.\"",
+  "imagens": "Cadeados e fechaduras em gravura, um cofre de banco aberto em corte.",
+  "ordem": 28,
+  "periodo": "23 – 29 nov",
+  "porque": "Segurança vendida com tom agressivo. Complementa a notícia da Microsoft e passa autoridade.",
+  "prova": "Bancos já detectam agentes de terceiros agindo nas contas de clientes (out 2026).",
+  "recomendada": false,
+  "semana": 5,
+  "status": "ideia",
+  "tecnico": "Desenhar cada trava como uma camada no fluxo de pagamento.",
+  "titulo": "5 travas antes de soltar um agente no seu dinheiro",
+  "verificar": "https://www.cbsnews.com/news/ai-agents-customer-bank-accounts-security/"
+}

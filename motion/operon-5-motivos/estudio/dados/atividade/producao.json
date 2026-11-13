@@ -1,0 +1,36 @@
+{
+  "ativo": false,
+  "atualizado": "2026-11-02T13:03:59.765675+00:00",
+  "etapas": [
+    {
+      "label": "Cenas",
+      "state": "done"
+    },
+    {
+      "label": "Diagramas",
+      "state": "done"
+    },
+    {
+      "label": "Escrita à caneta",
+      "state": "done"
+    },
+    {
+      "label": "Mixagem",
+      "state": "done"
+    },
+    {
+      "label": "Render",
+      "state": "done"
+    },
+    {
+      "label": "Entrega",
+      "state": "done"
+    }
+  ],
+  "linhas": [],
+  "log": [
+    "Entregue: 19 s, 16:9 e 9:16, 22 MB cada"
+  ],
+  "progresso": 100,
+  "titulo": "Estilo Cinema v2 · filme + gravura"
+}

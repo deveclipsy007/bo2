@@ -1,0 +1,21 @@
+{
+  "ancora": "Pesquisa McKinsey de 2026: 40% das grandes empresas escalaram agentes, mas só 6% dizem que a IA gera pelo menos 5% do lucro operacional.",
+  "ano": "McKinsey 2026",
+  "arco": "O gráfico de 40% enchendo → o de 6% quase vazio → por quê? → ferramentas soltas, cada departamento com a sua → nenhuma conversando → os 6%: redesenharam o processo inteiro → o que separa os dois grupos.",
+  "area": "Estratégia",
+  "fecho": "Usar IA não dá dinheiro. Redesenhar a empresa em volta dela dá.",
+  "formato": "Atualidade",
+  "gancho": "Quarenta por cento das grandes empresas já usam agentes. Só seis por cento estão ganhando dinheiro de verdade com isso.",
+  "humor": "A empresa com 47 assinaturas de IA e o mesmo lucro de 2019.",
+  "imagens": "Gráficos desenhados como gravura técnica; tabelas de livro-razão antigo.",
+  "ordem": 7,
+  "periodo": "26 out – 1 nov",
+  "porque": "Mostra que ferramenta solta não dá lucro e que o ganho está no desenho do ecossistema. Assusta e posiciona.",
+  "prova": "40% escalaram agentes; 6% têm IA gerando 5% ou mais do EBIT.",
+  "recomendada": false,
+  "semana": 1,
+  "status": "ideia",
+  "tecnico": "Ilhas de IA contra ecossistema: o diagrama de ferramentas soltas virando uma rede conectada.",
+  "titulo": "Quase todo mundo usa IA. Só 6% ganha dinheiro.",
+  "verificar": "Números no relatório original da McKinsey: https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-ai-operating-system-a-new-way-for-ceos-to-run-the-enterprise"
+}

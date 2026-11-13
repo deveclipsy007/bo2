@@ -1,0 +1,21 @@
+{
+  "ancora": "A diferença entre \"uma IA\" e um ecossistema está na estrutura, não no modelo.",
+  "ano": "agora",
+  "arco": "1. Dados: tudo o que a empresa sabe, organizado. 2. Memória: o que aconteceu com cada cliente e cada tarefa. 3. Especialistas: um agente por função. 4. Orquestrador: quem distribui e cobra o trabalho. 5. Painel: onde o humano vê, aprova e corrige.",
+  "area": "Tecnologia",
+  "fecho": "Agente sozinho é ferramenta. Cinco camadas conectadas é empresa.",
+  "formato": "Lista de 5",
+  "gancho": "Todo mundo fala de agente. Quase ninguém sabe que um ecossistema de verdade tem cinco camadas. Se faltar uma, ele desaba.",
+  "humor": "\"Sem a camada 2, o seu agente tem a memória de um peixinho dourado.\"",
+  "imagens": "Corte arquitetônico de um prédio em gravura, andar por andar.",
+  "ordem": 19,
+  "periodo": "9 – 15 nov",
+  "porque": "A parte técnica que o público pediu, em linguagem de dono. Posiciona o Yohann como arquiteto.",
+  "prova": "Comparar com o organograma: a mesma estrutura de uma empresa bem gerida.",
+  "recomendada": false,
+  "semana": 3,
+  "status": "ideia",
+  "tecnico": "Desenhar as 5 camadas como os andares de um prédio, com o fluxo de uma tarefa subindo e descendo.",
+  "titulo": "As 5 camadas de um ecossistema de agentes",
+  "verificar": ""
+}

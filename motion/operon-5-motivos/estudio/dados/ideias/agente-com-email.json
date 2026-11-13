@@ -1,0 +1,21 @@
+{
+  "ancora": "O Google transformou o Gemini num agente de trabalho com identidade própria e e-mail, que delega para subagentes. A Microsoft adicionou contas de agente e memória compartilhada.",
+  "ano": "out 2026",
+  "arco": "O crachá sendo impresso → nome, cargo, e-mail → sem foto, sem CPF → o agente entrando no sistema → delegando para outros agentes → a sua empresa daqui a 12 meses: metade dos \"logins\" não são pessoas.",
+  "area": "Gestão",
+  "fecho": "Não é mais ferramenta. É colega. E colega precisa de cargo, meta e chefe.",
+  "formato": "Atualidade",
+  "gancho": "O seu próximo funcionário vai ter e-mail corporativo, crachá e acesso aos sistemas. E não vai ter CPF.",
+  "humor": "O agente recebendo convite para o amigo secreto da firma.",
+  "imagens": "Crachás antigos e cartões de ponto desenhados em gravura.",
+  "ordem": 15,
+  "periodo": "9 – 15 nov",
+  "porque": "Notícia de outubro de 2026 que muda a cabeça: agentes viraram colegas de trabalho com identidade própria.",
+  "prova": "Anúncio do Google em 8/10/2026; contas de agente no Copilot Studio da Microsoft.",
+  "recomendada": true,
+  "semana": 3,
+  "status": "ideia",
+  "tecnico": "Identidade de agente: permissões próprias, registro de tudo que fez, responsável humano definido.",
+  "titulo": "Seu próximo funcionário tem e-mail e não tem CPF",
+  "verificar": "https://techcrunch.com/2026/10/08/google-brings-agentic-ai-to-gemini-starting-with-businesses/"
+}

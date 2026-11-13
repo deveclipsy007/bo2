@@ -1,0 +1,86 @@
+{
+  "aprovadas": [
+    {
+      "tag": "[serious]",
+      "uso": "firme, nas afirmações fortes"
+    },
+    {
+      "tag": "[curious]",
+      "uso": "perguntas e ganchos"
+    },
+    {
+      "tag": "[whispers]",
+      "uso": "segredo, loop aberto"
+    },
+    {
+      "tag": "[sarcastic]",
+      "uso": "humor seco"
+    },
+    {
+      "tag": "[sighs]",
+      "uso": "antes de uma verdade dura"
+    },
+    {
+      "tag": "[exhales]",
+      "uso": "respiro entre blocos"
+    },
+    {
+      "tag": "[chuckles]",
+      "uso": "riso curto, contido"
+    },
+    {
+      "tag": "[thoughtful]",
+      "uso": "reflexão no fecho"
+    },
+    {
+      "tag": "[calm]",
+      "uso": "final, \"só observa\""
+    },
+    {
+      "tag": "[clears throat]",
+      "uso": "virada de assunto"
+    },
+    {
+      "tag": "[giggles]",
+      "uso": "risadinha"
+    }
+  ],
+  "vetadas": [
+    {
+      "tag": "[excited]",
+      "uso": "animado demais"
+    },
+    {
+      "tag": "[happily]",
+      "uso": "alegre e afetado"
+    },
+    {
+      "tag": "[cheerfully]",
+      "uso": "alegre e afetado"
+    },
+    {
+      "tag": "[playfully]",
+      "uso": "brincalhão afetado"
+    },
+    {
+      "tag": "[mischievously]",
+      "uso": "malicioso afetado"
+    },
+    {
+      "tag": "[laughs harder]",
+      "uso": "gargalhada"
+    },
+    {
+      "tag": "[starts laughing]",
+      "uso": "gargalhada"
+    },
+    {
+      "tag": "[squeals]",
+      "uso": "gritinho"
+    },
+    {
+      "tag": "[shouts]",
+      "uso": "grito"
+    }
+  ]
+}

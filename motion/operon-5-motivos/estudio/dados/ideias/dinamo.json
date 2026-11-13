@@ -1,0 +1,21 @@
+{
+  "ancora": "As fábricas trocaram o vapor pelo motor elétrico mas mantiveram o eixo e as correias. A produtividade só explodiu quando redesenharam tudo (Paul David, 1990).",
+  "ano": "1880–1920",
+  "arco": "O eixo e as correias → troca o motor, mantém o eixo → nada muda → décadas → a fábrica redesenhada → o salto → \"ChatGPT colado no processo velho é motor elétrico no eixo do vapor\" → o ecossistema.",
+  "area": "Transformação",
+  "fecho": "A eletricidade não mudou as fábricas. As fábricas redesenhadas mudaram o mundo.",
+  "formato": "História",
+  "gancho": "Você colocou IA na empresa e nada mudou? Parabéns: você repetiu o maior erro empresarial de 1900.",
+  "humor": "O dono orgulhoso do motor novo girando o mesmo eixo empoeirado de 1870.",
+  "imagens": "Gravuras de fábricas com eixos e correias; dínamo de Edison.",
+  "ordem": 24,
+  "periodo": "16 – 22 nov",
+  "porque": "Responde à frustração número um com IA e entrega a saída: redesenhar.",
+  "prova": "Por volta de 1900, pouca força elétrica nas fábricas americanas; perto de 1920, metade. O ganho veio depois do redesenho.",
+  "recomendada": false,
+  "semana": 4,
+  "status": "ideia",
+  "tecnico": "O \"eixo\" de hoje: gente copiando dado entre sistemas. Redesenhar é cada departamento com motor próprio, ligado por dados.",
+  "titulo": "Você repetiu o erro de 1900",
+  "verificar": "Percentuais de eletrificação no artigo de Paul David."
+}

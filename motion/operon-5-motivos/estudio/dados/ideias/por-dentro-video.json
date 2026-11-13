@@ -1,0 +1,21 @@
+{
+  "ancora": "A linha de produção desta série: roteiro, voz clonada com expressões, transcrição por palavra, gravuras de domínio público, animação em código, mixagem guiada pela voz, controle de qualidade, espelho do render.",
+  "ano": "agora",
+  "arco": "A tela se abre como um relógio → cada engrenagem é um agente → roteiro → voz → tempos por palavra → imagens → cenas → som → controle de qualidade → o espelho ao vivo → \"isso é um departamento de marketing inteiro\".",
+  "area": "Marketing",
+  "fecho": "Não é mágica. É engenharia. E dá para fazer na sua empresa.",
+  "formato": "Por dentro",
+  "gancho": "Você está assistindo a um vídeo feito por um ecossistema de agentes. Eu vou abrir a máquina e te mostrar cada peça.",
+  "humor": "O render chegando a 99% e a narração: \"e é aqui que eu rezo.\"",
+  "imagens": "O próprio estúdio (espelho do render) e um relógio aberto em gravura.",
+  "ordem": 12,
+  "periodo": "2 – 8 nov",
+  "porque": "Bastidor técnico real: mostra que não é teoria e vende a mentoria sem vender.",
+  "prova": "11 cenas, 5.418 quadros, 231 efeitos e voz sempre 14 dB ou mais acima da trilha.",
+  "recomendada": false,
+  "semana": 2,
+  "status": "ideia",
+  "tecnico": "Mostrar o fluxo de verdade: cada etapa com entrada, saída e verificação automática.",
+  "titulo": "Por dentro: o ecossistema que faz estes vídeos",
+  "verificar": "Mostrar só telas sem dados sensíveis (nenhuma chave na tela)."
+}
