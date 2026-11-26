@@ -1,7 +1,7 @@
 <title>Estúdio Escher</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,900&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,900;1,9..144,900&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@800;900&family=Manrope:wght@300&display=swap">
 <style>
 /* Mesa de montagem da série: sala escura, papel nos quadros, um único laranja para o que está vivo agora.
    Abas: produção (espelho do render) · filmes · ideias · voz · padrão. Um só visual escuro, escolhido de propósito. */
@@ -293,6 +293,7 @@ footer { color: var(--dim); font-size: 11px; }
     <button role="tab" id="t-filmes" data-v="filmes">Filmes <span class="badge" id="nfilms"></span></button>
     <button role="tab" id="t-publicacao" data-v="publicacao">Publicação <span class="badge" id="npub"></span></button>
     <button role="tab" id="t-padrao" data-v="padrao">Padrão</button>
+    <button role="tab" id="t-kit" data-v="kit">Kit</button>
   </nav>
 
   <div class="view" id="v-mapa" role="tabpanel" aria-labelledby="t-mapa" hidden>
@@ -493,6 +494,30 @@ footer { color: var(--dim); font-size: 11px; }
     </section>
   </div>
 
+  <div class="view" id="v-kit" role="tabpanel" aria-labelledby="t-kit" hidden>
+    <header style="display:grid;gap:10px"><h1>Kit da marca</h1><div class="sub">A tipografia, as cores, o personagem e o logo que identificam os seus vídeos.</div></header>
+    <section><h2>Tipografia</h2>
+      <div class="me-grid">
+        <div class="me-card"><span class="eyebrow">Impacto · Fraunces 900</span><div style="font-family:'Fraunces',serif;font-weight:900;font-size:56px;line-height:1;color:var(--or)">PODER</div><p class="d">Palavra-chave, títulos e a assinatura "Yohann Escher."</p></div>
+        <div class="me-card"><span class="eyebrow">Fala · Instrument Serif itálico</span><div style="font-family:'Instrument Serif',serif;font-style:italic;font-size:40px;line-height:1.1">o raro agora é quem sabe conectar</div><p class="d">Legendas finas do Gravura e a frase escrita à caneta do Cinema.</p></div>
+        <div class="me-card"><span class="eyebrow">Dados · IBM Plex Mono</span><div style="font-family:'IBM Plex Mono',monospace;font-size:20px;letter-spacing:.2em;color:var(--or)">FIG. II — O QUE NÃO DÁ PARA IGNORAR</div><p class="d">Rótulos FIG., créditos dos filmes e números.</p></div>
+        <div class="me-card"><span class="eyebrow">Legendas · Inter Tight 800</span><div style="font-family:'Inter Tight',sans-serif;font-weight:800;font-size:34px">alguém já está <span style="color:var(--or)">construindo</span></div><p class="d">Legendas palavra por palavra do Cinema v1.</p></div>
+        <div class="me-card"><span class="eyebrow">Em teste · Manrope Light</span><div style="font-family:'Manrope',sans-serif;font-weight:300;font-size:30px">Imaginar possibilidades.</div><p class="d">Candidata do Strategic Modernism para o texto de apoio.</p></div>
+      </div>
+    </section>
+    <section><h2>Cores</h2>
+      <div class="me-grid">
+        <div class="me-card"><span class="eyebrow">Hoje nos vídeos</span><div style="display:flex;gap:8px;flex-wrap:wrap"><span class="pill" style="background:#FF5A1F;color:#0a0a0a;border-color:#FF5A1F">#FF5A1F laranja</span><span class="pill" style="background:#0A0A0A;color:#f2efe8">#0A0A0A tinta</span><span class="pill" style="background:#F2EFE8;color:#0a0a0a">#F2EFE8 osso</span><span class="pill" style="background:#EFEBE3;color:#0a0a0a">#EFEBE3 papel</span><span class="pill" style="background:#8D8A84;color:#0a0a0a">#8D8A84 grafite</span></div><p class="d">O laranja só no que merece atenção.</p></div>
+        <div class="me-card"><span class="eyebrow">Em teste · Strategic Modernism</span><div style="display:flex;gap:8px;flex-wrap:wrap"><span class="pill" style="background:#F36B21;color:#171717;border-color:#F36B21">#F36B21 signal</span><span class="pill" style="background:#171717;color:#f8f7f4">#171717 carbon</span><span class="pill" style="background:#F8F7F4;color:#171717">#F8F7F4 off white</span><span class="pill" style="background:#D9D4C9;color:#171717">#D9D4C9 archive</span><span class="pill" style="background:#777873;color:#f8f7f4">#777873 graphite</span></div><p class="d">Proporção sugerida: 60% claros, 25% preto, 10% auxiliares, 5% laranja.</p></div>
+      </div>
+    </section>
+    <div class="cols">
+      <div class="box"><div class="eyebrow">O personagem</div><p class="why">Avatar em pixel art no canto inferior esquerdo, com a boca seguindo a voz. Poses: neutro, mão aberta, aponta, braços cruzados, notebook e joinha, mais 6 quadros de fala.</p><span class="pill s-escolhida" style="justify-self:start">reenviar as folhas de sprites</span><p class="note">As imagens se perderam no reinício da máquina da nuvem; o mapa das poses está salvo. Reenviadas, elas voltam para cá e para o repositório.</p></div>
+      <div class="box"><div class="eyebrow">O logo Yohann Escher</div><p class="why">Duas camadas no fim dos vídeos: "Yohann" montando em células e "Escher" escrito à caneta com brilho.</p><span class="pill s-escolhida" style="justify-self:start">reenviar o arquivo do logo</span><p class="note">Mesmo caso do personagem: volta assim que você reenviar.</p></div>
+    </div>
+    <p class="note">O kit completo está no repositório: motion/operon-5-motivos/KIT-DA-MARCA.md e as fontes em public/fonts/.</p>
+  </div>
+
   <div class="view" id="v-padrao" role="tabpanel" aria-labelledby="t-padrao" hidden>
     <header style="display:grid;gap:10px"><h1>Padrão de produção</h1><div class="sub">O que todo filme precisa ter antes de sair daqui.</div></header>
     <div class="cols">
@@ -530,7 +555,7 @@ const $ = (id) => document.getElementById(id);
 const esc = (v) => String(v ?? '').replace(/[&<>"]/g, (c) => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c]));
 const fmtT = (s) => { s = Math.max(0, +s || 0); const m = Math.floor(s / 60), r = s - m * 60; return m + ':' + r.toFixed(1).padStart(4, '0'); };
 const mmss = (s) => `${Math.floor(s / 60)}:${String(Math.round(s % 60)).padStart(2, '0')}`;
-const VIEWS = ['mapa', 'eu', 'arsenal', 'entrada', 'ideias', 'voz', 'producao', 'filmes', 'publicacao', 'padrao'];
+const VIEWS = ['mapa', 'eu', 'arsenal', 'entrada', 'ideias', 'voz', 'producao', 'filmes', 'publicacao', 'padrao', 'kit'];
 let db = null, owner = false;
 
 // ---------- abas (cada aba tem link próprio: #filmes, #ideias, #voz…)
