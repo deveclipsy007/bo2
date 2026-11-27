@@ -17,6 +17,10 @@ O levantamento de como os vídeos do Yohann Escher são feitos hoje, do tema ao 
 | 8 | Render | Composição + mix | Bruto → master BT.709 → versão web < 30 MB | Remotion + FFmpeg, **uma cadeia única** | Espaço em disco antes; espelho a cada 10%; nunca apagar o bruto antes de conferir | Produção (abre com as cenas) |
 | 9 | Entrega | Versão web | Arquivo para o Yohann, prévia no Estúdio, item na fila de publicação | Envio do arquivo, coleções `videos`, `publicacao`, `eventos` | Decodificação completa, loudness, quadros de cada transição | Filmes · Publicação · Pulso |
 
+## Proibido
+- Estilo mockup com o robozinho/mascote azul e telas de computador genéricas: reprovado pelo Yohann em 27/11/2026 (criativos 86, 87, 89, 90 e 91 do Jarvis). Não produzir mais e tirar esses da fila.
+- Vídeo sem o Yohann como personagem. Só entram os estilos validados por ele.
+
 ## Os dois estilos
 - **Gravura**: tinta, grafite, osso e um laranja; gravuras de domínio público que se desenham; Fraunces 900 + Instrument Serif itálico + rótulos FIG. em mono; papel e escuro; ponto laranja; final com o olho fechando e o logo.
 - **Cinema** (a união com a Gravura): cena real de filme ou série em cima, quase parada; a frase escrita à caneta no ritmo da voz; diagrama FIG. que se desenha embaixo; uma linha liga a cena ao diagrama. Detalhes em `ESTILO-CINEMA.md`.
